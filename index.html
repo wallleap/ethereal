@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%- favicon %>" />
+    <link rel="icon" sizes="16x16" href="<%- favicon2 %>" />
+    <link rel="icon" sizes="32x32" href="<%- favicon3 %>" />
+    <meta name="description" content="<%- description %>" />
+    <meta name="keywords" content="<%- keywords %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title><%- title %></title>
+    <% for (var css of css) { %>
+      <link href="<%= css %>" rel="stylesheet">
+    <% } %>
+  </head>
+  <body>
+    <div id="app"></div>
+    <% for (var js of js) { %>
+      <script src="<%= js %>"></script>
+    <% } %>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

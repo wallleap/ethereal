@@ -1,0 +1,27 @@
+{
+  "name": "ethereal",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "vue": "2.7.14",
+    "vue-router": "3.6.5",
+    "vue-template-compiler": "2.7.14",
+    "vuex": "3.6.2",
+    "vuex-persistedstate": "3.2.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "0.39.7",
+    "@vitejs/plugin-vue2": "2.2.0",
+    "eslint": "8.44.0",
+    "sass": "1.63.6",
+    "vite": "4.3.9",
+    "vite-plugin-html": "3.2.0"
+  }
+}

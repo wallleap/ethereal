@@ -1,0 +1,69 @@
+@import './variables.css';
+
+/* CSS Reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td { margin:0; padding:0; }
+h1,h2,h3,h4,h5,h6 { font-size: 100%; }
+ol,ul { list-style:none; }
+address,caption,cite,code,dfn,em,strong,th,var { font-size:normal; font-weight:normal; }
+table { border-collapse:collapse; border-spacing:0; }
+fieldset,img { border:0; }
+caption,th { text-align:left; }
+q:before,q:after { content:''; }
+a { text-decoration:none; }
+
+html {
+  font-family: -apple-system, "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+  font-size: calc(var(--fz-base) * 1px);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--major);
+  background: var(--bg-thin);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: var(--lh-single);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: hsla(var(--primary-h), calc(var(--primary-s) * 1%), calc(var(--primary-l) * 1%), 0.8);
+  }
+}
+
+p, ul, ol, dl, table, blockquote, pre, form, hr {
+  line-height: var(--lh-paragraph);
+}
+
+/**
+*  xs: 0,
+*  sm: 576px,
+*  md: 768px,
+*  lg: 992px,
+*  xl: 1200px,
+*  xxl: 1400px
+*/
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}

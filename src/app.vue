@@ -6,10 +6,14 @@ export default {
 
 <template>
   <div id="app">
-    App
+    <span class="icon-wrap">
+      <SvgIcon name="archives" color="var(--primary)" />
+    </span>你好
   </div>
 </template>
 
 <style lang="scss" scoped>
-
+.icon-wrap {
+  font-size: 3rem;
+}
 </style>

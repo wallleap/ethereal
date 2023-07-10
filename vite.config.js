@@ -2,6 +2,7 @@ import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue2'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import { svgBuilder } from './src/components/svg_icon/svgBuilder.js'
 import config from './src/config.js'
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -39,6 +40,7 @@ export default defineConfig({
         },
       },
     }),
+    svgBuilder('./src/assets/icons/'),
   ],
   resolve: {
     alias: [

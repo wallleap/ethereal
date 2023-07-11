@@ -23,6 +23,15 @@ const CDN = {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: isProduction ? './' : '/',
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "@/assets/style/mixins.scss";
+        `,
+      },
+    },
+  },
   plugins: [
     vue(),
     createHtmlPlugin({
@@ -68,13 +77,6 @@ export default defineConfig({
         },
       },
       external,
-    },
-    terserOptions: {
-      compress: {
-        // 生产环境时移除console
-        drop_console: true,
-        drop_debugger: true,
-      },
     },
   },
 })

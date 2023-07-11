@@ -1,0 +1,69 @@
+@mixin scrollBar {
+  &::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: var(--accent);
+    background-image: -webkit-linear-gradient(
+      45deg,
+      var(--major) 25%,
+      transparent 25%,
+      transparent 50%,
+      var(--major) 50%,
+      var(--major) 75%,
+      transparent 75%,
+      transparent
+    );
+  }
+}
+
+@mixin xs-layout {
+  @media screen and (max-width: 576px) {
+    @content;
+    body::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+@mixin sm-layout {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin md-layout {
+  @media screen and (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin lg-layout {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin xl-layout {
+  @media screen and (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin xxl-layout {
+  @media screen and (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}

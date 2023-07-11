@@ -70,48 +70,13 @@
   --naturally: 0.48, 0.33, 0.24, 0.95;
 }
 
-/* 跟随系统 */
-@media (prefers-color-scheme: dark) {
-:root[theme] {
-  /* colors */
-  --primary-h: 218;
-  --primary-s: 95;
-  --primary-l: 46;
-  --primary-rgb: 6, 88, 229;
-  --primary: rgb(var(--primary-rgb));
-  --secondary: #FA931E;
-  --secondary-rgb: 250, 147, 30;
-  --tertiary: #4B65AF;
-  --tertiary-rgb: 75, 101, 175;
-  --success: #009154;
-  --success-rgb: 0, 145, 84;
-  --danger: #E5003D;
-  --danger-rgb: 229, 0, 61;
-  --warning: #FEC900;
-  --warning-rgb: 254, 201, 0;
-  --info: #00C9F3;
-  --info-rgb: 0, 201, 243;
-  --accent: #FFF;
-  --major: #FAFAFA;
-  --minor: #C4C4C4;
-  --weak: #757575;
-  --thin: #4D4D4D;
-  /* background */
-  --bg-thin: #0D0D0D;
-  --bg-weak: #1A1A1A;
-  --bg-major: #262626;
-  --bg-minor: #333;
-}
-  
-}
-
 /* <html data-theme="dark"> */
-:root[theme="dark"] {
+:root[data-theme="dark"] {
   /* colors */
   --primary-h: 218;
-  --primary-s: 95;
-  --primary-l: 46;
-  --primary-rgb: 6, 88, 229;
+  --primary-s: 100;
+  --primary-l: 65;
+  --primary-rgb: 79, 144, 255;
   --primary: rgb(var(--primary-rgb));
   --secondary: #FA931E;
   --secondary-rgb: 250, 147, 30;

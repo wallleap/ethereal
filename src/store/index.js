@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import module from './modules/module'
+import style from './modules/style'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    module,
+    style,
   },
   plugins: [createPersistedState()],
 })

@@ -7,4 +7,15 @@ export default {
   favicon: '/favicon.ico', // 180x180
   favicon16: '/favicon.ico', // 博客图标 16x16
   favicon32: '/favicon.ico', // 博客图标 32x32
+  // 您的信息
+  author: 'Luwang', // 博客作者
+  email: 'luwang@oicode.cn', // 博客作者邮箱
+  link: 'https://luwang.info', // 个人链接
+  github: 'http://github.com/wallleap', // github 链接
+  // 友链信息
+  name: 'wallleap', // 友链名称
+  url: '//myblog.wallleap.cn', // 友链地址
+  avatar: '//cdn.wallleap.cn/img/custom/avatar.jpg', // 友链头像
+  desc: 'Luwang\'s blog', // 友链描述
+  // 评论配置
 }

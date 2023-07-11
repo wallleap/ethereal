@@ -1,0 +1,66 @@
+.banner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translate(150px);
+    width: 422px;
+    height: 301px;
+    background: url(//cdn.wallleap.cn/assets/img/quote.png) 0 0 no-repeat;
+    z-index: -1;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translate(-490px);
+    width: 324px;
+    height: 268px;
+    background: url(//cdn.wallleap.cn/assets/img/dotted.png) 0 0 no-repeat;
+    z-index: -1;
+  }
+  @include xs-layout {
+    &::before {
+      width: 80px;
+      height: 60px;
+      background-size: 80px 60px;
+      top: 50%;
+      transform: translate(120px,-40px);
+    }
+    &::after {
+      width: 80px;
+      height: 60px;
+      background-size: 80px 60px;
+      top: 50%;
+      transform: translate(-190px,-50px);
+    }
+  }
+  .banner-content {
+    .banner-title {
+      margin-top: 100px;
+      @include xs-layout {
+        margin-top: 2em;
+      }
+      h2 {
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--primary);
+      }
+    }
+    .banner-poetry {
+      margin-top: 20px;
+      p {
+        font-size: .9em;
+        line-height: 2;
+        color: var(--minor);
+      }
+    }
+  }
+}

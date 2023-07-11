@@ -1,5 +1,6 @@
 <script>
 import NavBar from '@/components/nav_bar/index.vue'
+import Banner from '@/components/banner/index.vue'
 import Copyright from '@/components/copyright/index.vue'
 import BackToTop from '@/components/back_to_top/index.vue'
 
@@ -7,6 +8,7 @@ export default {
   name: 'App',
   components: {
     NavBar,
+    Banner,
     Copyright,
     BackToTop,
   },
@@ -16,6 +18,7 @@ export default {
 <template>
   <div id="app">
     <NavBar />
+    <Banner />
     <main class="main">
       main
     </main>

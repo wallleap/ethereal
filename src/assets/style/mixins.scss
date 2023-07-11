@@ -28,9 +28,6 @@
 @mixin xs-layout {
   @media screen and (max-width: 576px) {
     @content;
-    body::-webkit-scrollbar {
-      display: none;
-    }
   }
 }
 

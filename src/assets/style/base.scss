@@ -22,7 +22,7 @@ html {
 body {
   min-height: 100vh;
   color: var(--major);
-  // background: var(--bg-thin);
+  background: var(--bg-thin);
   transition: color 0.5s, background-color 0.5s;
   line-height: var(--lh-single);
   text-rendering: optimizeLegibility;
@@ -51,4 +51,11 @@ a {
 
 p, ul, ol, dl, table, blockquote, pre, form, hr {
   line-height: var(--lh-paragraph);
+}
+
+@include xs-layout {
+  html::-webkit-scrollbar, 
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -148,6 +148,7 @@
       width: 100%;
       padding: 0 1rem;
       bottom: 0;
+      z-index: 3;
       @include box-shadow;
       ul {
         --left-du: 0%;

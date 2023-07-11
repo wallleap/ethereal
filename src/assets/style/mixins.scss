@@ -63,4 +63,7 @@
 
 @mixin box-shadow {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  :root[data-theme="dark"] & {
+    box-shadow: 0 0 10px 0 rgba(136, 136, 136, 0.5);
+  }
 }

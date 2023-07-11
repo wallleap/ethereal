@@ -42,8 +42,10 @@ function findSvgFile(dir) {
         .replace('</svg>', '</symbol>')
       // 处理单色图标，去除 fill 属性值
       const svgFills = svg.match(fillReg)
-      if (svgFills.every(match => match === svgFills[0]) || svgFills.length === 1)
-        svg = svg.replace(fillReg, '')
+      if (svgFills && svgFills.length > 0) {
+        if (svgFills.every(match => match === svgFills[0]) || svgFills.length === 1)
+          svg = svg.replace(fillReg, '')
+      }
       svgRes.push(svg)
     }
   }

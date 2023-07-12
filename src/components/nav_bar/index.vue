@@ -51,12 +51,18 @@ export default {
         this.$store.commit('style/setCurrentMenu', menu)
       }
     },
+    backToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    },
   },
 }
 </script>
 
 <template>
-  <div class="nav-bar">
+  <div class="nav-bar" @dblclick="backToTop">
     <div class="site-title">
       <h1>
         <RouterLink class="title" to="/">

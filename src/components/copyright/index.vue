@@ -52,17 +52,14 @@ export default {
   z-index: 0;
   a {
     color: var(--minor);
-    margin-right: .4em;
     transition: 0.4s;
     &:hover {
       color: var(--primary);
     }
-    &:last-of-type {
-      margin-right: 0;
-    }
     &.travel, &.github, &.theme {
       display: inline-block;
       font-size: 13px;
+      margin-right: .4em;
       padding: 0.2em 0.8em;
       border-radius: .3em;
       background-color: var(--major);

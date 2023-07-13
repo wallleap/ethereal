@@ -1,27 +1,29 @@
 @mixin scrollBar {
+  & {
+    overflow: overlay;
+  }
+
+  &::-webkit-resizer, &::-webkit-scrollbar-corner,
+  &::-webkit-scroll-track, &::-webkit-scrollbar-button,
   &::-webkit-scrollbar-track-piece {
-    background-color: transparent;
+    display: none;
   }
 
   &::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 9px;
     background-color: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: var(--accent);
-    background-image: -webkit-linear-gradient(
-      45deg,
-      var(--major) 25%,
-      transparent 25%,
-      transparent 50%,
-      var(--major) 50%,
-      var(--major) 75%,
-      transparent 75%,
-      transparent
-    );
+    background-color: var(--weak);
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    &:hover {
+      background-color: var(--minor);
+    }
   }
 }
 
@@ -66,4 +68,11 @@
   :root[data-theme="dark"] & {
     box-shadow: 0 0 10px 0 rgba(136, 136, 136, 0.5);
   }
+}
+
+@mixin modal-mask {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-mask);
+  z-index: 99;
 }

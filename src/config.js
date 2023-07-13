@@ -12,6 +12,10 @@ export default {
   icpLink: '//beian.miit.gov.cn/', // ICP 备案链接
   beian: '', // 公安备案号 '京公网安备 00000000000000号'
   beianLink: '', // 公安备案链接 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=00000000000000'
+  // GitHub Issues 配置
+  username: 'wallleap', // GitHub 用户名
+  repository: 'myblogs', // GitHub 仓库名
+  friendsRepo: 'friends', // 友链仓库名
   // 您的信息
   author: 'Luwang', // 博客作者
   email: 'luwang@oicode.cn', // 博客作者邮箱

@@ -1,5 +1,5 @@
 /* CSS Reset */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td { margin:0; padding:0; }
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td,figure { margin:0; padding:0; }
 h1,h2,h3,h4,h5,h6 { font-size: 100%; }
 ol,ul { list-style:none; }
 address,caption,cite,code,dfn,em,strong,th,var { font-size:normal; font-weight:normal; }
@@ -63,6 +63,12 @@ input, button {
 @media (hover: hover) {
   a:hover {
     color: hsla(var(--primary-h), calc(var(--primary-s) * 1%), calc(var(--primary-l) * 1%), 0.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  img {
+    filter: brightness(0.8);
   }
 }
 

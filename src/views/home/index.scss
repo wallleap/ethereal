@@ -1,0 +1,50 @@
+.fade-enter-active, .fade-leave-active {
+  transform: translate(0, 0);
+  transition: .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  transform: translate(0, 1em);
+  opacity: 0;
+}
+
+.home-page {
+  margin-top: 1em;
+  .categories-bar {
+    width: 100%;
+    max-width: 876px;
+    margin: 0 auto;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .categories {
+      display: flex;
+      gap: 1em;
+      margin-left: 1em;
+      font-size: .9rem;
+      a {
+        flex-shrink: 0;
+        padding: 0.4em 1em;
+        border-radius: 3em;
+        text-align: center;
+        vertical-align: middle;
+        color: var(--weak);
+        cursor: pointer;
+        transition: 0.4s;
+        user-select: none;
+        &:hover {
+          background-color: var(--bg-major);
+        }
+        &.router-link-exact-active {
+          color: white;
+          background-color: var(--primary);
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+  
+}

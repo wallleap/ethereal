@@ -1,0 +1,97 @@
+.post-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 1em;
+  padding-bottom: 3em;
+  border-radius: 1.6em;
+  background-color: var(--bg-thin);
+  font-size: 0.8rem;
+  color: var(--minor);
+  transition: 0.4s;
+  cursor: pointer;
+  .post-cover {
+    width: 100%;
+    aspect-ratio: 16/10;
+    border-radius: 1em;
+    background-color: var(--bg-major);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease-in-out;
+    }
+  }
+  .post-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    .post-meta {
+      display: flex;
+      gap: .4em;
+      .post-tags {
+        display: flex;
+        gap: .4em;
+        .post-tag {
+          padding: .2em .5em;
+          border-radius: .5em;
+          background-color: var(--bg-major);
+          color: var(--weak);
+          transition: .4s;
+        }
+      }
+    }
+    .post-text {
+      .post-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: var(--accent);
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .post-summary {
+        margin-top: .4em;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+    .post-meta-num {
+      position: absolute;
+      bottom: 1em;
+      display: flex;
+      gap: 1em;
+      span {
+        vertical-align: middle;
+        svg {
+          width: 1.2em;
+          height: 1.2em;
+          background: rgba(219, 219, 219, 0.3);
+          border-radius: 2em;
+          vertical-align: text-bottom;
+        }
+      }
+    }
+  }
+  &:hover {
+    .post-cover {
+      img {
+        transform: scale(1.2);
+      }
+    }
+    transform: translate3d(0, -0.2em, 0);
+    @include box-shadow;
+  }
+}

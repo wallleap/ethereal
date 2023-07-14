@@ -1,14 +1,58 @@
 import config from '@/config'
-import { github } from '@/utils/request'
+import { github, githubGraphql } from '@/utils/request'
 
 const { username, repository } = config
-const ACCESS_TOKEN = import.meta.env.VITE_GITHUB_TOKEN
+const blog = `/repos/${username}/${repository}`
 
+/**
+ * 获取文章总数
+ * @returns {Promise}
+ */
+export function getPostsCountAPI() {
+  return githubGraphql({
+    method: 'post',
+    data: {
+      query: `
+        query {
+          repository(owner: "${username}", name: "${repository}") {
+            issues(states: OPEN) {
+              totalCount
+            }
+          }
+        }
+      `,
+    },
+  })
+}
+
+/**
+ * 搜索文章，返回文章列表
+ * @param {*} param0 q: 搜索关键词
+ * @returns Promise
+ */
 export function searchPostsAPI({ q = '' }) {
   return github({
-    url: `https://api.github.com/search/issues?q=${q}+state:open+repo:${username}/${repository}&sort=created&order=asc&per_page=10&page=1`,
-    headers: {
-      Authorization: `token ${ACCESS_TOKEN}`,
-    },
+    url: `/search/issues?q=${q}+state:open+repo:${username}/${repository}&sort=created&order=asc&per_page=10&page=1`,
+  })
+}
+
+/**
+ * 获取文章分类
+ * @returns {Promise}
+ */
+export function getCategoriesAPI() {
+  return github({
+    url: `${blog}/milestones?state=open&sort=created&direction=asc&per_page=10&page=1`,
+  })
+}
+
+/**
+ * 获取文章列表
+ * @param {*} param0 page, pageSize, filter
+ * @returns Promise
+ */
+export function getPostsAPI({ page = 1, pageSize = 12, filter = '' }) {
+  return github({
+    url: `${blog}/issues?state=open&page=${page}&per_page=${pageSize}${filter}`,
   })
 }

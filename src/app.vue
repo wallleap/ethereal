@@ -23,7 +23,7 @@ export default {
     <Banner />
     <Search />
     <main class="main">
-      main
+      <router-view />
     </main>
     <Copyright />
     <BackToTop />
@@ -33,8 +33,9 @@ export default {
 <style lang="scss" scoped>
 #app {
   position: relative;
-  .main {
-    height: 300vh;
-  }
+}
+
+.main {
+  padding-bottom: 240px;
 }
 </style>

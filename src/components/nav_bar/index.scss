@@ -69,7 +69,7 @@
           svg {
             margin-right: 5px;
           }
-          &.router-link-active {
+          &.router-link-exact-active {
             color: white;
             background-color: var(--primary);
             svg {
@@ -190,7 +190,7 @@
               font-size: 1.6rem;
               margin-right: 0;
             }
-            &.router-link-active {
+            &.router-link-exact-active {
               color: var(--primary);
               background: transparent;
               svg {

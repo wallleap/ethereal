@@ -59,13 +59,17 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
-      .post-summary {
+      ::v-deep .post-summary {
         margin-top: .4em;
         overflow : hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+        
+        .markdown p, .markdown h1, .markdown h2, .markdown h3, .markdown blockquote, .markdown {
+          margin-top: 0;
+        }
       }
     }
     .post-meta-num {

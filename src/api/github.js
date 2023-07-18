@@ -56,3 +56,15 @@ export function getPostsAPI({ page = 1, pageSize = 12, filter = '' }) {
     url: `${blog}/issues?state=open&page=${page}&per_page=${pageSize}${filter}`,
   })
 }
+
+/**
+ * 获取文章详情
+ * @param {*} number 文章 number
+ * @returns Promise
+ */
+
+export function getPostAPI(number) {
+  return github({
+    url: `${blog}/issues/${number}?state=open`,
+  })
+}

@@ -47,11 +47,13 @@ export function formatPost(post) {
     if (frontMatter.attributes) {
       const { title, author, cover, date, updated, comment } = frontMatter.attributes
       post.title = title || post.title
-      post.author = author || post.author
+      post.author = author || post.author || config.author
       post.cover = cover || config.defaultCover
       post.comment = comment || post.comment
-      post.created_at = date
-      post.updated_at = updated
+      post.created_at = formatTime(date || post.created_at)
+      post.created_by = parseDate(date || post.created_at)
+      post.updated_at = formatTime(updated || post.updated_at)
+      post.updated_by = parseDate(updated || post.updated_at)
     }
     if (frontMatter.body) {
       post.body = frontMatter.body

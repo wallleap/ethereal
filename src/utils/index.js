@@ -62,3 +62,36 @@ export function formatTime(time) {
   const h = [date.getHours(), date.getMinutes(), date.getSeconds()].map(formatNumber).join(':')
   return `${t} ${h}`
 }
+
+/**
+ * 设置当前滚动到的目录
+ * @param {*} selector 目录中 a 标签的选择器
+ * @returns currentLink 当前滚动到的目录的索引
+ */
+export function updateCurrentLink(selector) {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  const tocLinks = document.querySelectorAll(selector)
+  const offsetTopList = [scrollTop]
+  let currentLink = 0
+  tocLinks.forEach((item) => {
+    const id = item.getAttribute('href')
+    const el = document.querySelector(id)
+    const offsetTop = el.offsetTop
+    offsetTopList.push(offsetTop)
+  })
+  offsetTopList.sort((a, b) => {
+    return a - b
+  })
+  currentLink = offsetTopList.findIndex((item, index) => {
+    return item <= scrollTop && offsetTopList[index + 1] > scrollTop
+  })
+  if (scrollTop >= offsetTopList[offsetTopList.length - 1])
+    currentLink = offsetTopList.length - 2
+  if (scrollTop <= offsetTopList[0])
+    currentLink = 0
+  tocLinks.forEach((item) => {
+    item.classList.remove('active')
+  })
+  tocLinks[currentLink]?.classList.add('active')
+  return currentLink
+}

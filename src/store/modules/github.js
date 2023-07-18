@@ -1,11 +1,13 @@
-import { getCategoriesAPI, getPostsAPI, getPostsCountAPI, searchPostsAPI } from '@/api/github.js'
+import { getCategoriesAPI, getPostAPI, getPostsAPI, getPostsCountAPI, searchPostsAPI } from '@/api/github.js'
 import { formatPost } from '@/utils/format.js'
 
 function state() {
   return {
+    allPosts: [],
     categories: [],
     currentCategory: {},
     currentPage: 1,
+    currentLink: 0,
   }
 }
 
@@ -62,6 +64,7 @@ const actions = {
       return Promise.reject(res || 'error')
     const posts = res.data.map((post) => {
       return {
+        number: post.number,
         id: post.id,
         title: post.title,
         url: post.url,
@@ -70,7 +73,7 @@ const actions = {
         body: post.body,
         tags: post.labels,
         tags_url: post.labels_url,
-        categories: post.milestone,
+        category: post.milestone,
         hot: 1,
         comment: true,
       }
@@ -78,9 +81,39 @@ const actions = {
     posts.map(formatPost)
     return posts
   },
+  /**
+   * 获取文章详情
+   * @param {*} context
+   * @param {*} param1 number 文章 number
+   * @returns post
+   */
+  async getPostAction(context, { number }) {
+    const res = await getPostAPI(number)
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    let post = res.data
+    post = {
+      number: post.number,
+      id: post.id,
+      title: post.title,
+      url: post.url,
+      created_at: post.created_at,
+      updated_at: post.updated_at,
+      body: post.body,
+      tags: post.labels,
+      tags_url: post.labels_url,
+      category: post.milestone,
+      hot: 1,
+      comment: true,
+    }
+    return formatPost(post)
+  },
 }
 
 const mutations = {
+  setAllPosts(state, posts) {
+    state.allPosts = posts
+  },
   setCategories(state, categories) {
     state.categories = categories
   },
@@ -89,6 +122,9 @@ const mutations = {
   },
   setCurrentPage(state, currentPage) {
     state.currentPage = currentPage
+  },
+  setCurrentLink(state, currentLink) {
+    state.currentLink = currentLink
   },
 }
 

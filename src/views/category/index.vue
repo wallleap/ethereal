@@ -65,6 +65,7 @@ export default {
       }
       else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
       this.posts = res
+      this.$store.commit('github/setAllPosts', res)
     },
   },
 }
@@ -74,11 +75,15 @@ export default {
   <div class="post-list">
     <div class="posts-wrap">
       <div class="posts">
-        <PostCard
+        <router-link
           v-for="post in posts"
           :key="post.id"
-          :post="post"
-        />
+          :to="{ name: 'Post', params: { number: post.number } }"
+        >
+          <PostCard
+            :post="post"
+          />
+        </router-link>
       </div>
     </div>
     <Pagination
@@ -100,9 +105,13 @@ export default {
       display: flex;
       gap: 1em;
       flex-wrap: wrap;
-      & > div {
+      & > a {
         margin: 0;
         width: calc(100% / 3 - 10.7px);
+        > div {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     @media screen and (min-width: 876px) {
@@ -116,14 +125,14 @@ export default {
     @include sm-layout {
       .posts {
         padding: 0 calc(1em - 9px) 0 1em;
-        & > div {
+        & > a {
           width: calc(100% / 2 - 8px);
         }
       }
     }
     @include xs-layout {
       .posts {
-        & > div {
+        & > a {
           width: 100%;
         }
       }

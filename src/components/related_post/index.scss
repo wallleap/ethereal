@@ -1,0 +1,87 @@
+.related-post {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border-radius: 1em;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    background: linear-gradient(to top, var(--primary) 0%, rgba(0,0,0,0) 100%);
+  }
+  
+  .post-cover {
+    width: 100%;
+    height: 100%;
+    border-radius: 1em;
+    background-color: var(--bg-major);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease-in-out;
+    }
+  }
+
+  .post-info {
+    position: absolute;
+    width: calc(100% - 2.8em);
+    color: #fff;
+    bottom: 1.4em;
+    left: 1.4em;
+    z-index: 2;
+    .post-meta {
+      display: flex;
+      gap: .4em;
+      margin-bottom: .8em;
+      .post-cate {
+        padding: .2em .5em;
+        border-radius: .5em;
+        background-color: #f0f4ff;
+        color: var(--primary);
+        transition: .4s;
+      }
+      .post-tags {
+        display: flex;
+        align-items: center;
+        gap: .4em;
+        margin-left: 1em;
+        svg {
+          filter: invert(1);
+        }
+        .post-tag {
+          &::before {
+            content: '#';
+            margin-right: .2em;
+          }
+        }
+      }
+    }
+    .post-text {
+      width: 100%;
+      .post-title {
+        width: 100%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: #fff;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  @include xs-layout {
+
+  }
+}

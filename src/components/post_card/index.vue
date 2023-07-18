@@ -1,11 +1,27 @@
 <script>
+import Markdown from '@/components/markdown/index.vue'
+import MarkIt from '@/components/markdown/mark_it.js'
+
 export default {
   name: 'PostCard',
+  components: {
+    Markdown,
+  },
   props: {
     post: {
       type: Object,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      content: '',
+    }
+  },
+  async created() {
+    const markIt = new MarkIt()
+    const parsedMarked = await markIt.parse(this.post.summary)
+    this.content = parsedMarked?.content
   },
 }
 </script>
@@ -28,7 +44,7 @@ export default {
           {{ post.title }}
         </h2>
         <p class="post-summary">
-          {{ post.summary }}
+          <Markdown :content="content" />
         </p>
       </div>
       <div class="post-meta-num">

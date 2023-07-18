@@ -14,14 +14,25 @@ export default {
     Copyright,
     BackToTop,
   },
+  computed: {
+    isShowSearch() {
+      const whiteList = {
+        '/': true,
+        '/archives': true,
+        '/about': false,
+        '/post': false,
+      }
+      return whiteList[this.$route.path] || this.$route.path.startsWith('/category')
+    },
+  },
 }
 </script>
 
 <template>
   <div id="app">
     <NavBar />
-    <Banner />
-    <Search />
+    <Banner v-if="!$route.path.startsWith('/post')" />
+    <Search v-if="isShowSearch" />
     <main class="main">
       <router-view />
     </main>

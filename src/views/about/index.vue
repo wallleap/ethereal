@@ -22,6 +22,20 @@ export default {
       const markIt = new MarkIt()
       const parsedString = await markIt.parse(content)
       this.about = parsedString?.content
+      this.appendBusuanzi(parsedString?.content)
+    },
+    appendBusuanzi(string) {
+      if (!string)
+        return
+      const hasBusuanzi = string.includes('busuanzi')
+      if (hasBusuanzi) {
+        const busuanziScript = document.querySelector('script[src*="busuanzi"]')
+        if (busuanziScript)
+          busuanziScript.remove()
+        const script = document.createElement('script')
+        script.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'
+        document.body.appendChild(script)
+      }
     },
   },
 }

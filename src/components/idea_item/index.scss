@@ -1,0 +1,65 @@
+.idea-wrap {
+  display: inline-flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+
+  .avatar {
+    flex-shrink: 0;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: .5em;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .idea {
+    width: 100%;
+
+    .author {
+      margin-bottom: .5em;
+      font-size: 1.02rem;
+      color: var(--thin);
+    }
+
+    .content {
+      width: 100%;
+      margin-bottom: .3em;
+      padding: 1em;
+      border-radius: 8px;
+      color: var(--major);
+      background-color: var(--bg-weak);
+
+      .markdown::v-deep {
+        width: 100%;
+
+        h1:first-child, h2:first-child, p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
+          margin-top: 0;
+        }
+
+        pre.hljs-code {
+          max-width: 100%;
+        }
+
+        blockquote {
+          background: var(--bg-minor);
+        }
+
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .publish-time {
+      font-size: .8rem;
+      color: var(--weak);
+    }
+  }
+}

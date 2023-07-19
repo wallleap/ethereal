@@ -47,6 +47,14 @@ const routes = [
       title: '归档',
     },
   },
+  {
+    path: '/inspiration',
+    name: 'Inspiration',
+    component: () => import('@/views/inspiration/index.vue'),
+    meta: {
+      title: '灵感',
+    },
+  },
 ]
 
 const router = new VueRouter({

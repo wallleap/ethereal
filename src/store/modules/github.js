@@ -1,4 +1,4 @@
-import { getCategoriesAPI, getPostAPI, getPostsAPI, getPostsCountAPI, getTagsAPI, searchPostsAPI } from '@/api/github.js'
+import { getCategoriesAPI, getInspirationAPI, getInspirationCountAPI, getPostAPI, getPostsAPI, getPostsCountAPI, getTagsAPI, searchPostsAPI } from '@/api/github.js'
 import { formatPost } from '@/utils/format.js'
 
 function state() {
@@ -18,6 +18,16 @@ const actions = {
    */
   async getPostsCountAction() {
     const res = await getPostsCountAPI()
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    return res.data.data.repository.issues.totalCount || 0
+  },
+  /**
+   * 获取灵感总数
+   * @returns count
+   */
+  async getInspirationCountAction() {
+    const res = await getInspirationCountAPI()
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data.data.repository.issues.totalCount || 0
@@ -92,6 +102,12 @@ const actions = {
     })
     posts.map(formatPost)
     return posts
+  },
+  async getInspirationAction(context, params) {
+    const res = await getInspirationAPI(params)
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    return res.data
   },
   /**
    * 获取文章详情

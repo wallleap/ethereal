@@ -26,6 +26,27 @@ export function getPostsCountAPI() {
 }
 
 /**
+ * 获取灵感总数
+ * @returns {Promise}
+ */
+export function getInspirationCountAPI() {
+  return githubGraphql({
+    method: 'post',
+    data: {
+      query: `
+        query {
+          repository(owner:"${username}", name: "${repository}") {
+            issues(states:CLOSED, labels: ["Inspiration"]) {
+              totalCount
+            }
+          }
+        }
+      `,
+    },
+  })
+}
+
+/**
  * 搜索文章，返回文章列表
  * @param {*} param0 q: 搜索关键词
  * @returns Promise
@@ -64,6 +85,17 @@ export function getTagsAPI() {
 export function getPostsAPI({ page = 1, pageSize = 12, filter = '' }) {
   return github({
     url: `${blog}/issues?state=open&page=${page}&per_page=${pageSize}${filter}`,
+  })
+}
+
+/**
+ * 获取灵感列表
+ * @param {*} param0 page 当前页码 pageSize 每页数量
+ * @returns Promise
+ */
+export function getInspirationAPI({ page = 1, pageSize = 12 }) {
+  return github({
+    url: `${blog}/issues?state=closed&labels=inspiration&page=${page}&per_page=${pageSize}`,
   })
 }
 

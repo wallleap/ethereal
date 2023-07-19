@@ -1,0 +1,50 @@
+.inspiration-wrap {
+  margin: 0 auto;
+  margin-top: 4em;
+  width: 100%;
+  max-width: 876px;
+  
+  .inspiration {
+    width: 100%;
+    padding: 2rem 1em;
+    background-color: var(--bg-thin);
+    border-radius: 2em;
+  
+    h2 {
+      margin-bottom: 1.2em;
+      font-size: 1.2rem;
+      line-height: 1.4;
+      font-weight: bold;
+      color: var(--accent);
+    }
+  
+    .ideas-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+
+      .idea-item {
+        width: 100%;
+      }
+    }
+  }
+
+  @include type-area {
+    & {
+      padding-left: 9px
+    }
+  }
+
+  @include xs-layout {
+    .archives {
+      .archives-list {
+        .archives-header {
+          .edit {
+            display: inline-flex;
+          }
+        }
+      }
+    }
+  }
+}

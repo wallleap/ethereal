@@ -1,6 +1,7 @@
 <!-- eslint-disable max-statements-per-line -->
 <script>
 import Clipboard from 'clipboard'
+import MarkIt from './mark_it.js'
 
 export default {
   name: 'Markdown',
@@ -9,10 +10,22 @@ export default {
       type: String,
       default: '',
     },
+    needParsed: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       clipboard: null,
+      htmlString: '',
+    }
+  },
+  async created() {
+    if (this.needParsed) {
+      const markIt = new MarkIt()
+      const parsedString = await markIt.parse(this.content)
+      this.htmlString = parsedString?.content
     }
   },
   mounted() {
@@ -43,7 +56,7 @@ export default {
 </script>
 
 <template>
-  <div class="markdown" v-html="content" />
+  <div class="markdown" v-html="htmlString || content" />
 </template>
 
 <style lang="scss">

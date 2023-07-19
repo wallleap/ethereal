@@ -28,9 +28,6 @@ export default {
     <div class="copyright-text">
       <p>Blog <a :href="$config.url" class="blog-link">{{ $config.name }}</a>, Copyright &copy; {{ year }} by <a :href="$config.link" target="_blank">{{ $config.author }}</a></p>
     </div>
-    <div class="site-info">
-      <p><span id="busuanzi_container_site_pv">PV - <span id="busuanzi_value_site_pv">次</span> UV - <span id="busuanzi_value_site_uv">人</span></span></p>
-    </div>
     <div class="recommend-site">
       <p>
         <a href="//www.travellings.cn" target="_blank" class="travel"><SvgIcon name="travel" /> Travelling</a>

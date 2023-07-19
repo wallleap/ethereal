@@ -39,6 +39,14 @@ const routes = [
       title: '文章',
     },
   },
+  {
+    path: '/archives',
+    name: 'Archives',
+    component: () => import('@/views/archives/index.vue'),
+    meta: {
+      title: '归档',
+    },
+  },
 ]
 
 const router = new VueRouter({

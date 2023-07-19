@@ -1,0 +1,142 @@
+.archives-wrap {
+  margin: 0 auto;
+  margin-top: 2em;
+  width: 100%;
+  max-width: 876px;
+  
+  .archives {
+    width: 100%;
+    padding: 2rem 1em;
+    background-color: var(--bg-thin);
+    border-radius: 2em;
+  
+    h2 {
+      font-size: 1.2rem;
+      line-height: 1.4;
+      font-weight: bold;
+      color: var(--accent);
+    }
+  
+    .tags {
+      margin-bottom: 2em;
+  
+      .tags-header {
+        display: flex;
+        align-items: center;
+        gap: .6em;
+        margin-bottom: 1em;
+  
+        .clear-all {
+          font-size: .8rem;
+          color: white;
+          background-color: var(--primary);
+          padding: .2em 1em;
+          border-radius: 1em;
+          cursor: pointer;
+          transition: all .2s ease-in-out;
+  
+          &:hover {
+            opacity: .8;
+          }
+        }
+      }
+  
+      .tags-body {
+        .tag-list {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: .6em;
+  
+          .tag {
+            padding: .5em 1em;
+            border-radius: 1em;
+            background-color: var(--bg-weak);
+            color: var(--weak);
+            font-size: .8rem;
+            cursor: pointer;
+            transition: all .2s ease-in-out;
+  
+            &:hover {
+              background-color: var(--bg-major);
+              color: var(--major);
+            }
+  
+            &.active {
+              background-color: hsla(var(--tag-hsl), .1);
+              color: var(--color);
+            }
+          }
+        }
+      }
+    }
+  
+    .archives-list {
+      .archives-header {
+        display: flex;
+        align-items: center;
+        gap: .6em;
+        margin-bottom: 1em;
+  
+        .edit {
+          display: none;
+          overflow: 0;
+          justify-content: center;
+          align-items: center;
+          font-size: .8rem;
+          color: white;
+          background-color: var(--primary);
+          padding: .2em 1em;
+          border-radius: 1em;
+          cursor: pointer;
+          transition: all .2s ease-in-out;
+  
+          &:hover {
+            opacity: .8;
+          }
+        }
+  
+        &:hover .edit {
+          display: inline-flex;
+        }
+      }
+  
+      .archives-body {
+        .archive-items {
+          margin-bottom: 1em;
+  
+          .archive-year {
+            font-size: 1rem;
+            color: var(--thin);
+            margin-bottom: .5em;
+          }
+  
+          .archive-item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+          }
+        }
+      }
+    }
+  }
+
+  @include type-area {
+    & {
+      padding-left: 9px
+    }
+  }
+
+  @include xs-layout {
+    .archives {
+      .archives-list {
+        .archives-header {
+          .edit {
+            display: inline-flex;
+          }
+        }
+      }
+    }
+  }
+}

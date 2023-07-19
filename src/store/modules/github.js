@@ -1,4 +1,4 @@
-import { getCategoriesAPI, getPostAPI, getPostsAPI, getPostsCountAPI, searchPostsAPI } from '@/api/github.js'
+import { getCategoriesAPI, getPostAPI, getPostsAPI, getPostsCountAPI, getTagsAPI, searchPostsAPI } from '@/api/github.js'
 import { formatPost } from '@/utils/format.js'
 
 function state() {
@@ -51,6 +51,18 @@ const actions = {
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data
+  },
+  /**
+   * 获取文章标签
+   * @returns Object
+   */
+  async getTagsAction() {
+    const filterLabel = ['Inspiration', 'Friend', 'Book', 'About']
+    const res = await getTagsAPI()
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    const data = res.data.filter(o => !filterLabel.includes(o.name))
+    return data
   },
   /**
    * 获取文章列表

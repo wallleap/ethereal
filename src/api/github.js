@@ -47,6 +47,16 @@ export function getCategoriesAPI() {
 }
 
 /**
+ * 获取文章标签
+ * @returns {Promise}
+ */
+export function getTagsAPI() {
+  return github({
+    url: `${blog}/labels?per_page=100&page=1`,
+  })
+}
+
+/**
  * 获取文章列表
  * @param {*} param0 page, pageSize, filter
  * @returns Promise
@@ -62,7 +72,6 @@ export function getPostsAPI({ page = 1, pageSize = 12, filter = '' }) {
  * @param {*} number 文章 number
  * @returns Promise
  */
-
 export function getPostAPI(number) {
   return github({
     url: `${blog}/issues/${number}?state=open`,

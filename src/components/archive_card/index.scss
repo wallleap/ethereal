@@ -1,0 +1,40 @@
+.archive-card {
+  display: flex;
+  align-items: center;
+  
+  .archive-cover {
+    flex-shrink: 0;
+    aspect-ratio: 16/10;
+    background-color: var(--bg-thin);
+    border-radius: 4px;
+    height: 4em;
+    margin-right: .6em;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .archive-text {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      margin-bottom: .1em;
+      font-size: 1.1rem;
+      color: var(--thin);
+    }
+
+    p {
+      font-size: .9rem;
+      color: var(--major);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

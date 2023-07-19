@@ -1,8 +1,9 @@
 import config from '@/config'
 import { github, githubGraphql } from '@/utils/request'
 
-const { username, repository } = config
+const { username, repository, friendsRepo } = config
 const blog = `/repos/${username}/${repository}`
+const friends = `/repos/${username}/${friendsRepo}`
 
 /**
  * 获取文章总数
@@ -16,6 +17,27 @@ export function getPostsCountAPI() {
         query {
           repository(owner: "${username}", name: "${repository}") {
             issues(states: OPEN) {
+              totalCount
+            }
+          }
+        }
+      `,
+    },
+  })
+}
+
+/**
+ * 获取友链总数
+ * @returns {Promise}
+ */
+export function getFriendsCountAPI() {
+  return githubGraphql({
+    method: 'post',
+    data: {
+      query: `
+        query {
+          repository(owner: "${username}", name: "${friendsRepo}") {
+            issues(states:CLOSED) {
               totalCount
             }
           }
@@ -85,6 +107,17 @@ export function getTagsAPI() {
 export function getPostsAPI({ page = 1, pageSize = 12, filter = '' }) {
   return github({
     url: `${blog}/issues?state=open&page=${page}&per_page=${pageSize}${filter}`,
+  })
+}
+
+/**
+ * 获取友链列表
+ * @param {*} param0 page, pageSize, filter
+ * @returns Promise
+ */
+export function getFriendsAPI({ page = 1, pageSize = 12, filter = '' }) {
+  return github({
+    url: `${friends}/issues?state=closed&page=${page}&per_page=${pageSize}${filter}`,
   })
 }
 

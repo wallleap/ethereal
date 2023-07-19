@@ -1,5 +1,16 @@
-import { getCategoriesAPI, getInspirationAPI, getInspirationCountAPI, getPostAPI, getPostsAPI, getPostsCountAPI, getTagsAPI, searchPostsAPI } from '@/api/github.js'
-import { formatPost } from '@/utils/format.js'
+import {
+  getCategoriesAPI,
+  getFriendsAPI,
+  getFriendsCountAPI,
+  getInspirationAPI,
+  getInspirationCountAPI,
+  getPostAPI,
+  getPostsAPI,
+  getPostsCountAPI,
+  getTagsAPI,
+  searchPostsAPI,
+} from '@/api/github.js'
+import { formatFriend, formatPost } from '@/utils/format.js'
 
 function state() {
   return {
@@ -20,7 +31,17 @@ const actions = {
     const res = await getPostsCountAPI()
     if (res.status !== 200)
       return Promise.reject(res || 'error')
-    return res.data.data.repository.issues.totalCount || 0
+    return res.data.data?.repository?.issues.totalCount || 0
+  },
+  /**
+   * 获取友链总数
+   * @returns count
+   */
+  async getFriendsCountAction() {
+    const res = await getFriendsCountAPI()
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    return res.data.data?.repository?.issues.totalCount || 0
   },
   /**
    * 获取灵感总数
@@ -30,7 +51,7 @@ const actions = {
     const res = await getInspirationCountAPI()
     if (res.status !== 200)
       return Promise.reject(res || 'error')
-    return res.data.data.repository.issues.totalCount || 0
+    return res.data.data?.repository?.issues.totalCount || 0
   },
   /**
    * 搜索文章
@@ -103,6 +124,39 @@ const actions = {
     posts.map(formatPost)
     return posts
   },
+  /**
+   * 获取文章列表
+   * @param {*} context
+   * @param {*} params page, pageSize, filter
+   * @returns posts
+   */
+  async getFriendsAction(context, params) {
+    const res = await getFriendsAPI(params)
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    const friends = res.data.map((friend) => {
+      return {
+        number: friend.number,
+        id: friend.id,
+        title: friend.title,
+        origin_url: friend.url,
+        created_at: friend.created_at,
+        updated_at: friend.updated_at,
+        body: friend.body,
+        labels: friend.labels,
+        labels_url: friend.labels_url,
+        category: friend.milestone,
+      }
+    })
+    friends.map(formatFriend)
+    return friends
+  },
+  /**
+   * 获取灵感列表
+   * @param {*} context
+   * @param {*} params page, pageSize
+   * @returns Promise
+   */
   async getInspirationAction(context, params) {
     const res = await getInspirationAPI(params)
     if (res.status !== 200)

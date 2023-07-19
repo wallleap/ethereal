@@ -10,11 +10,9 @@ export default {
   data() {
     return {
       ideas: [],
-      totalCount: 0,
     }
   },
   created() {
-    this.getInspirationCountFn()
     this.getInspirationFn()
   },
   methods: {
@@ -23,10 +21,11 @@ export default {
       getInspirationAction: 'github/getInspirationAction',
     }),
     async getInspirationCountFn() {
-      this.totalCount = await this.getInspirationCountAction()
+      return await this.getInspirationCountAction()
     },
     async getInspirationFn() {
-      this.ideas = await this.getInspirationAction({ page: 1, pageSize: this.totalCount })
+      const totalCount = await this.getInspirationCountFn()
+      this.ideas = await this.getInspirationAction({ page: 1, pageSize: totalCount })
     },
   },
 }

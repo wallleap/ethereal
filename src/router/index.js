@@ -55,6 +55,14 @@ const routes = [
       title: '灵感',
     },
   },
+  {
+    path: '/friend',
+    name: 'Friend',
+    component: () => import('@/views/friend/index.vue'),
+    meta: {
+      title: '友链',
+    },
+  },
 ]
 
 const router = new VueRouter({

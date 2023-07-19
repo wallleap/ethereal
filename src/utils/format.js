@@ -64,3 +64,14 @@ export function formatPost(post) {
   }
   return post
 }
+
+export function formatFriend(friend) {
+  if (!friend || !friend.body)
+    return []
+  const { body } = friend
+  const res = body.split('\r\n')
+  res.forEach((item) => {
+    friend[item.split(': ')[0].trim()] = item.split(': ')[1].trim()
+  })
+  return friend
+}

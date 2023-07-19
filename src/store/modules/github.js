@@ -1,4 +1,5 @@
 import {
+  getAboutAPI,
   getCategoriesAPI,
   getFriendsAPI,
   getFriendsCountAPI,
@@ -189,6 +190,12 @@ const actions = {
       comment: true,
     }
     return formatPost(post)
+  },
+  async getAboutAction() {
+    const res = await getAboutAPI()
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    return res.data[0]
   },
 }
 

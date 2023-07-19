@@ -63,6 +63,14 @@ const routes = [
       title: '友链',
     },
   },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('@/views/about/index.vue'),
+    meta: {
+      title: '关于',
+    },
+  },
 ]
 
 const router = new VueRouter({

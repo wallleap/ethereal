@@ -142,3 +142,9 @@ export function getPostAPI(number) {
     url: `${blog}/issues/${number}?state=open`,
   })
 }
+
+export function getAboutAPI() {
+  return github({
+    url: `${blog}/issues?state=closed&labels=About`,
+  })
+}

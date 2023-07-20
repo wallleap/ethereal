@@ -11,12 +11,10 @@
     border-radius: 2em;
 
     .markdown::v-deep {
-      h2 {
-        svg {
-          width: 1.2em;
-          height: 1.2em;
-          vertical-align: -5px;
-        }
+      svg {
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: -5px;
       }
     }
 

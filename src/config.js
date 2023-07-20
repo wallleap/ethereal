@@ -20,10 +20,6 @@
  * @property {String} email         博客作者邮箱
  * @property {String} link          个人链接
  * @property {String} github        GitHub 链接
- * @property {String} wechatQr      微信二维码
- * @property {String} wechatPayQr   微信支付二维码
- * @property {String} alipayQr      支付宝收款二维码
- * @property {String} bilibili      哔哩哔哩链接
  * @property {String} name          友链名称
  * @property {String} url           友链链接
  * @property {String} avatar        友链头像
@@ -54,10 +50,6 @@ export default {
   email: 'luwang@oicode.cn',
   link: '//luwang.info',
   github: '//github.com/wallleap',
-  wechatQr: '//cdn.wallleap.cn/img/custom/wechat.jpg',
-  wechatPayQr: '//cdn.wallleap.cn/img/custom/wechat.jpg',
-  alipayQr: '//cdn.wallleap.cn/img/custom/alipay.jpg',
-  bilibili: '//space.bilibili.com/123456',
   // 友链信息
   name: 'wallleap',
   url: '//myblog.wallleap.cn',

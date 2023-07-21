@@ -6,18 +6,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/404.vue'),
-    meta: {
-      title: '404',
-    },
-  },
-  {
     path: '/',
     name: 'Home',
     component: Home,
     meta: {
+      index: 0,
       title: '首页',
     },
     children: [
@@ -36,6 +29,7 @@ const routes = [
     name: 'Post',
     component: () => import('@/views/post/index.vue'),
     meta: {
+      index: 99,
       title: '文章',
     },
   },
@@ -44,6 +38,7 @@ const routes = [
     name: 'Archives',
     component: () => import('@/views/archives/index.vue'),
     meta: {
+      index: 1,
       title: '归档',
     },
   },
@@ -52,6 +47,7 @@ const routes = [
     name: 'Inspiration',
     component: () => import('@/views/inspiration/index.vue'),
     meta: {
+      index: 2,
       title: '灵感',
     },
   },
@@ -60,6 +56,7 @@ const routes = [
     name: 'Friend',
     component: () => import('@/views/friend/index.vue'),
     meta: {
+      index: 3,
       title: '友链',
     },
   },
@@ -68,13 +65,36 @@ const routes = [
     name: 'About',
     component: () => import('@/views/about/index.vue'),
     meta: {
+      index: 4,
       title: '关于',
     },
   },
+  {
+    path: '*',
+    redirect: '/',
+  },
 ]
+
+function scrollBehavior(to, from, savedPosition) {
+  if (savedPosition) {
+    return savedPosition
+  }
+  else {
+    let position = {}
+    if (to.hash) {
+      position = { selector: to.hash, behavior: 'smooth' }
+      if (document.querySelector(to.hash))
+        return position
+      return false
+    }
+    position = { x: 0, y: 0 }
+    return position
+  }
+}
 
 const router = new VueRouter({
   routes,
+  scrollBehavior,
 })
 
 export default router

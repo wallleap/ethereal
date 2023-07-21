@@ -14,6 +14,11 @@ export default {
     Copyright,
     BackToTop,
   },
+  data() {
+    return {
+      transitionName: 'slide-left',
+    }
+  },
   computed: {
     isShowSearch() {
       const whiteList = {
@@ -25,6 +30,13 @@ export default {
       return whiteList[this.$route.path] || this.$route.path.startsWith('/category')
     },
   },
+  watch: {
+    $route(to, from) {
+      if (to.path === from.path)
+        return
+      this.transitionName = to.meta.index > from.meta.index ? 'slide-left' : 'slide-right'
+    },
+  },
 }
 </script>
 
@@ -34,7 +46,9 @@ export default {
     <Banner v-if="!$route.path.startsWith('/post')" />
     <Search v-if="isShowSearch" />
     <main class="main">
-      <router-view />
+      <transition :name="transitionName">
+        <router-view />
+      </transition>
     </main>
     <Copyright />
     <BackToTop />
@@ -48,5 +62,17 @@ export default {
 
 .main {
   padding-bottom: 240px;
+}
+
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  transform: translate(30px, 0);
+  transition: all 0.3s ease;
+}
+
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  transform: translate(-30px, 0);
+  transition: all 0.3s ease;
 }
 </style>

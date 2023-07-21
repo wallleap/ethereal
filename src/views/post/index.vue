@@ -32,10 +32,6 @@ export default {
   },
   watch: {
     $route() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      })
       this.getPostFn()
       this.generateRelatesFn()
     },
@@ -94,10 +90,9 @@ export default {
         })
         const id = e.target.getAttribute('href')
         const el = document.querySelector(id)
-        el.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        })
+        const offset = 100
+        const topPos = el.getBoundingClientRect().top + window.pageYOffset - offset
+        window.scrollTo({ top: topPos, behavior: 'smooth' })
       }
     },
     updateCurrentTocLink() {
@@ -194,9 +189,6 @@ export default {
     <section class="post-footer">
       <div class="related-posts">
         <RelatedPost v-for="relate in relates" :key="relate.id" :post="relate" />
-      </div>
-      <div class="comments">
-        评论
       </div>
     </section>
   </article>

@@ -76,7 +76,7 @@ export function updateCurrentLink(selector) {
   tocLinks.forEach((item) => {
     const id = item.getAttribute('href')
     const el = document.querySelector(id)
-    const offsetTop = el.offsetTop
+    const offsetTop = el.getBoundingClientRect().top + window.pageYOffset
     offsetTopList.push(offsetTop)
   })
   offsetTopList.sort((a, b) => {

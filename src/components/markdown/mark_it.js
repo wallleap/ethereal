@@ -63,16 +63,13 @@ const tocObj = {
 
 class MarkIt {
   constructor() {
-    let parsedCode = ''
-
     marked.use(markedHighlight({
       langPrefix: 'hljs language-',
       highlight(code, lang) {
         const language = hljs.getLanguage(lang) ? lang : 'plaintext'
-        parsedCode = hljs.highlight(code, { language }).value
+        return hljs.highlight(code, { language }).value
       },
     }))
-
     this.rendererMD = new marked.Renderer()
     this.rendererMD.html = (html) => {
       return html
@@ -87,7 +84,7 @@ class MarkIt {
       return text
     }
     this.rendererMD.code = (code, infostring, escaped) => {
-      return `<pre class="hljs-code"><div class="pre-header"><span class="lang-info">${infostring || 'TEXT'}</span><svg aria-hidden="true" class="svg-icon icon-copy"><use xlink:href="#icon-copy" fill="currentColor"></use></svg></div><code class="hljs language-${infostring || 'text'}">${parsedCode}</code></pre>`
+      return `<pre class="hljs-code"><div class="pre-header"><span class="lang-info">${infostring || 'TEXT'}</span><svg aria-hidden="true" class="svg-icon icon-copy"><use xlink:href="#icon-copy" fill="currentColor"></use></svg></div><code class="hljs language-${infostring || 'text'}">${code}</code></pre>`
     }
     this.rendererMD.blockquote = (quote) => {
       return `<blockquote class="blockquote">${quote}</blockquote>`

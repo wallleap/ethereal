@@ -91,8 +91,10 @@ export default {
         const id = e.target.getAttribute('href')
         const el = document.querySelector(id)
         const offset = 100
-        const topPos = el.getBoundingClientRect().top + window.pageYOffset - offset
-        window.scrollTo({ top: topPos, behavior: 'smooth' })
+        if (el) {
+          const topPos = el.getBoundingClientRect().top + window.pageYOffset - offset
+          window.scrollTo({ top: topPos, behavior: 'smooth' })
+        }
       }
     },
     updateCurrentTocLink() {

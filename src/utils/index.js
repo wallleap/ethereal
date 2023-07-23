@@ -1,5 +1,27 @@
 import store from '@/store'
 
+/**
+ * 处理控制台出错，例如图片加载失败
+ * @param {*} img 图片地址
+ */
+export function handleError(img) {
+  window.addEventListener('error', (e) => {
+    const target = e.target
+    const tagName = target.tagName
+    const times = Number(target.dataset.times) || 0
+    const TIMES = 3
+    if (tagName.toUpperCase() === 'IMG') {
+      if (times >= TIMES) {
+        target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+      }
+      else {
+        target.dataset.times = times + 1
+        target.src = img
+      }
+    }
+  }, true)
+}
+
 export function setTheme() {
   const html = document.documentElement
   const media = window.matchMedia('(prefers-color-scheme: dark)')

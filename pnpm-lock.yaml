@@ -20,9 +20,6 @@ dependencies:
   marked:
     specifier: 5.1.1
     version: 5.1.1
-  marked-highlight:
-    specifier: 2.0.1
-    version: 2.0.1(marked@5.1.1)
   marked-smartypants:
     specifier: 1.0.2
     version: 1.0.2(marked@5.1.1)
@@ -2349,14 +2346,6 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
-
-  /marked-highlight@2.0.1(marked@5.1.1):
-    resolution: {integrity: sha512-LDUfR/zDvD+dJ+lQOWHkxvBLNxiXcaN8pBtwJ/i4pI0bkDC/Ef6Mz1qUrAuHXfnpdr2rabdMpVFhqFuU+5Mskg==}
-    peerDependencies:
-      marked: ^4 || ^5
-    dependencies:
-      marked: 5.1.1
-    dev: false
 
   /marked-smartypants@1.0.2(marked@5.1.1):
     resolution: {integrity: sha512-hpbM9waiBSIHpqdoU5AAeuYozeObBwUet3xkCFrFBA+1329byRVxLDwYmelMCS3ss+sEVJhDgrunIy+ubiqFwQ==}

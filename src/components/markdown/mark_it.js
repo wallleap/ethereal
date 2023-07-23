@@ -1,10 +1,10 @@
 /* eslint-disable max-statements-per-line */
 import { Marked } from 'marked'
 import { markedSmartypants } from 'marked-smartypants'
-import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
 import subscript from './extensions/subscript.js'
 import superscript from './extensions/superscript.js'
+import { markedHighlight } from './extensions/marked_highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 
 const marked = new Marked()
@@ -63,13 +63,6 @@ const tocObj = {
 
 class MarkIt {
   constructor() {
-    marked.use(markedHighlight({
-      langPrefix: 'hljs language-',
-      highlight(code, lang) {
-        const language = hljs.getLanguage(lang) ? lang : 'plaintext'
-        return hljs.highlight(code, { language }).value
-      },
-    }))
     this.rendererMD = new marked.Renderer()
     this.rendererMD.html = (html) => {
       return html
@@ -83,8 +76,8 @@ class MarkIt {
         return `<p class="post-paragraph">${text}</p>`
       return text
     }
-    this.rendererMD.code = (code, infostring, escaped) => {
-      return `<pre class="hljs-code"><div class="pre-header"><span class="lang-info">${infostring || 'TEXT'}</span><svg aria-hidden="true" class="svg-icon icon-copy"><use xlink:href="#icon-copy" fill="currentColor"></use></svg></div><code class="hljs language-${infostring || 'text'}">${code}</code></pre>`
+    this.rendererMD.hr = () => {
+      return '<hr class="post-hr" />'
     }
     this.rendererMD.blockquote = (quote) => {
       return `<blockquote class="blockquote">${quote}</blockquote>`
@@ -119,6 +112,19 @@ class MarkIt {
       const regexMark = /==([^=]+)==/g
       return text.replace(regexMark, '<mark>$1</mark>')
     }
+    marked.use(markedHighlight({
+      async: true,
+      highlight(code, lang) {
+        return new Promise((resolve, reject) => {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+          const html = hljs.highlight(code, { language }).value
+          if (html)
+            resolve(html)
+          else
+            reject(new Error('no highlight'))
+        })
+      },
+    }))
     marked.use({
       renderer: this.rendererMD,
       headerIds: false,

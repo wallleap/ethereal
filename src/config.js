@@ -59,6 +59,6 @@ export default {
   pageSize: 12,
   defaultCover: '//cdn.wallleap.cn/img/post/1.jpg',
   // 图片加载失败时显示
-  errorImg: 'https://cdn.wallleap.cn/img/pic/cover/image_processing20200524-7638-6itpxj.gif',
+  errorImg: '//cdn.wallleap.cn/img/pic/cover/image_processing20200524-7638-6itpxj.gif',
   // 评论配置
 }

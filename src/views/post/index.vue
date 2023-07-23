@@ -18,6 +18,7 @@ export default {
       toc: '',
       currentLink: 0,
       content: '',
+      loading: true,
     }
   },
   computed: {
@@ -65,6 +66,8 @@ export default {
       window.document.title = this.post.title
       this.toc = parsedMarked?.toc
       this.content = parsedMarked?.content
+      if (this.post)
+        this.loading = false
     },
     async generateRelatesFn() {
       const LOOP = 2
@@ -115,7 +118,7 @@ export default {
 </script>
 
 <template>
-  <article class="post">
+  <article v-loading="loading" class="post">
     <section ref="tocWrap" class="toc-wrap">
       <div class="toc-header">
         <div class="toc-title">

@@ -5,6 +5,7 @@ import router from './router'
 import { handleError, setTheme } from '@/utils'
 import SvgIcon from '@/components/svg_icon/index.vue'
 import Message from '@/components/message/index.js'
+import loadingDirective from '@/components/loading/directive.js'
 import App from '@/app.vue'
 import '@/assets/style/global.scss'
 
@@ -12,6 +13,7 @@ Vue.config.productionTip = false
 Vue.prototype.$config = config
 Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
+Vue.directive('loading', loadingDirective)
 
 setTheme()
 handleError(config.errorImg)

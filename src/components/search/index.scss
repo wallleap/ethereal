@@ -69,6 +69,10 @@
     margin-top: 32px;
     border-radius: 10px;
     transition: opacity 1s ease;
+    .posts {
+      position: relative;
+      min-height: 298px;
+    }
     .items {
       display: flex;
       flex-direction: column;

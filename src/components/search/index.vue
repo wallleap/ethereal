@@ -9,6 +9,7 @@ export default {
       searchCount: 0,
       posts: [],
       showModal: false,
+      loading: true,
     }
   },
   methods: {
@@ -28,10 +29,15 @@ export default {
       this.$refs.searchWrap.classList.remove('active')
     },
     async searchPostsFn() {
+      this.loading = true
+      this.posts = []
       const q = this.searchValue
       const res = await this.searchPostsAction({ q })
+      this.searchValue = ''
       this.searchCount = res.searchCount
       this.posts = res.posts
+      if (this.posts)
+        this.loading = false
     },
   },
 }
@@ -57,7 +63,7 @@ export default {
           <SvgIcon name="close" />
         </div>
         <div class="container">
-          <div class="posts">
+          <div v-loading="loading" class="posts">
             <ul class="items">
               <li v-for="post in posts" :key="post.id" class="item">
                 <SvgIcon name="arrow" />

@@ -13,6 +13,7 @@ export default {
     return {
       posts: [],
       totalCount: 0,
+      loading: true,
     }
   },
   computed: {
@@ -58,6 +59,7 @@ export default {
         : await this.getPostsCountAction()
     },
     async getPostsFn() {
+      this.loading = true
       let res = []
       if (this.categoryNumber) {
         const filter = `&milestone=${this.categoryNumber}`
@@ -65,6 +67,8 @@ export default {
       }
       else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
       this.posts = res
+      if (this.posts)
+        this.loading = false
       this.$store.commit('github/setAllPosts', res)
     },
   },
@@ -73,7 +77,7 @@ export default {
 
 <template>
   <div class="post-list">
-    <div class="posts-wrap">
+    <div v-loading="loading" class="posts-wrap">
       <div class="posts">
         <router-link
           v-for="post in posts"
@@ -97,6 +101,7 @@ export default {
 <style lang="scss" scoped>
 .post-list {
   .posts-wrap {
+    position: relative;
     width: 100%;
     margin: 0 auto;
     margin-top: 1em;

@@ -16,6 +16,7 @@ export default {
       tags: [],
       isFilter: false,
       filterCount: 0,
+      loading: true,
     }
   },
   computed: {
@@ -42,6 +43,8 @@ export default {
     async getArchivesFn() {
       this.archives = this.archives.concat(await this.getPostsAction({ page: 1, pageSize: 100 }))
       this.archiveMap = this.parseArchives(this.archives)
+      if (this.archives)
+        this.loading = false
     },
     async getTagsFn() {
       this.tags = await this.getTagsAction()
@@ -100,7 +103,7 @@ export default {
 
 <template>
   <div class="archives-wrap">
-    <div class="archives">
+    <div v-loading="loading" class="archives">
       <div class="tags">
         <div class="tags-header">
           <h2><SvgIcon name="biaoqian" /> 标签</h2>

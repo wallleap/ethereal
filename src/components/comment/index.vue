@@ -5,6 +5,7 @@ export default {
     return {
       showUtterances: true,
       showTwikoo: false,
+      loading: true,
     }
   },
   computed: {
@@ -89,6 +90,7 @@ export default {
         const timer = setInterval(() => {
           if (this.$refs.utterances) {
             clearInterval(timer)
+            this.loading = false
             resolve()
           }
           else {
@@ -118,7 +120,7 @@ export default {
         </li>
       </ul>
     </div>
-    <div class="comments-body">
+    <div v-loading="loading" class="comments-body">
       <transition name="slide">
         <div v-show="showUtterances" class="u-wrap">
           <div ref="utterances" class="utterances">

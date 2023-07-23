@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       about: '',
+      loading: true,
     }
   },
   created() {
@@ -23,6 +24,8 @@ export default {
       const parsedString = await markIt.parse(content)
       this.about = parsedString?.content
       this.appendBusuanzi(parsedString?.content)
+      if (res)
+        this.loading = false
     },
     appendBusuanzi(string) {
       if (!string)
@@ -43,7 +46,7 @@ export default {
 
 <template>
   <div class="about-wrap">
-    <div class="about">
+    <div v-loading="loading" class="about">
       <Markdown :content="about" />
     </div>
   </div>

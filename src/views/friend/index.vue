@@ -12,6 +12,7 @@ export default {
       filterFriends: [],
       loseContact: [],
       notAdded: [],
+      loading: true,
     }
   },
   computed: {
@@ -62,6 +63,8 @@ export default {
     async getFriendsFn() {
       const totalCount = await this.getFriendsCountFn()
       const friends = await this.getFriendsAction({ page: 1, pageSize: totalCount })
+      if (friends)
+        this.loading = false
       this.parseFriends(friends)
     },
   },
@@ -83,7 +86,7 @@ export default {
         <h2><SvgIcon name="zhinan" /> 小伙伴们</h2>
         <p>※ 以下友链友链随机排序，博主将不定期更新排序并过滤阵亡名单</p>
         <p>※ 为了页面视觉体验，头像将保存到博主自己的存储空间，如果有更新请即时联系博主修改</p>
-        <ul class="content">
+        <ul v-loading="loading" class="content">
           <li v-for="friend in filterFriends" :key="friend.number">
             <a :href="friend.url" rel="noopener noreferrer" class="info" target="_blank">
               <figure class="avatar">

@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       ideas: [],
+      loading: true,
     }
   },
   created() {
@@ -26,6 +27,8 @@ export default {
     async getInspirationFn() {
       const totalCount = await this.getInspirationCountFn()
       this.ideas = await this.getInspirationAction({ page: 1, pageSize: totalCount })
+      if (this.ideas)
+        this.loading = false
     },
   },
 }
@@ -35,7 +38,7 @@ export default {
   <div class="inspiration-wrap">
     <div class="inspiration">
       <h2><SvgIcon name="tongzhi" /> 絮絮叨叨</h2>
-      <div class="ideas-wrap">
+      <div v-loading="loading" class="ideas-wrap">
         <div v-for="idea in ideas" :key="idea.id" class="idea-item">
           <IdeaItem
             :idea="idea.body"

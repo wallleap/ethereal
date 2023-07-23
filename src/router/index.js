@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/home/index.vue'
+import config from '@/config.js'
 
 Vue.use(VueRouter)
 
@@ -95,6 +96,14 @@ function scrollBehavior(to, from, savedPosition) {
 const router = new VueRouter({
   routes,
   scrollBehavior,
+})
+
+router.beforeEach((to, from, next) => {
+  if (!to.path.startsWith('/post'))
+    window.document.title = `${config.title} | ${to.meta.title}`
+  if (to.path === '/')
+    window.document.title = `${config.title} | ${config.subtitle}`
+  next()
 })
 
 export default router

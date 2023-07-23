@@ -2,6 +2,7 @@ function state() {
   return {
     theme: 'light',
     currentMenu: {},
+    currentComment: 'utterances',
   }
 }
 
@@ -12,6 +13,9 @@ const mutations = {
   },
   setCurrentMenu(state, currentMenu) {
     state.currentMenu = currentMenu
+  },
+  setCurrentComment(state, currentComment) {
+    state.currentComment = currentComment
   },
 }
 

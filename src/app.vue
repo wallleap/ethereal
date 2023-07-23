@@ -2,6 +2,7 @@
 import NavBar from '@/components/nav_bar/index.vue'
 import Banner from '@/components/banner/index.vue'
 import Search from '@/components/search/index.vue'
+import Comment from '@/components/comment/index.vue'
 import Copyright from '@/components/copyright/index.vue'
 import BackToTop from '@/components/back_to_top/index.vue'
 
@@ -11,6 +12,7 @@ export default {
     NavBar,
     Banner,
     Search,
+    Comment,
     Copyright,
     BackToTop,
   },
@@ -20,7 +22,7 @@ export default {
     }
   },
   computed: {
-    isShowSearch() {
+    showSearch() {
       const whiteList = {
         '/': true,
         '/archives': true,
@@ -28,6 +30,15 @@ export default {
         '/post': false,
       }
       return whiteList[this.$route.path] || this.$route.path.startsWith('/category')
+    },
+    showComments() {
+      const whiteList = {
+        '/': false,
+        '/archives': false,
+        '/friend': true,
+        '/about': true,
+      }
+      return whiteList[this.$route.path] || this.$route.path.startsWith('/post')
     },
   },
   watch: {
@@ -44,11 +55,12 @@ export default {
   <div id="app">
     <NavBar />
     <Banner v-if="!$route.path.startsWith('/post')" />
-    <Search v-if="isShowSearch" />
+    <Search v-if="showSearch" />
     <main class="main">
       <transition :name="transitionName">
         <router-view />
       </transition>
+      <Comment v-if="showComments" />
     </main>
     <Copyright />
     <BackToTop />

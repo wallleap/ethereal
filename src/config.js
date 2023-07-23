@@ -61,4 +61,17 @@ export default {
   // 图片加载失败时显示
   errorImg: '//cdn.wallleap.cn/img/pic/cover/image_processing20200524-7638-6itpxj.gif',
   // 评论配置
+  utterances: {
+    code: `<script src="https://utteranc.es/client.js"
+      repo="wallleap/comments"
+      issue-term="title"
+      label="Comment"
+      theme="github-light"
+      crossorigin="anonymous"
+      async>
+    </script>`,
+  },
+  twikoo: {
+    src: '//cdn.staticfile.org/twikoo/1.6.7/twikoo.all.min.js',
+  },
 }

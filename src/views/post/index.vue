@@ -62,6 +62,7 @@ export default {
       const markIt = new MarkIt()
       this.post = await this.getPostAction({ number: this.postNumber })
       const parsedMarked = await markIt.parse(this.post.body)
+      window.document.title = this.post.title
       this.toc = parsedMarked?.toc
       this.content = parsedMarked?.content
     },

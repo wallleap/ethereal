@@ -16,10 +16,12 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 AV.init({
-  appId: import.meta.env.VITE_LEANCLOUD_ID,
-  appKey: import.meta.env.VITE_LEANCLOUD_KEY,
-  serverURL: import.meta.env.VITE_LEANCLOUD_URL,
+  appId: isProduction ? process.env.VITE_LEANCLOUD_ID : import.meta.env.VITE_LEANCLOUD_ID,
+  appKey: isProduction ? process.env.VITE_LEANCLOUD_KEY : import.meta.env.VITE_LEANCLOUD_KEY,
+  serverURL: isProduction ? process.env.VITE_LEANCLOUD_URL : import.meta.env.VITE_LEANCLOUD_URL,
 })
 setTheme()
 handleError(config.errorImg)

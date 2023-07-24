@@ -17,7 +17,7 @@ export const githubGraphql = axios.create({
   baseURL: `${GITHUB_API}/graphql`,
   timeout: 10000,
   headers: {
-    Authorization: `token ${GITHUB_TOKEN}`,
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
   },
 })
 
@@ -33,7 +33,7 @@ export const poetry = axios.create({
  * @returns {Object}
  */
 github.interceptors.request.use((config) => {
-  config.headers.Authorization = `token ${GITHUB_TOKEN}`
+  config.headers.Authorization = `Bearer ${GITHUB_TOKEN}`
   return config
 }, (error) => {
   return Promise.reject(error)

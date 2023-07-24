@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -27,24 +29,19 @@ jobs:
       - name: Build
         run: pnpm run build
 
-
-      - name: Configuration environment
-        env:
-          SSH_KEY_PASSWORD: ${{secrets.SSH_KEY_PASSWORD}}
-        run: |
-          sudo timedatectl set-timezone "Asia/Shanghai"
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY_PASSWORD" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
           external_repository: wallleap/wallleap.github.io
-          publish_branch: master
+          user_name: wallleap
+          user_email: 15579576761@163.com
+          commit_message: ${{ github.event.head_commit.message }}
+          full_commit_message: ${{ github.event.head_commit.message }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          force_orphan: true
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          allow_empty_commit: true
+          cname: myblog.wallleap.cn
+      - name: Get the output
+        run: |
+          echo "${{ steps.deploy.outputs.notify }}"

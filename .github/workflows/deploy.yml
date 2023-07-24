@@ -26,14 +26,17 @@ jobs:
 
       - name: Build
         run: pnpm run build
+        
 
-      - name: Start SSH agent
-        run: eval $(ssh-agent)
-
-      - name: Use SSH key
-        run: echo "$SSH_KEY_PASSWORD" | ssh-add /home/runner/.ssh/github
+      - name: Configuration environment
         env:
-          SSH_KEY_PASSWORD: ${{ secrets.SSH_KEY_PASSWORD }}
+          SSH_KEY_PASSWORD: ${{secrets.SSH_KEY_PASSWORD}}
+        run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY_PASSWORD" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

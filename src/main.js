@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import AV from 'leancloud-storage'
 import config from './config.js'
 import store from './store'
 import router from './router'
@@ -15,6 +16,11 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
+AV.init({
+  appId: import.meta.env.VITE_LEANCLOUD_ID,
+  appKey: import.meta.env.VITE_LEANCLOUD_KEY,
+  serverURL: import.meta.env.VITE_LEANCLOUD_URL,
+})
 setTheme()
 handleError(config.errorImg)
 

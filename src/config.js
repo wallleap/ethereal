@@ -41,6 +41,8 @@ export default {
   icpLink: '//beian.miit.gov.cn/',
   beian: '',
   beianLink: '',
+  // 关于页二维码
+  alipay_qr: '//cdn.wallleap.cn/img/custom/donate/alipayQr.jpg',
   // GitHub Issues 配置
   username: 'wallleap',
   repository: 'myblogs',
@@ -53,7 +55,7 @@ export default {
   // 友链信息
   name: 'wallleap',
   url: '//myblog.wallleap.cn',
-  avatar: '//cdn.wallleap.cn/img/custom/avatar.jpg',
+  avatar: '//gravatar.wallleap.cn/avatar/be1ccdcf025a92b98a92e331e1b3662a?size=256',
   desc: 'Luwang\'s blog',
   // 文章相关
   pageSize: 12,

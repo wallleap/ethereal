@@ -103,6 +103,7 @@ export default {
   .posts-wrap {
     position: relative;
     width: 100%;
+    min-height: 200px;
     margin: 0 auto;
     margin-top: 1em;
     .posts {

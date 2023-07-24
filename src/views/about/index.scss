@@ -11,7 +11,114 @@
     background-color: var(--bg-thin);
     border-radius: 2em;
 
+    .like {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2em;
+      padding: 1em;
+      background-color: var(--bg-weak);
+      border-radius: 1em;
+
+      .like-img {
+        height: 200px;
+
+        img {
+          height: 100%;
+        }
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: .3em;
+        font-size: 1.4rem;
+      }
+
+      .like-btn {
+        position: relative;
+        margin-top: .5em;
+        width: 120%;
+        font-size: 2rem;
+        cursor: pointer;
+        
+        svg {
+          transition: .3s;
+        }
+
+        &:hover {
+          svg {
+            transform: scale(1.2);
+          }
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border: 1rem solid transparent;
+          border-bottom-color: #FDD7B8;
+        }
+
+        &::after {
+          content: attr(data-text);
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 1em;
+          padding: .2em 1em;
+          border-radius: 5px;
+          font-size: .76rem;
+          color: #653014;
+          background: linear-gradient(135deg, #FFEED5 0%, #FDCAAE 100%);
+        }
+      }
+
+      .alipay-qr {
+        height: 200px;
+        border-radius: .8em;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+        }
+      }
+
+      @include sm-layout {
+        flex-direction: column;
+        gap: 1em;
+
+        .like-img {
+          height: 100px;
+        }
+
+        .alipay-qr {
+          margin-top: 2.2em;
+          width: 100%;
+          height: auto;
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+
     .markdown::v-deep {
+      min-height: 200px;
+
       svg {
         width: 1.2em;
         height: 1.2em;

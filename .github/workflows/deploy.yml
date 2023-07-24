@@ -27,6 +27,12 @@ jobs:
         run: pnpm install
 
       - name: Build
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          VITE_TWIKOO_ID: ${{ secrets.VITE_TWIKOO_ID }}
+          VITE_LEANCLOUD_ID: ${{ secrets.VITE_LEANCLOUD_ID }}
+          VITE_LEANCLOUD_KEY: ${{ secrets.VITE_LEANCLOUD_KEY }}
+          VITE_LEANCLOUD_SERVER: ${{ secrets.VITE_LEANCLOUD_SERVER }}
         run: pnpm run build
 
       - name: Deploy

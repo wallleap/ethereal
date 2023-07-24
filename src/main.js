@@ -16,9 +16,16 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
-const appId = import.meta.env.VITE_LEANCLOUD_ID ?? 'zGSs6NeL8XrO61kH7uNOu2Iz-MdYXbMMI'
-const appKey = import.meta.env.VITE_LEANCLOUD_KEY ?? 'zrR76W2dRogjUXiiPdjVLF57'
-const serverURL = import.meta.env.VITE_LEANCLOUD_URL ?? 'https://api.leancloud.wallleap.cn'
+console.log('env', import.meta.env)
+console.log('env', process.env)
+console.log('process.env.VITE_LEANCLOUD_ID', process.env.VITE_LEANCLOUD_ID)
+console.log('process.env.VITE_LEANCLOUD_KEY', process.env.VITE_LEANCLOUD_KEY)
+console.log('process.env.VITE_LEANCLOUD_SERVER', process.env.VITE_LEANCLOUD_SERVER)
+console.log('VITE_TWIKOO_ID', process.env.VITE_TWIKOO_ID)
+
+const appId = import.meta.env.VITE_LEANCLOUD_ID ?? process.env.VITE_LEANCLOUD_ID
+const appKey = import.meta.env.VITE_LEANCLOUD_KEY ?? process.env.VITE_LEANCLOUD_KEY
+const serverURL = import.meta.VITE_LEANCLOUD_SERVER ?? process.env.VITE_LEANCLOUD_URL
 
 AV.init({
   appId,

@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      queryHotAction: 'leancloud/queryHotAction',
       getPostsAction: 'github/getPostsAction',
       getPostsCountAction: 'github/getPostsCountAction',
     }),
@@ -59,7 +60,6 @@ export default {
         : await this.getPostsCountAction()
     },
     async getPostsFn() {
-      this.loading = true
       let res = []
       if (this.categoryNumber) {
         const filter = `&milestone=${this.categoryNumber}`
@@ -67,6 +67,14 @@ export default {
       }
       else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
       this.posts = res
+      const ids = res.map(item => item.id)
+      const hot = await this.queryHotAction({ ids })
+      this.posts = this.posts.map((item) => {
+        const index = hot.findIndex(hotItem => hotItem.id === item.id)
+        if (index !== -1)
+          item.hot = hot[index].hot
+        return item
+      })
       if (this.posts)
         this.loading = false
       this.$store.commit('github/setAllPosts', res)

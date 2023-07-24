@@ -21,7 +21,7 @@ export async function queryHot(ids) {
 }
 
 // 增加热度
-export function increaseHot(post) {
+export async function increaseHot(post) {
   return new Promise((resolve) => {
     if (isDev)
       return resolve(1)
@@ -46,12 +46,12 @@ export function increaseHot(post) {
         }
         else {
           // 不存在则新建
-          const newcounter = new Counter()
-          newcounter.set('title', title)
-          newcounter.set('id', id)
-          newcounter.set('time', 1)
-          newcounter.set('site', location.href)
-          newcounter
+          const newCounter = new Counter()
+          newCounter.set('title', title)
+          newCounter.set('id', id)
+          newCounter.set('time', 1)
+          newCounter.set('site', location.href)
+          newCounter
             .save()
             .then(() => resolve(1))
             .catch(console.error)
@@ -85,11 +85,11 @@ export async function queryLike(type) {
           }
         }
         else {
-          const newcounter = new Counter()
-          newcounter.set('title', 'site')
-          newcounter.set('time', 1)
-          newcounter.set('site', location.href)
-          newcounter
+          const newCounter = new Counter()
+          newCounter.set('title', 'site')
+          newCounter.set('time', 1)
+          newCounter.set('site', location.href)
+          newCounter
             .save()
             .then(counter => resolve(counter.get('time')))
             .catch(console.error)

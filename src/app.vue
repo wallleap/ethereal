@@ -48,6 +48,17 @@ export default {
       this.transitionName = to.meta.index > from.meta.index ? 'slide-left' : 'slide-right'
     },
   },
+  created() {
+    this.visitorStatisticsFn()
+  },
+  methods: {
+    visitorStatisticsFn() {
+      const referrer = document.createElement('a')
+      referrer.href = document.referrer
+      const hostname = referrer.hostname || '直接访问'
+      this.$store.dispatch('leancloud/visitorStatisticsAction', hostname)
+    },
+  },
 }
 </script>
 

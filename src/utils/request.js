@@ -3,7 +3,11 @@ import axios from 'axios'
 const GITHUB_API = 'https://api.github.com'
 const POETRY_API = 'https://v2.jinrishici.com'
 
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN
+let GITHUB_TOKEN = ''
+if (process.env.NODE_ENV === 'production')
+  GITHUB_TOKEN = process.env.ACCESS_TOKEN
+else
+  GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN
 
 export const github = axios.create({
   baseURL: GITHUB_API,

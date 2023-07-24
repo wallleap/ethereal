@@ -5,7 +5,6 @@ const POETRY_API = 'https://v2.jinrishici.com'
 
 const GitHub_Arr = import.meta.env.VITE_GITHUB_TOKEN?.split(', ')
 const GITHUB_TOKEN = GitHub_Arr.join('')
-console.log('GITHUB_TOKEN', GitHub_Arr, GITHUB_TOKEN)
 
 export const github = axios.create({
   baseURL: GITHUB_API,

@@ -17,11 +17,11 @@ Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
 console.log('env', import.meta.env)
-console.log('env', process.env)
-console.log('process.env.VITE_LEANCLOUD_ID', process.env.VITE_LEANCLOUD_ID)
-console.log('process.env.VITE_LEANCLOUD_KEY', process.env.VITE_LEANCLOUD_KEY)
-console.log('process.env.VITE_LEANCLOUD_SERVER', process.env.VITE_LEANCLOUD_SERVER)
-console.log('VITE_TWIKOO_ID', process.env.VITE_TWIKOO_ID)
+console.log('env', process)
+console.log('process.env.VITE_LEANCLOUD_ID', process?.env.VITE_LEANCLOUD_ID)
+console.log('process.env.VITE_LEANCLOUD_KEY', process?.env.VITE_LEANCLOUD_KEY)
+console.log('process.env.VITE_LEANCLOUD_SERVER', process?.env.VITE_LEANCLOUD_SERVER)
+console.log('VITE_TWIKOO_ID', process?.env.VITE_TWIKOO_ID)
 
 const appId = import.meta.env.VITE_LEANCLOUD_ID ?? process.env.VITE_LEANCLOUD_ID
 const appKey = import.meta.env.VITE_LEANCLOUD_KEY ?? process.env.VITE_LEANCLOUD_KEY

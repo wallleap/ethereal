@@ -16,12 +16,14 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
-const isProduction = process.env.NODE_ENV === 'production'
+const appId = import.meta.env.VITE_LEANCLOUD_ID ?? 'zGSs6NeL8XrO61kH7uNOu2Iz-MdYXbMMI'
+const appKey = import.meta.env.VITE_LEANCLOUD_KEY ?? 'zrR76W2dRogjUXiiPdjVLF57'
+const serverURL = import.meta.env.VITE_LEANCLOUD_URL ?? 'https://api.leancloud.wallleap.cn'
 
 AV.init({
-  appId: isProduction ? process.env.VITE_LEANCLOUD_ID : import.meta.env.VITE_LEANCLOUD_ID,
-  appKey: isProduction ? process.env.VITE_LEANCLOUD_KEY : import.meta.env.VITE_LEANCLOUD_KEY,
-  serverURL: isProduction ? process.env.VITE_LEANCLOUD_URL : import.meta.env.VITE_LEANCLOUD_URL,
+  appId,
+  appKey,
+  serverURL,
 })
 setTheme()
 handleError(config.errorImg)

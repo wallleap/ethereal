@@ -16,8 +16,6 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
-console.log('env', import.meta.env)
-
 const appId = import.meta.env.VITE_LEANCLOUD_ID
 const appKey = import.meta.env.VITE_LEANCLOUD_KEY
 const serverURL = import.meta.VITE_LEANCLOUD_SERVER

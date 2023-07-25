@@ -39,12 +39,16 @@ export default {
     <div class="inspiration">
       <h2><SvgIcon name="tongzhi" /> 絮絮叨叨</h2>
       <div v-loading="loading" class="ideas-wrap">
-        <div v-for="idea in ideas" :key="idea.id" class="idea-item">
-          <IdeaItem
-            :idea="idea.body"
-            :create="idea.created_at.slice(0, 10)"
-          />
-        </div>
+        <transition name="from-bottom">
+          <div v-if="!loading">
+            <div v-for="idea in ideas" :key="idea.id" class="idea-item">
+              <IdeaItem
+                :idea="idea.body"
+                :create="idea.created_at.slice(0, 10)"
+              />
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
   </div>

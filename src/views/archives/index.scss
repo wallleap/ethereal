@@ -1,3 +1,14 @@
+.from-bottom-enter-active,
+.from-bottom-leave-active {
+  transition: all .3s ease-in-out;
+}
+
+.from-bottom-enter,
+.from-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 .archives-wrap {
   margin: 0 auto;
   margin-top: 2em;
@@ -5,7 +16,6 @@
   max-width: 876px;
   
   .archives {
-    position: relative;
     width: 100%;
     padding: 2rem;
     background-color: var(--bg-thin);
@@ -58,10 +68,24 @@
             font-size: .8rem;
             cursor: pointer;
             transition: all .2s ease-in-out;
+            animation: drop .3s ease-in-out forwards calc(var(--delay) * .01s);
   
+            @keyframes drop {
+              from {
+                opacity: 0;
+                transform: translateY(calc(var(--delay) * -10px));
+              }
+              
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+
             &:hover {
               background-color: var(--bg-major);
               color: var(--major);
+              transform: scale(1.1);
             }
   
             &.active {
@@ -104,6 +128,9 @@
       }
   
       .archives-body {
+        position: relative;
+        min-height: 92px;
+
         .archive-items {
           margin-bottom: 1em;
   

@@ -1,3 +1,12 @@
+.from-bottom-enter-active, .from-bottom-leave-active {
+  transition: all .3s ease-in-out;
+}
+
+.from-bottom-enter, .from-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 .inspiration-wrap {
   margin: 0 auto;
   margin-top: 4em;

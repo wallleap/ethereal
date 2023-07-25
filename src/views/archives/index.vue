@@ -1,12 +1,14 @@
 <script>
 import { mapActions } from 'vuex'
 import ArchiveCard from '@/components/archive_card/index.vue'
+import Loading from '@/components/loading/index.vue'
 import { hexToHsl } from '@/utils'
 
 export default {
   name: 'Archives',
   components: {
     ArchiveCard,
+    Loading,
   },
   data() {
     return {
@@ -16,6 +18,7 @@ export default {
       tags: [],
       isFilter: false,
       filterCount: 0,
+      timer: null,
       loading: true,
     }
   },
@@ -30,6 +33,9 @@ export default {
     this.getArchiveCountFn()
     this.getArchivesFn()
     this.getTagsFn()
+  },
+  beforeUnmount() {
+    clearTimeout(this.timer)
   },
   methods: {
     ...mapActions({
@@ -48,7 +54,8 @@ export default {
     },
     async getTagsFn() {
       this.tags = await this.getTagsAction()
-      this.tags.forEach((tag) => {
+      this.tags.forEach((tag, index) => {
+        tag.index = index
         tag.hslColor = hexToHsl(`#${tag.color}}`)
       })
     },
@@ -76,6 +83,7 @@ export default {
       const target = e.target
       const tags = this.tags || []
       if (target.classList.contains('tag')) {
+        this.loading = true
         const tagId = Number(target.getAttribute('data-tag'))
         const tag = tags.find(item => item.id === tagId)
         if (tag) {
@@ -87,6 +95,10 @@ export default {
           this.archiveMap = this.parseArchives(archives)
           this.filterCount = archives.length
           this.isFilter = true
+          this.timer = setTimeout(() => {
+            clearTimeout(this.timer)
+            this.loading = false
+          }, 1000)
         }
       }
     },
@@ -103,7 +115,7 @@ export default {
 
 <template>
   <div class="archives-wrap">
-    <div v-loading="loading" class="archives">
+    <div class="archives">
       <div class="tags">
         <div class="tags-header">
           <h2><SvgIcon name="biaoqian" /> 标签</h2>
@@ -113,7 +125,7 @@ export default {
         </div>
         <div class="tags-body">
           <ul ref="tagList" class="tag-list" @click="filterArchives">
-            <li v-for="tag in tags" :key="tag.id" class="tag" :data-tag="tag.id" :style="{ '--color': `#${tag.color}`, '--tag-hsl': tag.hslColor }">
+            <li v-for="tag in tags" :key="tag.id" class="tag" :data-tag="tag.id" :style="{ '--color': `#${tag.color}`, '--tag-hsl': tag.hslColor, '--delay': `${tag.index}` }">
               {{ tag.name || '' }}
             </li>
           </ul>
@@ -132,20 +144,25 @@ export default {
           </h2>
         </div>
         <div class="archives-body">
-          <div v-for="key in Object.keys(archiveMap).reverse()" :key="key" class="archive-items">
-            <div class="archive-year">
-              {{ key }}
+          <Loading v-if="loading" />
+          <transition name="from-bottom">
+            <div v-if="!loading">
+              <div v-for="key in Object.keys(archiveMap).reverse()" :key="key" class="archive-items">
+                <div class="archive-year">
+                  {{ key }}
+                </div>
+                <div class="archive-item-list">
+                  <router-link
+                    v-for="archive in archiveMap[key]"
+                    :key="archive.id"
+                    :to="{ name: 'Post', params: { number: archive.number } }"
+                  >
+                    <ArchiveCard :cover="archive.cover" :title="archive.title" :created-at="archive.created_at" />
+                  </router-link>
+                </div>
+              </div>
             </div>
-            <div class="archive-item-list">
-              <router-link
-                v-for="archive in archiveMap[key]"
-                :key="archive.id"
-                :to="{ name: 'Post', params: { number: archive.number } }"
-              >
-                <ArchiveCard :cover="archive.cover" :title="archive.title" :created-at="archive.created_at" />
-              </router-link>
-            </div>
-          </div>
+          </transition>
         </div>
       </div>
     </div>

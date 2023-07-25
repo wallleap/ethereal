@@ -1,5 +1,4 @@
 import { poetry } from '@/utils/request.js'
-import store from '@/store'
 
 export function getPoetryTokenAPI() {
   return poetry({
@@ -7,12 +6,12 @@ export function getPoetryTokenAPI() {
   })
 }
 
-export function getPoetryAllAPI() {
+export function getPoetryAllAPI(xUserToken) {
   return poetry({
     url: '/one.json',
     params: {
       'client': 'npm-sdk/1.0',
-      'X-User-Token': store.state.poetry.poetryToken,
+      'X-User-Token': xUserToken,
     },
   })
 }

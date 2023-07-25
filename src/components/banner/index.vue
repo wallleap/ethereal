@@ -4,6 +4,11 @@ import { getPoetryAllAPI, getPoetryTokenAPI } from '@/api/poetry.js'
 
 export default {
   name: 'Banner',
+  data() {
+    return {
+      timerId: null,
+    }
+  },
   computed: {
     poetryTitle() {
       return this.$store.state.poetry.poetryTitle
@@ -13,10 +18,11 @@ export default {
     },
   },
   created() {
-    if (!this.$store.state.poetry.poetryToken)
-      this.getPoetryTokenAPI()
     if (!this.$store.state.poetry.poetryTitle && this.$store.state.poetry.poetryContent.length === 0)
       this.retryGetPoetryFn()
+  },
+  beforeUnmount() {
+    clearTimeout(this.timerId)
   },
   methods: {
     ...mapMutations({
@@ -28,9 +34,13 @@ export default {
       const { data: res } = await getPoetryTokenAPI()
       if (res.status === 'success')
         this.setPoetryToken(res.data)
+      return res.data
     },
     async getPoetryAllFn() {
-      const { data: res } = await getPoetryAllAPI()
+      let xUserToken = this.$store.state.poetry.poetryToken
+      if (!this.$store.state.poetry.poetryToken)
+        xUserToken = await this.getPoetryTokenAPI()
+      const { data: res } = await getPoetryAllAPI(xUserToken)
       if (res.status === 'success') {
         const poetryData = res.data.origin
         this.setPoetryTitle(poetryData.title)
@@ -39,16 +49,17 @@ export default {
       return res
     },
     async retryGetPoetryFn() {
+      const RETRY_COUNT = 5
       let count = 0
       await this.getPoetryAllFn()
       while (this.poetryContent.some(item => item.length > 26)) {
         await this.getPoetryAllFn()
-        const timerId = setTimeout(() => {
-          if (count > 5 || this.poetryContent.every(item => item.length <= 26))
+        this.timerId = setTimeout(() => {
+          clearTimeout(this.timerId)
+          if (count > RETRY_COUNT || this.poetryContent.every(item => item.length <= 26))
             return
           count++
-          clearTimeout(timerId)
-        }, 1000)
+        }, 300)
       }
     },
   },

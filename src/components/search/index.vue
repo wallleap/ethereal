@@ -28,6 +28,10 @@ export default {
       document.documentElement.classList.remove('modal-open')
       this.$refs.searchWrap.classList.remove('active')
     },
+    pushToPost(number) {
+      this.$router.push({ name: 'Post', params: { number } })
+      this.hideSearchWrap()
+    },
     async searchPostsFn() {
       this.loading = true
       this.posts = []
@@ -46,7 +50,7 @@ export default {
 <template>
   <div class="site-search">
     <div ref="searchWrap" class="search-wrap">
-      <form class="search-box" @submit="searchPostsFn">
+      <form class="search-box" @submit.prevent="searchPostsFn">
         <input
           v-model="searchValue"
           type="text"
@@ -65,7 +69,12 @@ export default {
         <div class="container">
           <div v-loading="loading" class="posts">
             <ul class="items">
-              <li v-for="post in posts" :key="post.id" class="item">
+              <li
+                v-for="post in posts"
+                :key="post.id"
+                class="item"
+                @click="pushToPost(post.number)"
+              >
                 <SvgIcon name="arrow" />
                 <span>{{ post.title }}</span>
               </li>

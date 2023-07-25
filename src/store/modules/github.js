@@ -68,6 +68,7 @@ const actions = {
     const posts = res.data.items.map((post) => {
       return {
         id: post.id,
+        number: post.number,
         title: post.title,
         url: post.url,
       }

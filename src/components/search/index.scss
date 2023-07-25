@@ -79,6 +79,14 @@
       line-height: 1.5;
       gap: .4em;
       color: var(--major);
+      
+      li {
+        cursor: pointer;
+        &:hover {
+          color: var(--accent);
+        }
+      }
+
       .item {
         svg {
           font-size: 1.2rem;

@@ -1,6 +1,6 @@
 # Ethereal
 
-![GitHub stars](https://img.shields.io/github/stars/wallleap/ethereal?style=flat) ![GitHub forks](https://img.shields.io/github/forks/wallleap/ethereal?style=flat) ![GitHub issues](https://img.shields.io/github/issues/wallleap/ethereal?style=flat) ![GitHub last commit](https://img.shields.io/github/last-commit/wallleap/ethereal?style=flat) ![GitHub](https://img.shields.io/github/license/wallleap/ethereal?style=flat) ![build](https://img.shields.io/github/workflow/status/:user/:repo/:workflow)
+![GitHub stars](https://img.shields.io/github/stars/wallleap/ethereal?style=flat) ![GitHub forks](https://img.shields.io/github/forks/wallleap/ethereal?style=flat) ![GitHub issues](https://img.shields.io/github/issues/wallleap/ethereal?style=flat) ![GitHub last commit](https://img.shields.io/github/last-commit/wallleap/ethereal?style=flat) ![GitHub](https://img.shields.io/github/license/wallleap/ethereal?style=flat) ![build](https://img.shields.io/github/workflow/status/wallleap/ethereal/deploy.yml)
 
 使用 Vite 4 搭建的 Vue 2 博客，免费使用
 

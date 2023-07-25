@@ -18,13 +18,14 @@ Vue.directive('loading', loadingDirective)
 
 const appId = import.meta.env.VITE_LEANCLOUD_ID
 const appKey = import.meta.env.VITE_LEANCLOUD_KEY
-const serverURLs = import.meta.VITE_LEANCLOUD_SERVER
+const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER
 
 AV.init({
   appId,
   appKey,
   serverURLs,
 })
+
 setTheme()
 handleError(config.errorImg)
 

@@ -28,7 +28,7 @@ export default {
       },
       set(val) {
         this.$store.commit('github/setCurrentPage', val)
-        this.getPostsFn()
+        // this.getPostsFn()
         window.scrollTo({
           top: 0,
           behavior: 'smooth',
@@ -90,17 +90,19 @@ export default {
   <div class="post-list">
     <div class="posts-wrap">
       <Loading v-if="loading" />
-      <div class="posts">
-        <router-link
-          v-for="post in posts"
-          :key="post.id"
-          :to="{ name: 'Post', params: { number: post.number } }"
-        >
-          <PostCard
-            :post="post"
-          />
-        </router-link>
-      </div>
+      <transition name="from-bottom">
+        <div v-if="!loading" class="posts">
+          <router-link
+            v-for="post in posts"
+            :key="post.id"
+            :to="{ name: 'Post', params: { number: post.number } }"
+          >
+            <PostCard
+              :post="post"
+            />
+          </router-link>
+        </div>
+      </transition>
     </div>
     <Pagination
       :current-page.sync="currentPage"
@@ -111,6 +113,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.from-bottom-enter-active {
+  transition: all 0.3s ease;
+}
+.from-bottom-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
 .post-list {
   .posts-wrap {
     position: relative;

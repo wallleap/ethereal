@@ -1,17 +1,17 @@
 # Ethereal
 
-![GitHub stars](https://img.shields.io/github/stars/wallleap/ethereal?style=flat) ![GitHub forks](https://img.shields.io/github/forks/wallleap/ethereal?style=flat) ![GitHub issues](https://img.shields.io/github/issues/wallleap/ethereal?style=flat) ![GitHub last commit](https://img.shields.io/github/last-commit/wallleap/ethereal?style=flat) ![GitHub](https://img.shields.io/github/license/wallleap/ethereal?style=flat) ![build](https://img.shields.io/github/workflow/status/wallleap/ethereal/deploy.yml)
+![GitHub stars](https://img.shields.io/github/stars/wallleap/ethereal?style=flat) ![GitHub forks](https://img.shields.io/github/forks/wallleap/ethereal?style=flat) ![GitHub issues](https://img.shields.io/github/issues/wallleap/ethereal?style=flat) ![GitHub last commit](https://img.shields.io/github/last-commit/wallleap/ethereal?style=flat) ![GitHub](https://img.shields.io/github/license/wallleap/ethereal?style=flat) ![build](https://img.shields.io/github/actions/workflow/status/wallleap/ethereal/deploy.yml?branch=main)
 
 使用 Vite 4 搭建的 Vue 2 博客，免费使用
 
 ## Features
 
-- :writing_hand: 使用 Vite 4 构建打包，速度更快
 - :fairy: 基于 Vue 2 + Vue Router + Vuex 开发的 SPA 博客主题
-- :whale: 使用 GitHub Issue 编写文章，通过 GitHub API 获取文章数据
+- :writing_hand: 使用 Vite 4 构建打包，开发体验更好，构建速度更快
+- :whale: 使用 GitHub Issue 编写文章，前端通过 GitHub API 获取文章数据
 - :octopus:	 评论系统内置 Twikoo 和 Utterances，免费无广，方便后续迁移
 - :crab: 使用 GitHub Actions 自动构建部署，Token 仅用于构建，安全可靠
-- :sparkles: 使用 GitHub Pages or Vercel 部署在线访问，无需额外服务器
+- :sparkles: 使用 GitHub Pages / Vercel 部署在线访问，无需额外服务器
 
 ## Recommended Environment
 
@@ -55,19 +55,19 @@
 
 **灵感页面**
 
-可以新建 Issue，title 随意，label 为 `Inspiration`，例如：
+新建 Issue，title 随意，label 为 `Inspiration`，例如：
 
 ```md
 今天看到了一篇好文章，学到了 xxx
 ```
 
-填写完毕后，点击 `Submit new issue` 按钮，之后点击 `Close issue` 关闭该 Issue
+填写完毕，点击 `Submit new issue` 按钮，之后点击 `Close issue` 关闭该 Issue
 
 灵感页面将会展示所有 `Inspiration` label 的 Issue，所以可以创建多条
 
 **常规文章**
 
-可以新建 Issue，title 随意，label 随意，label 将作为文章的标签（例如 `CSS`），Milestone 将作为文章的分类（例如 `前端`、`后端`、`安全`），内容使用 Markdown 编写，建议按照一定规范，例如：
+新建 Issue，title 随意，label 随意，label 将作为文章的标签（例如 `CSS`），Milestone 将作为文章的分类（例如 `前端`、`后端`、`安全`），内容使用 Markdown 编写，建议按照一定规范，例如：
 
 ````md
 第一段将作为摘要显示。
@@ -130,20 +130,21 @@
 
 ## 文字
 
-链接
+<https://linkxxx.com>
 
 [链接文字](https://xxx.com)
 
-**加粗**，*斜体*，~~删除线~~，`行内代码`，<u>下划线</u>，<mark>高亮</mark> 或 ==高亮==
+**加粗**，*斜体*，~~删除线~~，`行内代码`，<kbd>按键</kbd>，<u>下划线</u>，<mark>高亮</mark> 或 ==高亮==
 
-19^th^、2<sup>3</sup>，H~2~O、H<sub>n</sub>
+19^th^、2<sup>3</sup> 上标
+H~2~O、H<sub>n</sub> 下标
 ````
 
 填写完毕后，点击 `Submit new issue` 按钮，保持 Issue Open 状态
 
 ### Create a repo for friends links
 
-创建一个新的 GitHub 仓库，用于存放友链，仓库名随意，例如 `friends`，然后创建 Issue
+创建一个新的 GitHub 仓库，用于存放友链（单独开个仓库的优点是更好管理，可玩性更高），仓库名随意，例如 `friends`，然后创建 Issue
 
 title 随意，内容按如下格式
 
@@ -154,11 +155,11 @@ avatar: Ta的头像链接
 desc: 一句话描述
 ```
 
-填写完毕后，点击 `Submit new issue` 按钮，之后 `Close issue` 关闭该 Issue
+填写完毕，点击 `Submit new issue` 按钮，之后 `Close issue` 关闭该 Issue
 
 可以设置 `Label`
 
-- 不加默认显示
+- 不加默认显示为友链
 - `失联`，将显示在失联列表
 - `未添加`，将以文字形式展示在友链页面
 
@@ -183,22 +184,45 @@ pnpm install
 
 1、复制 `.env.sample` 重命名为 `.env.local`，修改其中的配置项
 
-- VITE_GITHUB_TOKEN
-  1. 前往 <https://github.com/settings/tokens> 生成一个新的 Token，勾选 `repo` 权限（如果使用 Beta 版本，建议缩小权限范围，`Only select repositories` 选择你的博客仓库，`Repository permissions` 勾选 Issues）
-  2. 复制生成的 Token，填入 `.env.local` 中的 `VITE_GITHUB_TOKEN` 中，并在中间任意位置加入 ` ,` 空格+半角逗号（避免 GitHub 检测到让 Token 过期），例如：`VITE_GITHUB_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxx, xxxxxxxxxxxxxx"`
-- VITE_TWIKOO_ID="Your Twikoo ID"
-  - 前往 <https://twikoo.js.org/> 按照文档部署配置
-  - 将 `envId` 填入 `.env.local` 中的 `VITE_TWIKOO_ID` 中
-- VITE_LEANCLOUD_ID="Your LeanCloud AppId"
-  - 这三个用于统计文章的热度和页面访问量的
-  - 前往 <https://console.leancloud.cn/> 切换地区为国际版（左上角），注册账号，创建一个应用
-  - 设置中的应用凭证中的 `AppId` 填入 `.env.local` 中的 `VITE_LEANCLOUD_ID` 中
-- VITE_LEANCLOUD_KEY="Your LeanCloud AppKey"
-  - `AppKey` 填入 `.env.local` 中的 `VITE_LEANCLOUD_KEY` 中
-- VITE_LEANCLOUD_SERVER="Your LeanCloud Server URL"
-  - 由于它自带的域名在国内已经访问不了了，因此需要在域名绑定中绑定自己的域名
-  - 之后将 REST API 服务器地址填入 `.env.local` 中的 `VITE_LEANCLOUD_SERVER` 中，例如：`https://xxx.com`
-  - 接着在安全中心的 `Web 安全域名` 中添加自己的域名，例如：`https://xxx.com`
+**`VITE_GITHUB_TOKEN`**
+
+前往 <https://github.com/settings/tokens> 生成一个新的 Token，勾选 `repo` 权限
+
+如果使用 Beta 版本，建议缩小权限范围，`Only select repositories` 选择你存放博客 Issue 的仓库（即最开始新建的 `blog` 仓库），`Repository permissions` 勾选 Issues（这个 Token 是为了获取 Issue 数据的，不需要其他权限）
+
+复制生成的 Token，填入 `.env.local` 中的 `VITE_GITHUB_TOKEN` 中，并在中间任意位置加入 ` ,` 空格+半角逗号（避免代码部署到 GitHub 后检测到让 Token 过期）
+
+例如：`VITE_GITHUB_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxx, xxxxxxxxxxxxxx"`
+
+---
+
+**`VITE_TWIKOO_ID`**
+
+前往 <https://twikoo.js.org/> 按照文档部署配置
+
+将得到的 `envId` 填入 `.env.local` 中的 `VITE_TWIKOO_ID` 中，如果用的是 Vercel 需要绑定自己的域名
+
+---
+
+下面三个是用于统计文章的热度和页面访问量的
+
+**`VITE_LEANCLOUD_ID`**
+
+前往 <https://console.leancloud.cn/> 切换地区为国际版（左上角），注册账号，创建一个应用，应用名随意
+
+设置中的应用凭证找到 `AppId` 填入 `.env.local` 中的 `VITE_LEANCLOUD_ID` 中
+
+**`VITE_LEANCLOUD_KEY`**
+
+`AppKey` 填入 `.env.local` 中的 `VITE_LEANCLOUD_KEY` 中
+
+**`VITE_LEANCLOUD_SERVER`**
+
+由于它自带的域名在国内已经访问不了了，因此需要在域名绑定中绑定自己的域名
+
+之后将 REST API 服务器地址填入 `.env.local` 中的 `VITE_LEANCLOUD_SERVER` 中，例如：`https://xxx.com`
+
+接着在安全中心的 `Web 安全域名` 中添加自己的博客自定义域名，例如：`https://xxx.com`（协议号、主机名、端口都需要和你使用的一致）
 
 2、修改 `src/config.js` 中的配置
 
@@ -226,7 +250,7 @@ pnpm dev
 运行下面命令，将会在 `dist` 目录下生成静态文件
 
 ```sh
-pnpm build
+pnpm run build
 ```
 
 将 `dist` 目录下的文件上传到你的服务器即可
@@ -238,12 +262,15 @@ pnpm build
 在 `ethereal` **仓库**的 `Settings` -> `Secretes and variables` -> `Action` 中 `New repository secret`，添加以下变量
 
 - ACCESS_TOKEN：对应着 `.env.local` 中的 `VITE_GITHUB_TOKEN`，例如：`xxxxxxxxxxxxxxxxxxxxxxxxxx, xxxxxxxxxxxxxx`
-- `.env.local` 中的剩余四项，`Name` 为 `VITE_TWIKOO_ID`、`VITE_LEANCLOUD_ID`、`VITE_LEANCLOUD_KEY`、`VITE_LEANCLOUD_SERVER`，`Secret` 分别为对应的双引号中的内容
+- `.env.local` 中的剩余四项，`Name` 为 `VITE_TWIKOO_ID`、`VITE_LEANCLOUD_ID`、`VITE_LEANCLOUD_KEY`、`VITE_LEANCLOUD_SERVER`，`Secret` 分别为对应的双引号中内容
+
+---
 
 以上是对应的环境变量，让项目代码能够获取到相应的值，接下来是新增一个推送权限的 Token
 
 - `PERSONAL_TOKEN`
   - 在 <https://github.com/settings/tokens> 新生成一个 Token，勾选 `repo`、`workflow` 权限，复制生成的 Token，填入 `PERSONAL_TOKEN` 中
+  - 这个是直接填入 secret 中的，因此使用 Classic Token，也没问题，不用担心泄露
 
 在本地终端执行生成 SSH 密钥
 

@@ -1,5 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
+import Loading from '@/components/loading/index.vue'
 import PostCard from '@/components/post_card/index.vue'
 import Pagination from '@/components/pagination/index.vue'
 
@@ -8,6 +9,7 @@ export default {
   components: {
     PostCard,
     Pagination,
+    Loading,
   },
   data() {
     return {
@@ -60,22 +62,20 @@ export default {
         : await this.getPostsCountAction()
     },
     async getPostsFn() {
+      this.loading = true
       let res = []
       if (this.categoryNumber) {
         const filter = `&milestone=${this.categoryNumber}`
         res = await this.getPostsAction({ page: `${this.currentPage}`, filter })
       }
       else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
-      this.posts = res
       const ids = res.map(post => post.id)
-      const hot = await this.queryHotAction('queryHot', { ids })
-      console.log('hot', hot)
-      if (hot && hot.length > 0) {
-        this.posts = this.posts.map((item) => {
-          const index = hot.findIndex(hotItem => hotItem.id === item.id)
-          if (index !== -1)
-            item.hot = hot[index].hot
-          return item
+      const hot = await this.queryHotAction({ ids })
+      if (hot) {
+        this.posts = res.map((post) => {
+          const hotNum = hot[post.id] || 1
+          post.hot = hotNum
+          return post
         })
       }
       if (this.posts)
@@ -88,7 +88,8 @@ export default {
 
 <template>
   <div class="post-list">
-    <div v-loading="loading" class="posts-wrap">
+    <div class="posts-wrap">
+      <Loading v-if="loading" />
       <div class="posts">
         <router-link
           v-for="post in posts"

@@ -1,12 +1,10 @@
 import AV from 'leancloud-storage'
 
-const isDev = /^(192\.168|localhost)/.test(window.location.host)
+const isDev = /^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|::1|127\.0\.0\.1|localhost)/.test(window.location.host)
 
 // 文章热度
 export async function queryHot(ids) {
   return new Promise((resolve) => {
-    if (isDev)
-      return resolve([])
     const query = new AV.Query('Counter')
     query.containedIn('id', ids)
     query

@@ -51,6 +51,7 @@ export default {
       getPostsCountAction: 'github/getPostsCountAction',
       getPostsAction: 'github/getPostsAction',
       getPostAction: 'github/getPostAction',
+      increaseHotAction: 'leancloud/increaseHotAction',
     }),
     async getPostsCountFn() {
       return await this.getPostsCountAction()
@@ -62,6 +63,8 @@ export default {
     async getPostFn() {
       const markIt = new MarkIt()
       this.post = await this.getPostAction({ number: this.postNumber })
+      const hot = await this.increaseHotAction({ post: this.post })
+      this.$set(this.post, 'hot', hot)
       const parsedMarked = await markIt.parse(this.post.body)
       window.document.title = this.post.title
       this.toc = parsedMarked?.toc

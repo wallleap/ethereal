@@ -67,14 +67,17 @@ export default {
       }
       else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
       this.posts = res
-      const ids = res.map(item => item.id)
-      const hot = await this.queryHotAction({ ids })
-      this.posts = this.posts.map((item) => {
-        const index = hot.findIndex(hotItem => hotItem.id === item.id)
-        if (index !== -1)
-          item.hot = hot[index].hot
-        return item
-      })
+      const ids = res.map(post => post.id)
+      const hot = await this.queryHotAction('queryHot', { ids })
+      console.log('hot', hot)
+      if (hot && hot.length > 0) {
+        this.posts = this.posts.map((item) => {
+          const index = hot.findIndex(hotItem => hotItem.id === item.id)
+          if (index !== -1)
+            item.hot = hot[index].hot
+          return item
+        })
+      }
       if (this.posts)
         this.loading = false
       this.$store.commit('github/setAllPosts', res)

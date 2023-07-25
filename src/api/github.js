@@ -75,7 +75,7 @@ export function getInspirationCountAPI() {
  */
 export function searchPostsAPI({ q = '' }) {
   return github({
-    url: `/search/issues?q=${q}+state:open+repo:${username}/${repository}&sort=created&order=asc&per_page=10&page=1`,
+    url: `/search/issues?q=${q}+is:issue+state:open+repo:${username}/${repository}&sort=created&order=asc&per_page=10&page=1`,
   })
 }
 

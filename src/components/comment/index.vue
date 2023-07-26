@@ -28,7 +28,11 @@ export default {
         const [_, key, value] = match.match(/(\w+)\s*=\s*["']([^"']+)["']/)
         obj[key] = value
       })
+      obj.theme = this.theme === 'dark' ? 'github-dark' : 'github-light'
       return obj
+    },
+    theme() {
+      return this.$store.state.style.theme
     },
   },
   watch: {
@@ -36,6 +40,16 @@ export default {
       if (document.querySelector('.utterances .utterances'))
         document.querySelector('.utterances .utterances').remove()
       this.loadAll()
+    },
+    theme() {
+      const theme = this.theme === 'dark' ? 'github-dark' : 'github-light'
+      document.querySelector('.utterances .utterances iframe').contentWindow.postMessage(
+        {
+          type: 'set-theme',
+          theme,
+        },
+        'https://utteranc.es',
+      )
     },
   },
   mounted() {

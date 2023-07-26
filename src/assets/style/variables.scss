@@ -18,16 +18,17 @@
   --warning-rgb: 254, 201, 0;
   --info: #00C9F3;
   --info-rgb: 0, 201, 243;
-  --accent: #212121;
-  --major: #757575;
-  --minor: #9E9E9E;
-  --weak: #C4C4C4;
-  --thin: #E0E0E0;
+  --white: #fff;
+  --accent: hsl(var(--primary-h), 25%, 15%);
+  --major: hsl(var(--primary-h), 12%, 35%);
+  --minor: hsl(var(--primary-h), 8%, 50%);
+  --weak: hsl(var(--primary-h), 6%, 65%);
+  --thin: hsl(var(--primary-h), 4%, 80%);
   /* background */
-  --bg-thin: #fff;
-  --bg-weak: #FAFAFA;
-  --bg-major: #F5F5F5;
-  --bg-minor: #F2F2F2;
+  --bg-thin: var(--white);
+  --bg-weak: hsl(var(--primary-h), 4%, 98%);
+  --bg-major: hsl(var(--primary-h), 4%, 96%);
+  --bg-minor: hsl(var(--primary-h), 5%, 90%);
   --bg-mask: rgba(0, 0, 0, 0.5);
   /* font-family */
   --font-hei: -apple-system, "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
@@ -91,20 +92,20 @@
   --warning-rgb: 254, 201, 0;
   --info: #00C9F3;
   --info-rgb: 0, 201, 243;
-  --accent: #FFF;
-  --major: #FAFAFA;
-  --minor: #C4C4C4;
-  --weak: #757575;
-  --thin: #4D4D4D;
+  --accent: var(--white);
+  --major: hsl(var(--primary-h), 4%, 90%);
+  --minor: hsl(var(--primary-h), 4%, 80%);
+  --weak: hsl(var(--primary-h), 5%, 72%);
+  --thin: hsl(var(--primary-h), 6%, 65%);
   /* background */
-  --bg-thin: #0D0D0D;
-  --bg-weak: #1A1A1A;
-  --bg-major: #262626;
-  --bg-minor: #333;
-  --bg-mask: rgba(255, 255, 255, 0.2);
+  --bg-weak: hsl(var(--primary-h), 30%, 10%);
+  --bg-minor: hsl(var(--primary-h), 20%, 15%);
+  --bg-major: hsl(var(--primary-h), 18%, 20%);
+  --bg-thin: hsl(var(--primary-h), 16%, 25%);
+  --bg-mask: rgba(0, 0, 0, 0.8);
 }
 
-.test {
+.variables-test {
   /* 直接使用 */
   color: var(--primary);
   /* 搭配其他函数使用 */

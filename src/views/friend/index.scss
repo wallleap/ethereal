@@ -23,7 +23,7 @@
         &.strong {
           position: relative;
           padding-left: .6em;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           font-weight: bold;
 
           &::before {
@@ -150,7 +150,7 @@
   
     h2 {
       margin-bottom: .8em;
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       line-height: 1.4;
       font-weight: bold;
       color: var(--accent);
@@ -175,10 +175,11 @@
 
   @include xs-layout {
     .friend {
+      padding: 2rem 1rem;
       section {
         .content {
           li {
-            width: calc(100%);
+            width: 100%;
           }
         }
       }

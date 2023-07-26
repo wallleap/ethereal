@@ -84,7 +84,7 @@ export default {
 }
 
 .main {
-  padding-bottom: 240px;
+  padding-bottom: 180px;
 }
 
 .slide-left-enter, .slide-right-leave-active {

@@ -22,7 +22,7 @@
     border-radius: 2em;
   
     h2 {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       line-height: 1.4;
       font-weight: bold;
       color: var(--accent);
@@ -112,7 +112,7 @@
           font-size: .8rem;
           color: white;
           background-color: var(--primary);
-          padding: .2em 1em;
+          padding: .5em 1em;
           border-radius: 1em;
           cursor: pointer;
           transition: all .2s ease-in-out;
@@ -158,6 +158,7 @@
 
   @include xs-layout {
     .archives {
+      padding: 2rem 1rem;
       .archives-list {
         .archives-header {
           .edit {

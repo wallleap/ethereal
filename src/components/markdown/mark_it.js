@@ -105,6 +105,9 @@ class MarkIt {
       const openInNewTab = (isExternal && !href.startsWith(origin)) ? 'target="_blank"' : ''
       return `<a href="${href}" title="${title || ''}" ${openInNewTab}>${text}</a>`
     }
+    this.rendererMD.del = (text) => {
+      return `<del class="del"><span>${text}</span></del>`
+    }
     this.rendererMD.codespan = (code) => {
       return `<code class="code-inline">${code}</code>`
     }

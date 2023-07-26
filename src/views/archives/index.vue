@@ -28,6 +28,9 @@ export default {
       link += `${this.$config.username}/${this.$config.repository}/issues`
       return link
     },
+    filterText() {
+      return this.filterCount === 0 ? '该标签下暂时没有文章~' : `该标签下有 ${this.filterCount} 篇文章~`
+    },
   },
   created() {
     this.getArchiveCountFn()
@@ -140,7 +143,7 @@ export default {
             </a>
           </h2>
           <h2 v-else>
-            <SvgIcon name="danju" /> 该标签下有 {{ filterCount }} 篇文章~
+            <SvgIcon name="danju" /> {{ filterText }}
           </h2>
         </div>
         <div class="archives-body">

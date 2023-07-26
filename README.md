@@ -27,7 +27,7 @@
 
 ## Preview
 
-图片占位
+![预览图](./docs/imgs/mockup.png)
 
 ## Prepare Repo & Issues
 
@@ -170,7 +170,7 @@ desc: 一句话描述
 ### Clone Project
 
 ```sh
-git clone git@github.com:wallleap/Ethereal.git blog
+git clone --exclude=docs git@github.com:wallleap/Ethereal.git blog
 cd blog
 ```
 

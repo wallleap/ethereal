@@ -28,7 +28,6 @@ export default {
       },
       set(val) {
         this.$store.commit('github/setCurrentPage', val)
-        // this.getPostsFn()
         window.scrollTo({
           top: 0,
           behavior: 'smooth',
@@ -56,6 +55,9 @@ export default {
       getPostsAction: 'github/getPostsAction',
       getPostsCountAction: 'github/getPostsCountAction',
     }),
+    pageChangeFn() {
+      this.getPostsFn()
+    },
     async getPostsCountFn() {
       this.totalCount = this.categoryNumber
         ? this.$store.state.github.currentCategory.open_issues
@@ -108,6 +110,7 @@ export default {
       :current-page.sync="currentPage"
       :total="totalCount"
       :page-size="$config.pageSize"
+      @pageChange="pageChangeFn"
     />
   </div>
 </template>

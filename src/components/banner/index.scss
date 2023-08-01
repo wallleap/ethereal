@@ -13,7 +13,7 @@
     transform: translate(150px);
     width: 422px;
     height: 301px;
-    background: url(//cdn.wallleap.cn/assets/img/quote.png) 0 0 no-repeat;
+    background: url('../../assets/images/quote.png') 0 0 no-repeat;
     z-index: -1;
   }
   &::after {
@@ -24,7 +24,7 @@
     transform: translate(-490px);
     width: 324px;
     height: 268px;
-    background: url(//cdn.wallleap.cn/assets/img/dotted.png) 0 0 no-repeat;
+    background: url('../../assets/images/dotted.png') 0 0 no-repeat;
     z-index: -1;
   }
   @include xs-layout {

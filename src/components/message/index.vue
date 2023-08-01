@@ -75,6 +75,9 @@ export default {
 <style lang="scss">
 .message {
   position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
@@ -106,10 +109,6 @@ export default {
     }
   }
   .close-btn {
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    transform: translateY(-50%);
     color: #fff;
     cursor: pointer;
     font-size: 14px;

@@ -24,7 +24,13 @@ export default {
   async created() {
     if (this.needParsed) {
       const markIt = new MarkIt()
-      const parsedString = await markIt.parse(this.content)
+      const parsedString = await markIt.parse(this.content).catch((err) => {
+        this.$message({
+          content: '解析 markdown 失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.htmlString = parsedString?.content
     }
   },

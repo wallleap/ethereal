@@ -47,16 +47,34 @@ export default {
       getTagsAction: 'github/getTagsAction',
     }),
     async getArchiveCountFn() {
-      this.totalCount = await this.getPostsCountAction()
+      this.totalCount = await this.getPostsCountAction().catch((err) => {
+        this.$message({
+          content: '获取文章总数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
     },
     async getArchivesFn() {
-      this.archives = this.archives.concat(await this.getPostsAction({ page: 1, pageSize: 100 }))
-      this.archiveMap = this.parseArchives(this.archives)
-      if (this.archives)
+      this.archives = this.archives.concat(await this.getPostsAction({ page: 1, pageSize: 100 }).catch((err) => {
+        this.$message({
+          content: '获取文章列表失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
         this.loading = false
+      }))
+      this.archiveMap = this.parseArchives(this.archives)
     },
     async getTagsFn() {
-      this.tags = await this.getTagsAction()
+      this.tags = await this.getTagsAction().catch((err) => {
+        this.$message({
+          content: '获取标签列表失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.tags.forEach((tag, index) => {
         tag.index = index
         tag.hslColor = hexToHsl(`#${tag.color}}`)

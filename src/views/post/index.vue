@@ -54,27 +54,65 @@ export default {
       increaseHotAction: 'leancloud/increaseHotAction',
     }),
     async getPostsCountFn() {
-      return await this.getPostsCountAction()
+      return await this.getPostsCountAction().catch((err) => {
+        this.$message({
+          content: '获取文章总数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
     },
     async getPostsFn() {
-      const pageSize = await this.getPostsCountFn()
-      return await this.getPostsAction({ page: 1, pageSize })
+      const pageSize = await this.getPostsCountFn().catch((err) => {
+        throw new Error(err)
+      })
+      return await this.getPostsAction({ page: 1, pageSize }).catch((err) => {
+        this.$message({
+          content: '获取文章列表失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
     },
     async getPostFn() {
       const markIt = new MarkIt()
-      this.post = await this.getPostAction({ number: this.postNumber })
-      const hot = await this.increaseHotAction({ post: this.post })
+      this.post = await this.getPostAction({ number: this.postNumber }).catch((err) => {
+        this.$message({
+          content: '获取文章失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
+        this.loading = false
+      })
+      const hot = await this.increaseHotAction({ post: this.post }).catch((err) => {
+        this.$message({
+          content: '增加文章热度失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.$set(this.post, 'hot', hot)
-      const parsedMarked = await markIt.parse(this.post.body)
+      const parsedMarked = await markIt.parse(this.post.body).catch((err) => {
+        this.$message({
+          content: '解析文章失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       window.document.title = this.post.title
       this.toc = parsedMarked?.toc
       this.content = parsedMarked?.content
-      if (this.post)
-        this.loading = false
     },
     async generateRelatesFn() {
       const LOOP = 2
-      const postList = await this.getPostsFn()
+      const postList = await this.getPostsFn().catch((err) => {
+        this.$message({
+          content: '获取文章列表失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.relates = []
       while (true) {
         const len = postList.length

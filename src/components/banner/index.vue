@@ -31,16 +31,31 @@ export default {
       setPoetryContent: 'poetry/setPoetryContent',
     }),
     async getPoetryTokenAPI() {
-      const { data: res } = await getPoetryTokenAPI()
+      const { data: res } = await getPoetryTokenAPI().catch((err) => {
+        this.$message({
+          content: '获取诗词token失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       if (res.status === 'success')
         this.setPoetryToken(res.data)
       return res.data
     },
     async getPoetryAllFn() {
       let xUserToken = this.$store.state.poetry.poetryToken
-      if (!this.$store.state.poetry.poetryToken)
-        xUserToken = await this.getPoetryTokenAPI()
-      const { data: res } = await getPoetryAllAPI(xUserToken)
+      if (!this.$store.state.poetry.poetryToken) {
+        xUserToken = await this.getPoetryTokenAPI().catch((err) => {
+          throw new Error(err)
+        })
+      }
+      const { data: res } = await getPoetryAllAPI(xUserToken).catch((err) => {
+        this.$message({
+          content: '获取诗词失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       if (res.status === 'success') {
         const poetryData = res.data.origin
         this.setPoetryTitle(poetryData.title)
@@ -51,9 +66,21 @@ export default {
     async retryGetPoetryFn() {
       const RETRY_COUNT = 5
       let count = 0
-      await this.getPoetryAllFn()
+      await this.getPoetryAllFn().catch((err) => {
+        this.$message({
+          content: '获取诗词失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       while (this.poetryContent.some(item => item.length > 26)) {
-        await this.getPoetryAllFn()
+        await this.getPoetryAllFn().catch((err) => {
+          this.$message({
+            content: '获取诗词失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        })
         this.timerId = setTimeout(() => {
           clearTimeout(this.timerId)
           if (count > RETRY_COUNT || this.poetryContent.every(item => item.length <= 26))

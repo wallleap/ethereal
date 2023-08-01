@@ -13,7 +13,9 @@ const actions = {
    * @returns promise
    */
   async queryHotAction(context, { ids }) {
-    return await queryHot(ids)
+    return await queryHot(ids).catch((err) => {
+      throw new Error(err)
+    })
   },
   /**
    * 增加文章热度
@@ -22,7 +24,9 @@ const actions = {
    * @returns promise
    */
   async increaseHotAction(context, { post }) {
-    return await increaseHot(post)
+    return await increaseHot(post).catch((err) => {
+      throw new Error(err)
+    })
   },
   /**
    * 获取点赞数
@@ -31,7 +35,9 @@ const actions = {
    * @returns promise
    */
   async queryLikeAction(context, payload) {
-    return await queryLike(payload)
+    return await queryLike(payload).catch((err) => {
+      throw new Error(err)
+    })
   },
   /**
    * 统计访问来源
@@ -39,7 +45,9 @@ const actions = {
    * @param {*} payload
    */
   async visitorStatisticsAction(context, payload) {
-    await visitorStatistics(payload)
+    await visitorStatistics(payload).catch((err) => {
+      throw new Error(err)
+    })
   },
 }
 

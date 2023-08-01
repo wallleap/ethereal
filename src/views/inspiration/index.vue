@@ -22,13 +22,25 @@ export default {
       getInspirationAction: 'github/getInspirationAction',
     }),
     async getInspirationCountFn() {
-      return await this.getInspirationCountAction()
+      return await this.getInspirationCountAction().catch((err) => {
+        this.$message({
+          content: '获取灵感总数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
     },
     async getInspirationFn() {
       const totalCount = await this.getInspirationCountFn()
-      this.ideas = await this.getInspirationAction({ page: 1, pageSize: totalCount })
-      if (this.ideas)
+      this.ideas = await this.getInspirationAction({ page: 1, pageSize: totalCount }).catch((err) => {
+        this.$message({
+          content: '获取灵感失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
         this.loading = false
+      })
     },
   },
 }

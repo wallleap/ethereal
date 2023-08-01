@@ -36,12 +36,18 @@ export default {
       this.loading = true
       this.posts = []
       const q = this.searchValue
-      const res = await this.searchPostsAction({ q })
+      const res = await this.searchPostsAction({ q }).catch((err) => {
+        this.$message({
+          content: '搜索文章失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
+        this.loading = false
+      })
       this.searchValue = ''
       this.searchCount = res.searchCount
       this.posts = res.posts
-      if (this.posts)
-        this.loading = false
     },
   },
 }

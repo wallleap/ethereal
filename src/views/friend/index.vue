@@ -58,13 +58,31 @@ export default {
       })
     },
     async getFriendsCountFn() {
-      return await this.getFriendsCountAction()
+      return await this.getFriendsCountAction().catch((err) => {
+        this.$message({
+          content: '获取友链总数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
     },
     async getFriendsFn() {
-      const totalCount = await this.getFriendsCountFn()
-      const friends = await this.getFriendsAction({ page: 1, pageSize: totalCount })
-      if (friends)
+      const totalCount = await this.getFriendsCountFn().catch((err) => {
+        this.$message({
+          content: '获取友链总数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
+      const friends = await this.getFriendsAction({ page: 1, pageSize: totalCount }).catch((err) => {
+        this.$message({
+          content: '获取友链失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
         this.loading = false
+      })
       this.parseFriends(friends)
     },
   },

@@ -23,7 +23,13 @@ export default {
   },
   methods: {
     async getCategoriesFn() {
-      const res = await this.$store.dispatch('github/getCategoriesAction')
+      const res = await this.$store.dispatch('github/getCategoriesAction').catch((err) => {
+        this.$message({
+          content: '获取分类失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.$store.commit('github/setCategories', res)
     },
   },

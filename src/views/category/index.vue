@@ -61,18 +61,48 @@ export default {
     async getPostsCountFn() {
       this.totalCount = this.categoryNumber
         ? this.$store.state.github.currentCategory.open_issues
-        : await this.getPostsCountAction()
+        : await this.getPostsCountAction().catch((err) => {
+          this.$message({
+            content: '获取文章总数失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        })
     },
     async getPostsFn() {
       this.loading = true
       let res = []
       if (this.categoryNumber) {
         const filter = `&milestone=${this.categoryNumber}`
-        res = await this.getPostsAction({ page: `${this.currentPage}`, filter })
+        res = await this.getPostsAction({ page: `${this.currentPage}`, filter }).catch((err) => {
+          this.$message({
+            content: '获取文章列表失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        }).finally(() => {
+          this.loading = false
+        })
       }
-      else { res = await this.getPostsAction({ page: `${this.currentPage}` }) }
+      else {
+        res = await this.getPostsAction({ page: `${this.currentPage}` }).catch((err) => {
+          this.$message({
+            content: '获取文章列表失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        }).finally(() => {
+          this.loading = false
+        })
+      }
       const ids = res.map(post => post.id)
-      const hot = await this.queryHotAction({ ids })
+      const hot = await this.queryHotAction({ ids }).catch((err) => {
+        this.$message({
+          content: '获取文章热度失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       if (hot) {
         this.posts = res.map((post) => {
           const hotNum = hot[post.id] || 1
@@ -80,8 +110,6 @@ export default {
           return post
         })
       }
-      if (this.posts)
-        this.loading = false
       this.$store.commit('github/setAllPosts', res)
     },
   },

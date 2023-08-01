@@ -30,17 +30,35 @@ export default {
   },
   methods: {
     async getAboutFn() {
-      const res = await this.$store.dispatch('github/getAboutAction')
+      const res = await this.$store.dispatch('github/getAboutAction').catch((err) => {
+        this.$message({
+          content: '获取关于内容失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      }).finally(() => {
+        this.loading = false
+      })
       const content = res?.body || ''
       const markIt = new MarkIt()
-      const parsedString = await markIt.parse(content)
+      const parsedString = await markIt.parse(content).catch((err) => {
+        this.$message({
+          content: '解析 markdown 失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.about = parsedString?.content
       this.appendBusuanzi(parsedString?.content)
-      if (res)
-        this.loading = false
     },
     async queryLikeFn() {
-      const res = await this.$store.dispatch('leancloud/queryLikeAction', 'getTimes')
+      const res = await this.$store.dispatch('leancloud/queryLikeAction', 'getTimes').catch((err) => {
+        this.$message({
+          content: '获取点赞次数失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       if (res !== 'undefined')
         this.likeTimes = res
     },
@@ -52,7 +70,13 @@ export default {
         })
         return
       }
-      this.likeTimes = this.$store.dispatch('leancloud/queryLikeAction')
+      this.likeTimes = this.$store.dispatch('leancloud/queryLikeAction').catch((err) => {
+        this.$message({
+          content: '点赞失败',
+          type: 'error',
+        })
+        throw new Error(err)
+      })
       this.isLiked = 'isLiked'
       localStorage.setItem('isLiked', 'isLiked')
       this.$message({

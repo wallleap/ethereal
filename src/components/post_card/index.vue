@@ -20,7 +20,13 @@ export default {
   },
   async created() {
     const markIt = new MarkIt()
-    const parsedMarked = await markIt.parse(this.post.summary)
+    const parsedMarked = await markIt.parse(this.post.summary).catch((err) => {
+      this.$message({
+        content: '解析 markdown 失败',
+        type: 'error',
+      })
+      throw new Error(err)
+    })
     this.content = parsedMarked?.content
   },
 }

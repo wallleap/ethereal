@@ -29,7 +29,9 @@ const actions = {
    * @returns count
    */
   async getPostsCountAction() {
-    const res = await getPostsCountAPI()
+    const res = await getPostsCountAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data.data?.repository?.issues.totalCount || 0
@@ -39,7 +41,9 @@ const actions = {
    * @returns count
    */
   async getFriendsCountAction() {
-    const res = await getFriendsCountAPI()
+    const res = await getFriendsCountAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data.data?.repository?.issues.totalCount || 0
@@ -49,7 +53,9 @@ const actions = {
    * @returns count
    */
   async getInspirationCountAction() {
-    const res = await getInspirationCountAPI()
+    const res = await getInspirationCountAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data.data?.repository?.issues.totalCount || 0
@@ -61,7 +67,9 @@ const actions = {
    * @returns { searchCount, posts }
    */
   async searchPostsAction(context, params) {
-    const res = await searchPostsAPI(params)
+    const res = await searchPostsAPI(params).catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     const searchCount = res.data.total_count
@@ -80,7 +88,9 @@ const actions = {
    * @returns Object
    */
   async getCategoriesAction() {
-    const res = await getCategoriesAPI()
+    const res = await getCategoriesAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data
@@ -91,7 +101,9 @@ const actions = {
    */
   async getTagsAction() {
     const filterLabel = ['Inspiration', 'Friend', 'Book', 'About']
-    const res = await getTagsAPI()
+    const res = await getTagsAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     const data = res.data.filter(o => !filterLabel.includes(o.name))
@@ -104,7 +116,9 @@ const actions = {
    * @returns posts
    */
   async getPostsAction(context, params) {
-    const res = await getPostsAPI(params)
+    const res = await getPostsAPI(params).catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     const posts = res.data.map((post) => {
@@ -133,7 +147,9 @@ const actions = {
    * @returns posts
    */
   async getFriendsAction(context, params) {
-    const res = await getFriendsAPI(params)
+    const res = await getFriendsAPI(params).catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     const friends = res.data.map((friend) => {
@@ -160,7 +176,9 @@ const actions = {
    * @returns Promise
    */
   async getInspirationAction(context, params) {
-    const res = await getInspirationAPI(params)
+    const res = await getInspirationAPI(params).catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data
@@ -172,7 +190,9 @@ const actions = {
    * @returns post
    */
   async getPostAction(context, { number }) {
-    const res = await getPostAPI(number)
+    const res = await getPostAPI(number).catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     let post = res.data
@@ -193,7 +213,9 @@ const actions = {
     return formatPost(post)
   },
   async getAboutAction() {
-    const res = await getAboutAPI()
+    const res = await getAboutAPI().catch((err) => {
+      throw new Error(err)
+    })
     if (res.status !== 200)
       return Promise.reject(res || 'error')
     return res.data[0]

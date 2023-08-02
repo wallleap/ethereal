@@ -60,7 +60,7 @@ export default {
   // 文章相关
   pageSize: 12,
   defaultCover: '//cdn.wallleap.cn/img/post/1.jpg',
-  // 图片加载失败时显示
+  // 图片加载失败时显示，请将图片下载至你自己的存储空间，并使用自己的 CDN 引入
   errorImg: '//cdn.wallleap.cn/img/pic/cover/image_processing20200524-7638-6itpxj.gif',
   // 评论配置
   utterances: {

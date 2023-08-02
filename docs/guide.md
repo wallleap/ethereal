@@ -220,7 +220,7 @@ desc: 一句话描述
 
 ### Clone Project
 
-克隆本项目到本地，排除 `docs` 目录
+克隆本项目到本地
 
 ```sh
 git clone git@github.com:wallleap/Ethereal.git blog
@@ -245,7 +245,7 @@ pnpm install
 
 ![generate token](./imgs/generatetoken.png)
 
-勾选 `repo` 权限，它会自动帮你勾另一个
+给 `issue` read-only 权限，它会自动帮你勾另一个
 
 ![token permissions](./imgs/issuetoken.png)
 

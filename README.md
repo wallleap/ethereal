@@ -1,12 +1,12 @@
 # Ethereal
 
-<div align="center">![预览图](./docs/imgs/mockup.webp)</div>
+<div align="center"><img src="./docs/imgs/mockup.webp" alt="预览图" /></div>
 
 <div align="center"><img src="https://img.shields.io/github/stars/wallleap/ethereal?style=flat"> <img src="https://img.shields.io/github/forks/wallleap/ethereal?style=flat"> <img src="https://img.shields.io/github/issues/wallleap/ethereal?style=flat"> <img src="https://img.shields.io/github/last-commit/wallleap/ethereal?style=flat"> <img src="https://img.shields.io/github/license/wallleap/ethereal?style=flat"> <img src="https://img.shields.io/github/actions/workflow/status/wallleap/ethereal/deploy.yml?branch=main"></div>
 
 <p align="center">使用 Vite 4 搭建的 Vue 2 博客，免费使用</p>
 
-<p align="center"><a href="#online-demo">查看预览</a> | <a href="./docs/guide.md">使用文档</a></p>
+<p align="center"><a href="#online-demo">查看预览</a> | <a href="./docs/guide.md">使用文档</a> | <a href="./docs/logs.md">更新日志</a></p>
 
 ## Features
 

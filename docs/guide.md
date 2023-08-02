@@ -223,7 +223,7 @@ desc: 一句话描述
 克隆本项目到本地，排除 `docs` 目录
 
 ```sh
-git clone --exclude=docs git@github.com:wallleap/Ethereal.git blog
+git clone git@github.com:wallleap/Ethereal.git blog
 cd blog
 ```
 

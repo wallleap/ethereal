@@ -62,7 +62,7 @@ export default {
       if (res !== 'undefined')
         this.likeTimes = res
     },
-    likeClick() {
+    async likeClick() {
       if (this.isLiked === 'isLiked') {
         this.$message({
           content: '您已经点过赞了哦~',
@@ -70,7 +70,7 @@ export default {
         })
         return
       }
-      this.likeTimes = this.$store.dispatch('leancloud/queryLikeAction').catch((err) => {
+      this.likeTimes = await this.$store.dispatch('leancloud/queryLikeAction').catch((err) => {
         this.$message({
           content: '点赞失败',
           type: 'error',

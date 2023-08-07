@@ -241,13 +241,8 @@
               .time,
               .hot {
                 svg {
-                  width: 1.2em;
-                  height: 1.2em;
-                  padding: .1em;
                   margin-right: .2em;
-                  border-radius: 50%;
-                  fill: var(--weak);
-                  background: var(--thin);
+                  color: currentColor;
                 }
               }
 
@@ -263,12 +258,7 @@
           align-items: center;
 
           svg {
-            width: 1.2em;
-            height: 1.2em;
-            fill: var(--weak);
-            padding: .1em;
-            border-radius: 50%;
-            background: var(--thin);
+            color: currentColor;
             margin-right: .5em;
           }
 

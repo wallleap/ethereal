@@ -4,6 +4,8 @@ let idPrefix = ''
 const svgTitle = /<svg([^>+].*?)>/
 const fillReg = /fill="([^>+].*?)"/g
 const clearHeightWidth = /(width|height)="([^>+].*?)"/g
+// 需要替换的颜色
+const clearColors = ['#333333', '#303135']
 
 const hasViewBox = /(viewBox="[^>+].*?")/g
 
@@ -40,11 +42,18 @@ function findSvgFile(dir) {
           return `<symbol id="${idPrefix}-${dirEntry.name.replace('.svg', '')}" ${content}>`
         })
         .replace('</svg>', '</symbol>')
-      // 处理单色图标，去除 fill 属性值
+      // 处理单色图标，将 fill 属性替换为 currentColor
       const svgFills = svg.match(fillReg)
       if (svgFills && svgFills.length > 0) {
-        if (svgFills.every(match => match === svgFills[0]) || svgFills.length === 1)
-          svg = svg.replace(fillReg, '')
+        if (svgFills.every(match => match === svgFills[0]) || svgFills.length === 1) { svg = svg.replace(fillReg, 'fill="currentColor"') }
+        // 处理多色图标，匹配到需要替换的颜色，替换为 currentColor
+        else {
+          svg = svg.replace(fillReg, (s1, s2) => {
+            if (clearColors.includes(s2))
+              return 'fill="currentColor"'
+            return s1
+          })
+        }
       }
       svgRes.push(svg)
     }

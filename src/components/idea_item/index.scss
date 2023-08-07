@@ -11,6 +11,8 @@
     border-radius: 4px;
     overflow: hidden;
     margin-right: .5em;
+    opacity: 1;
+    transition: .3s;
 
     img {
       width: 100%;
@@ -26,6 +28,8 @@
       margin-bottom: .5em;
       font-size: 1.02rem;
       color: var(--thin);
+      opacity: 1;
+      transition: .3s;
     }
 
     .content {
@@ -60,6 +64,13 @@
     .publish-time {
       font-size: .8rem;
       color: var(--weak);
+    }
+  }
+
+  @include xs-layout {
+    .avatar, .idea .author {
+      opacity: 0;
+      display: none;
     }
   }
 }

@@ -168,3 +168,30 @@ export function hexToHsl(hex) {
 
   return `${h}, ${s}%, ${l}%`
 }
+/**
+ * 处理文章归档
+ * @param {*} archives
+ * @returns
+ */
+export function parseArchives(archives) {
+  const map = new Map()
+  archives.forEach((archive) => {
+    const year = archive.created_at.slice(0, 4)
+    const key = `${year}`
+    if (!map.has(key))
+      map.set(key, [])
+    map.get(key).push(archive)
+  })
+  return Object.fromEntries(map)
+}
+/**
+ * 对归档进行排序
+ * @param {*} archiveMap
+ * @returns
+ */
+export function sortArchiveMap(archiveMap) {
+  Object.keys(archiveMap).forEach((key) => {
+    return archiveMap[key].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  })
+  return archiveMap
+}

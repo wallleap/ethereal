@@ -2,7 +2,7 @@
 import { mapActions } from 'vuex'
 import ArchiveCard from '@/components/archive_card/index.vue'
 import Loading from '@/components/loading/index.vue'
-import { hexToHsl } from '@/utils'
+import { hexToHsl, parseArchives, sortArchiveMap } from '@/utils'
 
 export default {
   name: 'Archives',
@@ -65,7 +65,8 @@ export default {
       }).finally(() => {
         this.loading = false
       }))
-      this.archiveMap = this.parseArchives(this.archives)
+      const archiveMap = parseArchives(this.archives)
+      this.archiveMap = sortArchiveMap(archiveMap)
     },
     async getTagsFn() {
       this.tags = await this.getTagsAction().catch((err) => {
@@ -80,32 +81,13 @@ export default {
         tag.hslColor = hexToHsl(`#${tag.color}}`)
       })
     },
-    parseArchives(archives) {
-      const result = {}
-      archives.forEach((archive) => {
-        const year = archive.created_at.slice(0, 4)
-        if (!result[year])
-          result[year] = []
-        result[year].push(archive)
-      })
-      return result
-    },
-    parseArchivesByTag(archives) {
-      const result = {}
-      archives.forEach((archive) => {
-        const year = archive.created_at.slice(0, 4)
-        if (!result[year])
-          result[year] = []
-        result[year].push(archive)
-      })
-      return result
-    },
     filterArchives(e) {
       const target = e.target
       const tags = this.tags || []
       if (target.classList.contains('tag')) {
         this.loading = true
         const tagId = Number(target.getAttribute('data-tag'))
+        const duration = Math.random() * (1300 - 300) + 300
         const tag = tags.find(item => item.id === tagId)
         if (tag) {
           const archives = this.archives.filter(archive => archive.tags.find(item => item.id === tag.id))
@@ -113,13 +95,14 @@ export default {
             item.classList.remove('active')
           })
           target.classList.add('active')
-          this.archiveMap = this.parseArchives(archives)
+          const archiveMap = parseArchives(archives)
+          this.archiveMap = sortArchiveMap(archiveMap)
           this.filterCount = archives.length
           this.isFilter = true
           this.timer = setTimeout(() => {
             clearTimeout(this.timer)
             this.loading = false
-          }, 1000)
+          }, duration)
         }
       }
     },
@@ -127,7 +110,8 @@ export default {
       this.$refs.tagList.querySelectorAll('.tag').forEach((item) => {
         item.classList.remove('active')
       })
-      this.archiveMap = this.parseArchives(this.archives)
+      const archiveMap = parseArchives(this.archives)
+      this.archiveMap = sortArchiveMap(archiveMap)
       this.isFilter = false
     },
   },
@@ -168,13 +152,13 @@ export default {
           <Loading v-if="loading" />
           <transition name="from-bottom">
             <div v-if="!loading">
-              <div v-for="key in Object.keys(archiveMap).reverse()" :key="key" class="archive-items">
+              <div v-for="year in Object.keys(archiveMap).reverse()" :key="year" class="archive-items">
                 <div class="archive-year">
-                  {{ key }}
+                  {{ year }}
                 </div>
                 <div class="archive-item-list">
                   <router-link
-                    v-for="archive in archiveMap[key]"
+                    v-for="archive in archiveMap[year]"
                     :key="archive.id"
                     :to="{ name: 'Post', params: { number: archive.number } }"
                   >

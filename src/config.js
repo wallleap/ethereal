@@ -74,6 +74,6 @@ export default {
     </script>`,
   },
   twikoo: {
-    src: '//cdn.staticfile.org/twikoo/1.6.7/twikoo.all.min.js',
+    src: '//cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js',
   },
 }

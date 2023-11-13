@@ -6,7 +6,7 @@
 
   .toc-wrap {
     position: fixed;
-    top: 116px;
+    top: 100px;
     left: 50%;
     margin-left: calc(876px / 2 + 1em);
     padding: 1em;
@@ -42,6 +42,7 @@
       }
       
       .toc-close {
+        display: none;
         font-size: 1.2rem;
         width: 42px;
         height: 42px;
@@ -334,7 +335,13 @@
       display: 0;
       opacity: 0;
       transform: translateX(100%);
-      transition: .3s cubic-bezier(var(--naturally))
+      transition: .3s cubic-bezier(var(--naturally));
+
+      .toc-header {
+        .toc-close {
+          display: block;
+        }
+      }
     }
 
     .toc-wrap.show {

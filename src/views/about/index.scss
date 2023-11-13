@@ -5,11 +5,14 @@
   max-width: 876px;
   
   .about {
-    position: relative;
     width: 100%;
     padding: 2rem;
     background-color: var(--bg-thin);
     border-radius: 2em;
+
+    .about-content {
+      position: relative;
+    }
 
     .like {
       display: flex;

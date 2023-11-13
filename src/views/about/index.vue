@@ -103,8 +103,10 @@ export default {
 
 <template>
   <div class="about-wrap">
-    <div v-loading="loading" class="about">
-      <Markdown :content="about" />
+    <div class="about">
+      <div v-loading="loading" class="about-content">
+        <Markdown :content="about" />
+      </div>
       <div class="like">
         <figure class="like-img">
           <img src="../../assets/images/like.png" alt="like">

@@ -19,6 +19,7 @@ Vue.directive('loading', loadingDirective)
 const appId = import.meta.env.VITE_LEANCLOUD_ID
 const appKey = import.meta.env.VITE_LEANCLOUD_KEY
 const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER
+const clarity = config.clarity
 
 AV.init({
   appId,
@@ -28,6 +29,19 @@ AV.init({
 
 setTheme()
 handleError(config.errorImg)
+
+if (clarity) {
+  const script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.innerHTML = `
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "${clarity}");
+    `
+  document.head.appendChild(script)
+}
 
 new Vue({
   router,

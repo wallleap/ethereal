@@ -76,4 +76,6 @@ export default {
   twikoo: {
     src: '//cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js',
   },
+  // Clarity 微软数据分析服务
+  clarity: 'jtdbmcusnq',
 }

@@ -148,6 +148,7 @@
   .post-body {
     position: relative;
     width: 100%;
+    min-height: 300px;
     margin-top: -3em;
     padding: 2em;
     background-color: var(--bg-thin);

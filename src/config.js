@@ -5,7 +5,7 @@
  * @property {String} subtitle      博客副标题
  * @property {String} description   博客描述
  * @property {String} keywords      博客关键字
- * @property {String} favicon       博客图标 180x180
+ * @property {String} logo          博客图标 180x180
  * @property {String} favicon16     博客图标 16x16
  * @property {String} favicon32     博客图标 32x32
  * @property {String} createdTime   博客创建时间
@@ -27,15 +27,16 @@
  * @property {String} pageSize      文章列表每页显示文章数
  * @property {String} defaultCover  文章默认封面图
  */
+
 export default {
   // 博客基础配置
   title: 'wallleap',
   subtitle: 'ルー・ワン',
   description: 'Luwang\'s blog',
   keywords: 'Luwang, blog, wallleap',
-  favicon: '/favicon.ico',
-  favicon16: '/favicon.ico',
-  favicon32: '/favicon.ico',
+  logo: './logo.svg',
+  favicon16: './favicon.ico',
+  favicon32: './favicon.ico',
   createdTime: '2019-08-01',
   icp: '赣ICP备20000895号-1',
   icpLink: '//beian.miit.gov.cn/',

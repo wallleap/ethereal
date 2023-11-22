@@ -2,13 +2,32 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" sizes="180x180" href="<%- favicon %>" />
-    <link rel="icon" sizes="16x16" href="<%- favicon2 %>" />
-    <link rel="icon" sizes="32x32" href="<%- favicon3 %>" />
-    <meta name="description" content="<%- description %>" />
-    <meta name="keywords" content="<%- keywords %>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="<%- description %>">
+    <meta name="keywords" content="<%- keywords %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title><%- title %></title>
+    <!-- 添加到主屏幕/桌面 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="<%- title %>">
+    <meta name="theme-color" content="#fff">
+    <meta name="application-name" content="<%- title %>">
+    <link rel="icon" href="<%- logo %>">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="<%- favicon16 %>">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="<%- favicon32 %>">
+    <link rel="bookmark" href="<%- logo %>">
+    <link rel="apple-touch-icon" href="<%- logo %>">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="<%- logo %>">
+    <link rel="apple-touch-startup-image" href="<%- logo %>"> 
+    <link rel="manifest" href="./manifest.json">
+    <!-- 分享到xxx 以卡片显示 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%- title %>">
+    <meta property="og:description" content="<%- description %>">
+    <meta property="og:image" content="https://cdn.wallleap.cn/wallleap/300.png">
+    <meta property="og:url" content="<%- url %>">
     <% for (var css of css) { %>
       <link href="<%= css %>" rel="stylesheet">
     <% } %>

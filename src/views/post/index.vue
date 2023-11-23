@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     $route() {
-      this.clearAllData()
+      this.initAllData()
       this.getPostFn()
       this.generateRelatesFn()
     },
@@ -128,7 +128,7 @@ export default {
           break
       }
     },
-    clearAllData() {
+    initAllData() {
       this.post = {}
       this.relates = []
       this.toc = ''

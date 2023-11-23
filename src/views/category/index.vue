@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     $route() {
+      this.posts = []
       this.currentPage = 1
       this.$store.commit('github/setCurrentCategory', this.$route.params.category || '')
       this.getPostsFn()
@@ -56,6 +57,8 @@ export default {
       getPostsCountAction: 'github/getPostsCountAction',
     }),
     pageChangeFn() {
+      this.posts = []
+      this.loading = true
       this.getPostsFn()
     },
     async getPostsCountFn() {

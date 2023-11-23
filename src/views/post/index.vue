@@ -33,6 +33,7 @@ export default {
   },
   watch: {
     $route() {
+      this.clearAllData()
       this.getPostFn()
       this.generateRelatesFn()
     },
@@ -127,6 +128,13 @@ export default {
           break
       }
     },
+    clearAllData() {
+      this.post = {}
+      this.relates = []
+      this.toc = ''
+      this.content = ''
+      this.loading = true
+    },
     handleClick(e) {
       const tocLinks = document.querySelectorAll('.toc-link')
       if (e.target.classList.contains('toc-link')) {
@@ -159,7 +167,7 @@ export default {
 </script>
 
 <template>
-  <article v-loading="loading" class="post">
+  <article class="post">
     <section ref="tocWrap" class="toc-wrap">
       <div class="toc-header">
         <div class="toc-title">
@@ -229,7 +237,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="post-main">
+      <div v-loading="loading" class="post-main">
         <Markdown :content="content" :parsed="true" />
       </div>
     </section>

@@ -101,6 +101,9 @@ export default {
           return
         this.current = Number(e.target.innerText)
       }
+      else {
+        return
+      }
       this.$emit('pageChange', this.current)
     },
   },
@@ -153,6 +156,7 @@ export default {
       width: 50px;
       height: 50px;
       border-radius: 50%;
+      text-align: center;
       background-color: var(--bg-thin);
       border: 1px solid var(--thin);
       color: var(--minor);

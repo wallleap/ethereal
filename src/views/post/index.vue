@@ -230,7 +230,7 @@ export default {
             <SvgIcon name="biaoqian" />
             <template v-if="showTagText">
               <span v-for="tag in post.tags" :key="tag.id" class="tag" :style="{ color: `#${tag.color}` }">
-                {{ tag.name }}
+                # {{ tag.name }}
               </span>
             </template>
             <span v-else>无标签</span>

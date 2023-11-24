@@ -42,7 +42,7 @@ export default {
       <div class="post-meta">
         <span class="post-tags">
           <span v-if="post.tags.length === 0" class="post-tag">暂无标签</span>
-          <span v-for="tag in post.tags" :key="tag.id" class="post-tag" :style="{ color: `#${tag.color}` }">{{ tag.name }}</span>
+          <span v-for="tag in post.tags" :key="tag.id" class="post-tag" :style="{ color: `#${tag.color}` }"># {{ tag.name }}</span>
         </span>
       </div>
       <div class="post-text">

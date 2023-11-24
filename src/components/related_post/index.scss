@@ -42,7 +42,8 @@
     z-index: 2;
     .post-meta {
       display: flex;
-      gap: .4em;
+      flex-wrap: wrap;
+      gap: 1em;
       margin-bottom: .8em;
       .post-cate {
         padding: .2em .5em;
@@ -54,8 +55,8 @@
       .post-tags {
         display: flex;
         align-items: center;
-        gap: .4em;
-        margin-left: 1em;
+        flex-wrap: wrap;
+        gap: .5em;
         svg {
           color: currentColor;
         }

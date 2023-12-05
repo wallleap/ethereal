@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="300" height="167" viewBox="0 0 300 167"><defs><clipPath id="master_svg0_55_7"><rect x="0" y="0" width="300" height="167" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_55_7)"><g><path d="M192.24,105.921L224.498,56.2062L230.678,46.6827L230.602,46.6337L240.213,32.0281L212.78,32.0281L207.514,40.6199L205.398,43.8817L193.495,62.2263L186.879,50.6244L206.201,22.6866L258.367,22.6866L192.942,124.343L114.157,0L0,0L108.312,167L142.674,109.176L98.7122,41.2254L93.0075,32.0281L65.5736,32.0281L73.5306,43.9304L73.4287,43.9927L79.5955,53.5244L115.928,109.683L107.466,123.922L41.8076,22.6866L101.621,22.6866L192.792,166.579L300,0L194.255,0L160.046,49.4635L192.24,105.921Z" fill-rule="evenodd" fill="#2557DD" fill-opacity="1"/></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 311.8 311.8" style="enable-background:new 0 0 311.8 311.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_00000173869432050724284190000003169235301853249175_);}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#2557DD;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="5.9" y="81.4" width="300" height="167"/>
+	</defs>
+	<clipPath id="SVGID_00000145780580051435041240000002461715122682046349_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000145780580051435041240000002461715122682046349_);">
+		<g>
+			<path class="st1" d="M198.1,187.3l32.3-49.7l6.2-9.5l-0.1,0l9.6-14.6h-27.4l-5.3,8.6l-2.1,3.3l-11.9,18.3l-6.6-11.6l19.3-27.9
+				h52.2l-65.4,101.7L120.1,81.4H5.9l108.3,167l34.4-57.8l-44-68l-5.7-9.2H71.5l8,11.9l-0.1,0.1l6.2,9.5l36.3,56.2l-8.5,14.2
+				L47.7,104.1h59.8L198.7,248L305.9,81.4H200.2L166,130.9L198.1,187.3z"/>
+		</g>
+	</g>
+</g>
+</svg>

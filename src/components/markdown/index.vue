@@ -1,10 +1,14 @@
 <!-- eslint-disable max-statements-per-line -->
 <script>
 import Clipboard from 'clipboard'
+import VueEasyLightbox from 'vue-easy-lightbox'
 import MarkIt from './mark_it.js'
 
 export default {
   name: 'Markdown',
+  components: {
+    VueEasyLightbox,
+  },
   props: {
     content: {
       type: String,
@@ -19,7 +23,18 @@ export default {
     return {
       clipboard: null,
       htmlString: '',
+      images: [],
+      lightboxVisible: false,
     }
+  },
+  watch: {
+    content: {
+      immediate: true,
+      handler() {
+        this.extractImages()
+        this.addClickEvents()
+      },
+    },
   },
   async created() {
     if (this.needParsed) {
@@ -57,12 +72,38 @@ export default {
         e.clearSelection()
       })
     },
+    openLightbox(imageSrc) {
+      this.images = [imageSrc]
+      this.lightboxVisible = true
+    },
+    extractImages() {
+      const matches = this.content?.match(/<img[^>]*src="([^"]*)"[^>]*>/g)
+      if (matches)
+        this.images = matches.map(tag => tag.match(/src="([^"]*)"/)[1])
+    },
+    addClickEvents() {
+      this.$nextTick(() => {
+        const images = this.$el.querySelectorAll('img')
+        images.forEach((img) => {
+          img.addEventListener('click', () => {
+            this.openLightbox(img.src)
+          })
+        })
+      })
+    },
   },
 }
 </script>
 
 <template>
-  <div class="markdown" v-html="htmlString || content" />
+  <div>
+    <div class="markdown" v-html="htmlString || content" />
+    <VueEasyLightbox
+      :visible="lightboxVisible"
+      :imgs="images"
+      @hide="lightboxVisible = false"
+    />
+  </div>
 </template>
 
 <style lang="scss">

@@ -18,6 +18,7 @@
     "marked": "5.1.1",
     "marked-smartypants": "1.0.2",
     "vue": "2.7.14",
+    "vue-easy-lightbox": "0.23.0",
     "vue-router": "3.6.5",
     "vue-template-compiler": "2.7.14",
     "vuex": "3.6.2",

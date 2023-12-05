@@ -29,6 +29,9 @@ dependencies:
   vue:
     specifier: 2.7.14
     version: 2.7.14
+  vue-easy-lightbox:
+    specifier: 0.23.0
+    version: 0.23.0(vue@2.7.14)
   vue-router:
     specifier: 3.6.5
     version: 3.6.5(vue@2.7.14)
@@ -1501,7 +1504,7 @@ packages:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.12.1
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3582,6 +3585,14 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-easy-lightbox@0.23.0(vue@2.7.14):
+    resolution: {integrity: sha512-UoeUsOs+ZOu9UQU1wps3N/ww0ZGPjclfmmLz+7syeZKcvwMMuedjjj9Gdh9Ig0xmsY8M+qsY55I9z5mPcDg7mg==}
+    peerDependencies:
+      vue: ^2.5.22
+    dependencies:
+      vue: 2.7.14
+    dev: false
 
   /vue-eslint-parser@9.3.1(eslint@8.44.0):
     resolution: {integrity: sha512-Clr85iD2XFZ3lJ52/ppmUDG/spxQu6+MAeHXjjyI4I1NUYZ9xmenQp4N0oaHJhrA8OOxltCVxMRfANGa70vU0g==}

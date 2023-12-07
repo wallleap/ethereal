@@ -19,6 +19,8 @@ npm i -g pnpm
 
 在开始之前，需要准备好 GitHub 仓库和 Issues 作为你的博客数据源
 
+之后新建「灵感」、「关于」页面以及博客文章就直接在这个仓库新建 Issue 就行
+
 ### Create a repo for blog issues
 
 创建一个新的 GitHub 仓库，用于存放博客文章，仓库名随意，例如 `blog`
@@ -29,7 +31,7 @@ npm i -g pnpm
 
 #### 关于页面
 
-title 为`关于`，label 为`About`，内容随意，例如：
+title 为 `关于`，label 为 `About`，内容随意，例如：
 
 ```md
 ## 关于我
@@ -47,7 +49,7 @@ title 为`关于`，label 为`About`，内容随意，例如：
 
 ![关闭关于页面](./imgs/closeissue.png)
 
-该 Issue 会作为关于页面的内容，有且只有一个，并且 `About` label 只能在这个 Issue 使用
+该 Issue 会作为关于页面的内容，**有且只有一个**，并且 `About` label 只能在这个 Issue 使用
 
 ![关于标签](./imgs/aboutlabel.png)
 
@@ -63,15 +65,15 @@ title 为`关于`，label 为`About`，内容随意，例如：
 
 ![inspiration](./imgs/inspiration.png)
 
-灵感页面将会展示所有 `Inspiration` label 的 Issue，所以可以创建多条
+灵感页面将会展示所有 `Inspiration` label 的 Issue，所以可以**创建多条**
 
 ![多条](./imgs/multiinspiration.png)
 
 #### 常规文章
 
-新建 Issue，title 随意，label 随意，label 将作为文章的标签（例如 `CSS`），Milestone 将作为文章的分类（例如 `前端`、`后端`、`安全`）
+新建 Issue，title 随意，label 随意，label 将作为文章的**标签**（例如 `CSS`），Milestone 将作为文章的**分类**（例如 `前端`、`后端`、`安全`）
 
-可以统一管理 Milestone 和 Label
+> 可以统一管理 Milestone 和 Label
 
 ![管理](./imgs/managetags.png)
 
@@ -149,7 +151,7 @@ title 为`关于`，label 为`About`，内容随意，例如：
 
 ## 文字
 
-<https://linkxxx.com>
+可点击的链接：<https://linkxxx.com>
 
 [链接文字](https://xxx.com)
 
@@ -239,9 +241,9 @@ pnpm install
 
 1、复制 `.env.sample` 重命名为 `.env.local`，修改其中的配置项
 
-**`VITE_GITHUB_TOKEN`**
+**`VITE_GITHUB_TOKEN （这个用于获取 Issues 的权限)`**
 
-前往 <https://github.com/settings/tokens> 生成一个新的 Token，输入密码
+前往 [https://github.com/settings/tokens](https://github.com/settings/tokens) 生成一个新的 Token，输入密码
 
 ![generate token](./imgs/generatetoken.png)
 
@@ -249,7 +251,7 @@ pnpm install
 
 ![token permissions](./imgs/issuetoken.png)
 
-如果使用 Beta 版本，建议缩小权限范围，`Only select repositories` 选择你存放博客 Issue 的仓库（即最开始新建的 `blog` 仓库），`Repository permissions` 勾选 Issues（这个 Token 是为了获取 Issue 数据的，不需要其他权限）
+> 如果使用 Beta 版本，建议缩小权限范围，`Only select repositories` 选择你存放博客 Issue 的仓库（即最开始新建的 `blog` 仓库），`Repository permissions` 勾选 Issues（这个 Token 是为了获取 Issue 数据的，不需要其他权限）
 
 ![copy token](./imgs/issuetoken1.png)
 
@@ -259,9 +261,9 @@ pnpm install
 
 ---
 
-**`VITE_TWIKOO_ID`**
+**`VITE_TWIKOO_ID （Twikoo 评论)`**
 
-前往 <https://twikoo.js.org/> 按照文档部署配置（可以自己选择一种）
+前往 [https://twikoo.js.org/](https://twikoo.js.org/) 按照文档部署配置（可以自己选择一种）
 
 ![twikoo](./imgs/twikoodeploy.png)
 
@@ -271,9 +273,9 @@ pnpm install
 
 下面三个是用于统计文章的热度和页面访问量的
 
-**`VITE_LEANCLOUD_ID`**
+**`VITE_LEANCLOUD_ID `**
 
-前往 <https://console.leancloud.cn/> 切换地区为国际版（左上角），注册账号，创建一个应用，应用名随意
+前往 [https://console.leancloud.cn/](https://console.leancloud.cn/) 切换地区为国际版（左上角），注册账号，创建一个应用，应用名随意
 
 ![应用凭证](./imgs/leancloudapp.png)
 
@@ -305,7 +307,7 @@ pnpm install
 
 **`utterances.code`**
 
-前往 <https://utteranc.es/> 按照文档部署配置
+前往 [https://utteranc.es/](https://utteranc.es/) 按照文档部署配置
 
 1. 创建一个公开仓库，仓库名随意，例如：`blog-comments`
 2. 点击页面中的 [utterances app](https://github.com/apps/utterances) 安装到你的仓库中
@@ -329,11 +331,13 @@ pnpm install
 pnpm dev
 ```
 
-浏览器打开 <http://localhost:8000> 即可预览
+浏览器打开 [http://localhost:8000](http://localhost:8000) 即可预览
 
 ### Build for Production
 
-#### 不使用 GitHub Actions
+构建部署可以有多种方式，推荐直接生成静态文件然后直接放到服务器上（更简单）
+
+#### 直接生成静态文件
 
 运行下面命令，将会在 `dist` 目录下生成静态文件
 
@@ -343,7 +347,7 @@ pnpm run build
 
 将 `dist` 目录下的文件上传到你的服务器即可
 
-#### 使用 GitHub Actions
+#### 使用 GitHub Actions（优势为自动构建部署）
 
 在 GitHub 创建仓库 `ethereal` 和 `用户名.github.io`
 
@@ -373,7 +377,7 @@ git push -u ethereal main # 别名为 origin 的是我的仓库，以后你可�
 
 以上是对应的环境变量，让项目代码能够获取到相应的值，接下来是新增一个推送权限的 Token，`PERSONAL_TOKEN`
 
-在 <https://github.com/settings/tokens> 新生成一个 Token，勾选 `repo`、`workflow` 权限，复制生成的 Token，填入 `PERSONAL_TOKEN` 的 value 中
+在 [https://github.com/settings/tokens](https://github.com/settings/tokens) 新生成一个 Token，勾选 `repo`、`workflow` 权限，复制生成的 Token，填入 `PERSONAL_TOKEN` 的 value 中
 
 这个是直接填入 secret 中的，因此使用 Classic Token，也没问题，不用担心泄露
 
@@ -420,8 +424,8 @@ git push
 
 如果使用 GitHub Pages，直接到 `用户名.github.io` 仓库开启 Pages；如果不需要，想用 Vercel，可以不开启
 
-#### 使用 Vercel
+#### 使用 Vercel（国内大部分网络已经访问不了了）
 
-前往 <https://vercel.com/> 注册账号，点击 `New Project`，选择 `Import Git Repository`，选择 `用户名.github.io` 仓库，点击 `Import` 按钮，之后点击 `Deploy` 按钮，即可完成部署
+前往 [https://vercel.com/](https://vercel.com/) 注册账号，点击 `New Project`，选择 `Import Git Repository`，选择 `用户名.github.io` 仓库，点击 `Import` 按钮，之后点击 `Deploy` 按钮，即可完成部署
 
 由于国内访问不了 vercel 域名，所以需要绑定你自己的域名，前往 `Settings` -> `Domains` -> `Add`，输入你的域名，点击 `Add` 按钮，之后按照提示操作即可

@@ -14,8 +14,17 @@ export async function queryHot(ids) {
         res.forEach(o => (hot[o.attributes.id] = o.attributes.time))
         resolve(hot)
       })
-      .catch(console.error)
-  }).catch(console.error)
+      .catch(
+        (e) => {
+          resolve({})
+        }
+      )
+  }).catch(
+    (e) => {
+      console.log(e)
+      return {}
+    }
+  )
 }
 
 // 增加热度
@@ -55,8 +64,17 @@ export async function increaseHot(post) {
             .catch(console.error)
         }
       })
-      .catch(console.error)
-  }).catch(console.error)
+      .catch(
+        () => {
+          resolve(1)
+        }
+      )
+  }).catch(
+    (e) => {
+      console.error(e)
+      resolve(1)
+    }
+  )
 }
 
 // 查询点赞数
@@ -78,7 +96,11 @@ export async function queryLike(type) {
                 .increment('time', 1)
                 .save(null, { fetchWhenSave: true })
                 .then(counter => resolve(counter.get('time')))
-                .catch(console.error)
+                .catch(
+                  () => {
+                    resolve(1)
+                  }
+                )
             }
           }
         }
@@ -90,11 +112,24 @@ export async function queryLike(type) {
           newCounter
             .save()
             .then(counter => resolve(counter.get('time')))
-            .catch(console.error)
+            .catch(
+              () => {
+                resolve(1)
+              }
+            )
         }
       })
-      .catch(console.error)
-  }).catch(console.error)
+      .catch(
+        () => {
+          resolve(1)
+        }
+      )
+  }).catch(
+    e => {
+      console.error(e)
+      resolve(1)
+    }
+  )
 }
 
 // 访问来源
@@ -125,6 +160,10 @@ export async function visitorStatistics(referrer) {
             .catch(console.error)
         }
       })
-      .catch(console.error)
+      .catch(
+        () => {
+          resolve()
+        }
+      )
   }).catch(console.error)
 }

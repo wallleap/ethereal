@@ -86,14 +86,16 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-      const hot = await this.increaseHotAction({ post: this.post }).catch((err) => {
-        this.$message({
-          content: '增加文章热度失败',
-          type: 'error',
+      if (localStorage.getItem('configLeancloud') === 'yes') {
+        const hot = await this.increaseHotAction({ post: this.post }).catch((err) => {
+          this.$message({
+            content: '增加文章热度失败',
+            type: 'error',
+          })
+          throw new Error(err)
         })
-        throw new Error(err)
-      })
-      this.$set(this.post, 'hot', hot)
+        this.$set(this.post, 'hot', hot)
+      }
       const parsedMarked = await markIt.parse(this.post.body).catch((err) => {
         this.$message({
           content: '解析文章失败',

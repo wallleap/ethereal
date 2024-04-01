@@ -108,7 +108,7 @@ export default {
           <li v-for="friend in filterFriends" :key="friend.number">
             <a :href="friend.url" rel="noopener noreferrer" class="info" target="_blank">
               <figure class="avatar">
-                <img :src="friend.avatar" alt="avatar">
+                <img :src="friend.avatar" alt="avatar" loading="lazy">
               </figure>
               <div class="text">
                 <h3 class="name">{{ friend.name }}</h3>
@@ -126,7 +126,7 @@ export default {
           <li v-for="friend in loseContact" :key="friend.number">
             <a :href="friend.url" rel="noopener noreferrer" class="info" target="_blank">
               <figure class="avatar">
-                <img :src="friend.avatar" alt="avatar">
+                <img :src="friend.avatar" alt="avatar" loading="lazy">
               </figure>
               <div class="text">
                 <h3 class="name">{{ friend.name }}</h3>

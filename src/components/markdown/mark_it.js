@@ -96,7 +96,7 @@ class MarkIt {
       return ''
     }
     this.rendererMD.image = (href, title, text) => {
-      const imgEl = text ? `<figure class="picture-wrap"><img src="${href}" alt="${text}" /><figcaption>${text}</figcaption></figure>` : `<img src="${href}" alt="文章配图" />`
+      const imgEl = text ? `<figure class="picture-wrap"><img src="${href}" alt="${text}" loading="lazy" /><figcaption>${text}</figcaption></figure>` : `<img src="${href}" alt="文章配图" loading="lazy" />`
       return imgEl
     }
     this.rendererMD.link = (href, title, text) => {

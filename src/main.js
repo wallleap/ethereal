@@ -36,26 +36,6 @@ if (appId && appKey && serverURLs){
 setTheme()
 handleError(config.errorImg)
 
-function isDomainInWhiteList(domain) {
-  return config.whiteList.some((item) => {
-    const url = new URL(`https://${item}`);
-    const itemDomain = url.hostname;
-    return domain.endsWith(itemDomain);
-  })
-}
-document.addEventListener('click', (event) => {
-  if (event.target.tagName === 'A' && !event.target.href.startsWith(window.location.origin)) {
-    event.preventDefault()
-    const url = new URL(event.target.href)
-    const domain = url.hostname
-    if (isDomainInWhiteList(domain) === true) {
-      window.open(event.target.href)
-      return
-    }
-    router.push({ path: 'go', query: {target: event.target.href}})
-  }
-});
-
 if (clarity) {
   const script = document.createElement('script')
   script.type = 'text/javascript'

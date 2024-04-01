@@ -49,7 +49,8 @@ export default {
     },
   },
   created() {
-    this.visitorStatisticsFn()
+    if (localStorage.getItem('configLeancloud') === 'yes')
+      this.visitorStatisticsFn()
   },
   methods: {
     visitorStatisticsFn() {

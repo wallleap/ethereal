@@ -62,8 +62,6 @@ export async function increaseHot(post) {
 // 查询点赞数
 export async function queryLike(type) {
   return new Promise((resolve) => {
-    if (isDev)
-      return resolve(0)
     const query = new AV.Query('Counter')
     const Counter = AV.Object.extend('Counter')
     query.equalTo('title', 'site')
@@ -75,11 +73,13 @@ export async function queryLike(type) {
             resolve(res.get('time'))
           }
           else {
-            res
-              .increment('time', 1)
-              .save(null, { fetchWhenSave: true })
-              .then(counter => resolve(counter.get('time')))
-              .catch(console.error)
+            if (!isDev) {
+              res
+                .increment('time', 1)
+                .save(null, { fetchWhenSave: true })
+                .then(counter => resolve(counter.get('time')))
+                .catch(console.error)
+            }
           }
         }
         else {

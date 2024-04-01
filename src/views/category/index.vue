@@ -99,20 +99,28 @@ export default {
         })
       }
       const ids = res.map(post => post.id)
-      const hot = await this.queryHotAction({ ids }).catch((err) => {
-        this.$message({
-          content: '获取文章热度失败',
-          type: 'error',
+      if (localStorage.getItem('configLeancloud') === 'yes'){
+        const hot = await this.queryHotAction({ ids }).catch((err) => {
+          this.$message({
+            content: '获取文章热度失败',
+            type: 'error',
+          })
+          throw new Error(err)
         })
-        throw new Error(err)
-      })
-      if (hot) {
+        if (hot) {
+          this.posts = res.map((post) => {
+            const hotNum = hot[post.id] || 1
+            post.hot = hotNum
+            return post
+          })
+        }
+      } else {
         this.posts = res.map((post) => {
-          const hotNum = hot[post.id] || 1
-          post.hot = hotNum
+          post.hot = 1
           return post
         })
       }
+      
       this.$store.commit('github/setAllPosts', res)
     },
   },

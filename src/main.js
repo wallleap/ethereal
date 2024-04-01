@@ -16,19 +16,45 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
-const appId = import.meta.env.VITE_LEANCLOUD_ID
-const appKey = import.meta.env.VITE_LEANCLOUD_KEY
-const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER
+const appId = import.meta.env.VITE_LEANCLOUD_ID || ''
+const appKey = import.meta.env.VITE_LEANCLOUD_KEY || ''
+const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER || ''
 const clarity = config.clarity
 
-AV.init({
-  appId,
-  appKey,
-  serverURLs,
-})
+if (appId && appKey && serverURLs){
+  localStorage.setItem('configLeancloud', 'yes')
+  AV.init({
+    appId,
+    appKey,
+    serverURLs,
+  })
+} else {
+  localStorage.setItem('configLeancloud', 'no')
+  console.warn('LeanCloud 相关配置未正确设置，请检查环境变量')
+}
 
 setTheme()
 handleError(config.errorImg)
+
+function isDomainInWhiteList(domain) {
+  return config.whiteList.some((item) => {
+    const url = new URL(`https://${item}`);
+    const itemDomain = url.hostname;
+    return domain.endsWith(itemDomain);
+  })
+}
+document.addEventListener('click', (event) => {
+  if (event.target.tagName === 'A' && !event.target.href.startsWith(window.location.origin)) {
+    event.preventDefault()
+    const url = new URL(event.target.href)
+    const domain = url.hostname
+    if (isDomainInWhiteList(domain) === true) {
+      window.open(event.target.href)
+      return
+    }
+    router.push({ path: 'go', query: {target: event.target.href}})
+  }
+});
 
 if (clarity) {
   const script = document.createElement('script')

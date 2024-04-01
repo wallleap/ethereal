@@ -26,7 +26,8 @@ export default {
     this.getAboutFn()
   },
   mounted() {
-    this.queryLikeFn()
+    if (localStorage.getItem('configLeancloud') === 'yes')
+      this.queryLikeFn()
   },
   methods: {
     async getAboutFn() {
@@ -63,6 +64,13 @@ export default {
         this.likeTimes = res
     },
     async likeClick() {
+      if (localStorage.getItem('configLeancloud') === 'no'){
+        this.$message({
+          content: '博主还没有设置 Leancloud，点赞无效',
+          type: 'error',
+        })
+        return
+      }
       if (this.isLiked === 'isLiked') {
         this.$message({
           content: '您已经点过赞了哦~',

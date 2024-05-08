@@ -1,10 +1,12 @@
 <script>
+import Comment from '@/components/comment/index.vue'
 import MarkIt from '../../components/markdown/mark_it'
 import Markdown from '@/components/markdown/index.vue'
 
 export default {
   name: 'About',
   components: {
+    Comment,
     Markdown,
   },
   data() {
@@ -135,6 +137,7 @@ export default {
         </figure>
       </div>
     </div>
+    <Comment />
   </div>
 </template>
 

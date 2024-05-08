@@ -1,10 +1,12 @@
 <script>
 import { mapActions } from 'vuex'
+import Comment from '@/components/comment/index.vue'
 import Markdown from '@/components/markdown/index.vue'
 
 export default {
   name: 'Friend',
   components: {
+    Comment,
     Markdown,
   },
   data() {
@@ -151,6 +153,7 @@ export default {
         <p>如果需要本博客继续收录您的站点，请于您的站点添加本站后联系博主</p>
       </section>
     </div>
+    <Comment />
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
+import Comment from '@/components/comment/index.vue'
 import RelatedPost from '@/components/related_post/index.vue'
 import Markdown from '@/components/markdown/index.vue'
 import MarkIt from '@/components/markdown/mark_it.js'
@@ -8,6 +9,7 @@ import { updateCurrentLink } from '@/utils'
 export default {
   name: 'Post',
   components: {
+    Comment,
     Markdown,
     RelatedPost,
   },
@@ -19,6 +21,7 @@ export default {
       currentLink: 0,
       content: '',
       loading: true,
+      commentVisible: false,
     }
   },
   computed: {
@@ -33,6 +36,7 @@ export default {
   },
   watch: {
     $route() {
+      this.commentVisible = false
       this.initAllData()
       this.getPostFn()
       this.generateRelatesFn()
@@ -104,6 +108,7 @@ export default {
         throw new Error(err)
       })
       window.document.title = this.post.title
+      this.commentVisible = true
       this.toc = parsedMarked?.toc
       this.content = parsedMarked?.content
     },
@@ -248,6 +253,7 @@ export default {
         <RelatedPost v-for="relate in relates" :key="relate.id" :post="relate" />
       </div>
     </section>
+    <Comment v-if="commentVisible" />
   </article>
 </template>
 

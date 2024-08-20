@@ -10,7 +10,7 @@ export default {
         { id: 3, title: '友链', path: '/friend', icon: 'friends' },
         { id: 4, title: '关于', path: '/about', icon: 'about' },
       ],
-      routerChanged: false,
+      routerChanged: true,
       theme: 'light',
     }
   },
@@ -25,6 +25,7 @@ export default {
     },
   },
   mounted() {
+    this.initCurrentMenu()
     this.getCurrentTheme()
     this.setCurrentMenu()
     this.$router.afterEach(() => {
@@ -41,15 +42,20 @@ export default {
       this.getCurrentTheme()
       this.$store.commit('style/setTheme', this.theme === 'light' ? 'dark' : 'light')
     },
+    initCurrentMenu() {
+      this.routerChanged = true
+      this.setCurrentMenu()
+    },
     setCurrentMenu() {
       const path = this.routerChanged ? this.$route.path : this.$store.state.style.currentMenu.path
       const menu = this.menus.find(item => item.path === path)
       if (menu) {
-        const leftDu = `${menu.id * 20}%`
+        const leftDu = `${menu.id * 100 / this.menus.length}%`
         const menuWrap = this.$refs['menu-wrap']
         menuWrap.style.setProperty('--left-du', leftDu)
         this.$store.commit('style/setCurrentMenu', menu)
       }
+      this.routerChanged = false
     },
     backToTop() {
       window.scrollTo({

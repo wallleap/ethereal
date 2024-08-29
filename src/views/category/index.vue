@@ -171,12 +171,11 @@ export default {
     margin-top: 1em;
     .posts {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 1em;
-      flex-wrap: wrap;
       & > a {
         margin: 0;
-        width: calc(100% / 3 - 10.7px);
         > div {
           width: 100%;
           height: 100%;
@@ -194,16 +193,12 @@ export default {
     @include sm-layout {
       .posts {
         padding: 0 calc(1em - 9px) 0 1em;
-        & > a {
-          width: calc(100% / 2 - 8px);
-        }
+        grid-template-columns: 1fr 1fr;
       }
     }
     @include xs-layout {
       .posts {
-        & > a {
-          width: 100%;
-        }
+        grid-template-columns: 1fr;
       }
     }
   }

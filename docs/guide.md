@@ -185,7 +185,71 @@ author: Luwang
 [作者：Luwang]: # '<https://cdn.wallleap.cn/img/pic/cover/vue.jpg>'
 ```
 
-### Create a repo for friends links
+### Friend Issue
+
+以下方式可以二选一
+
+#### 直接在博客仓库中新建 Issue
+
+创建一条 Issue，title 随意，label 为 `Friend`
+
+内容随意
+
+之后点击 `Submit new issue` 按钮，之后点击 `Close issue` 关闭该 Issue
+
+接下来每一条友链都直接在下方输入内容并点击 `Comment` 按钮
+
+**友链格式**必须按照如下格式
+
+```json
+{
+  "name": "博客名",
+  "url": "博客链接",
+  "avatar": "头像链接",
+  "desc": "博客描述",
+  "tag": {
+    "name": "标签名",
+    "color": "标签颜色",
+    "bg": "标签背景色"
+  }
+}
+```
+
+如果使用这种方式，需要严格按照上面的写，除了 `tag` 里的内容，都是必须要填的，如果不要标签，请置空，例如：
+
+**无标签示例**
+
+```json
+{
+  "name": "叶落阁",
+  "url": "//yelog.org",
+  "avatar": "//cdn.wallleap.cn/img/avatar/001.jpg",
+  "desc": "喜欢研究新兴技术和未来发展方向",
+  "tag": {
+    "name": "",
+    "color": "",
+    "bg": ""
+  }
+}
+```
+
+**有标签示例**
+
+```json
+{
+  "name": "wallleap",
+  "url": "//myblog.wallleap.cn",
+  "avatar": "//gravatar.wallleap.cn/avatar/be1ccdcf025a92b98a92e331e1b3662a?size=256",
+  "desc": "Luwang's blog",
+  "tag": {
+    "name": "博主",
+    "color": "#EEA25B",
+    "bg": "rgb(255 236 219)"
+  }
+}
+```
+
+#### 新创建一个友链仓库
 
 创建一个新的 GitHub 仓库，用于存放友链（单独开个仓库的优点是更好管理，可玩性更高），仓库名随意，例如 `friends`
 

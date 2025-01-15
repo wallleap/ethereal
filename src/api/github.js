@@ -120,6 +120,19 @@ export function getFriendsAPI({ page = 1, pageSize = 12, filter = '' }) {
     url: `${friends}/issues?state=closed&page=${page}&per_page=${pageSize}${filter}`,
   })
 }
+export async function getBlogFriendUrlAPI() {
+  const res = await github({
+    url: `${blog}/issues?state=closed&labels=Friend`,
+  })
+  const url = res.data[0].comments_url
+  const pageSize = res.data[0].comments
+  return { url, pageSize }
+}
+export function getBlogFriendsAPI({ url, page = 1, pageSize = 12 }) {
+  return github({
+    url: `${url}?page=${page}&per_page=${pageSize}`,
+  })
+}
 
 /**
  * 获取灵感列表

@@ -2,6 +2,10 @@
 import { mapActions } from 'vuex'
 import Comment from '@/components/comment/index.vue'
 import Markdown from '@/components/markdown/index.vue'
+import config from '@/config'
+import { getBlogFriendUrlAPI } from '@/api/github'
+
+const isBlogFriends = config.friendsRepo === '' || config.friendsRepo === undefined
 
 export default {
   name: 'Friend',
@@ -46,6 +50,7 @@ export default {
     ...mapActions({
       getFriendsCountAction: 'github/getFriendsCountAction',
       getFriendsAction: 'github/getFriendsAction',
+      getBlogFriendsAction: 'github/getBlogFriendsAction',
     }),
     parseFriends(friends) {
       friends.forEach((friend) => {
@@ -54,6 +59,17 @@ export default {
         if (labelsNames.includes('未添加'))
           this.notAdded.push(friend)
         else if (labelsNames.includes('失联'))
+          this.loseContact.push(friend)
+        else
+          this.filterFriends.push(friend)
+      })
+    },
+    parseBlogFriends(friends) {
+      friends.forEach((friend) => {
+        const tag = friend.tag
+        if (tag.name === '未添加')
+          this.notAdded.push(friend)
+        else if (tag.name === '失联')
           this.loseContact.push(friend)
         else
           this.filterFriends.push(friend)
@@ -69,23 +85,44 @@ export default {
       })
     },
     async getFriendsFn() {
-      const totalCount = await this.getFriendsCountFn().catch((err) => {
-        this.$message({
-          content: '获取友链总数失败',
-          type: 'error',
+      if (isBlogFriends) {
+        const { url, pageSize } = await getBlogFriendUrlAPI().catch((err) => {
+          this.$message({
+            content: '获取友链失败',
+            type: 'error',
+          })
+          throw new Error(err)
         })
-        throw new Error(err)
-      })
-      const friends = await this.getFriendsAction({ page: 1, pageSize: totalCount }).catch((err) => {
-        this.$message({
-          content: '获取友链失败',
-          type: 'error',
+        const friends = await this.getBlogFriendsAction({ url, page: 1, pageSize }).catch((err) => {
+          this.$message({
+            content: '获取友链失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        }).finally(() => {
+          this.loading = false
         })
-        throw new Error(err)
-      }).finally(() => {
-        this.loading = false
-      })
-      this.parseFriends(friends)
+        this.parseBlogFriends(friends)
+      }
+      else {
+        const totalCount = await this.getFriendsCountFn().catch((err) => {
+          this.$message({
+            content: '获取友链总数失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        })
+        const friends = await this.getFriendsAction({ page: 1, pageSize: totalCount }).catch((err) => {
+          this.$message({
+            content: '获取友链失败',
+            type: 'error',
+          })
+          throw new Error(err)
+        }).finally(() => {
+          this.loading = false
+        })
+        this.parseFriends(friends)
+      }
     },
   },
 }

@@ -47,7 +47,7 @@ export default {
   // GitHub Issues 配置
   username: 'wallleap',
   repository: 'myblogs',
-  friendsRepo: 'friends',
+  // friendsRepo: 'friends', // 留空则默认使用上方仓库获取
   // 您的信息
   author: 'Luwang',
   email: 'luwang@oicode.cn',

@@ -1,5 +1,6 @@
 import {
   getAboutAPI,
+  getBlogFriendsAPI,
   getCategoriesAPI,
   getFriendsAPI,
   getFriendsCountAPI,
@@ -141,7 +142,7 @@ const actions = {
     return posts
   },
   /**
-   * 获取文章列表
+   * 获取友链列表
    * @param {*} context
    * @param {*} params page, pageSize, filter
    * @returns posts
@@ -167,6 +168,21 @@ const actions = {
       }
     })
     friends.map(formatFriend)
+    return friends
+  },
+  /**
+   * 获取博客友链列表
+   * @returns friends
+   */
+  async getBlogFriendsAction(context, { url, page = 1, pageSize = 12 }) {
+    const res = await getBlogFriendsAPI({ url, page, pageSize }).catch((err) => {
+      throw new Error(err)
+    })
+    if (res.status !== 200)
+      return Promise.reject(res || 'error')
+    const friends = res.data.map((friend) => {
+      return JSON.parse(friend.body)
+    })
     return friends
   },
   /**

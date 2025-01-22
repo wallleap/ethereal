@@ -13,7 +13,7 @@
   color: var(--minor);
   transition: 0.4s;
   cursor: pointer;
-  .post-cover {
+  .post-cover-wrap {
     width: 100%;
     aspect-ratio: 16/10;
     border-radius: 1em;
@@ -21,7 +21,7 @@
     background-size: cover;
     background-position: center;
     overflow: hidden;
-    img {
+    .post-cover {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -86,8 +86,8 @@
     }
   }
   &:hover {
-    .post-cover {
-      img {
+    .post-cover-wrap {
+      .post-cover {
         transform: scale(1.2);
       }
     }

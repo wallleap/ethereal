@@ -3,8 +3,14 @@ import axios from 'axios'
 const GITHUB_API = 'https://api.github.com'
 const POETRY_API = 'https://v2.jinrishici.com'
 
-const GitHub_Arr = import.meta.env.VITE_GITHUB_TOKEN?.split(', ')
-const GITHUB_TOKEN = GitHub_Arr.join('')
+let GITHUB_TOKEN = ''
+const TEMP_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || ''
+if (TEMP_TOKEN === '')
+  console.error('GITHUB_TOKEN 未配置')
+else if (!TEMP_TOKEN.includes(', '))
+  GITHUB_TOKEN = ''
+else
+  GITHUB_TOKEN = TEMP_TOKEN.split(', ').join('')
 
 export const github = axios.create({
   baseURL: GITHUB_API,
@@ -34,6 +40,8 @@ export const poetry = axios.create({
  * @returns {Object}
  */
 github.interceptors.request.use((config) => {
+  if (GITHUB_TOKEN === '' || !GITHUB_TOKEN.match(/^github_/))
+    return Promise.reject(new Error('GITHUB_TOKEN 未配置或格式错误'))
   config.headers.Authorization = `Bearer ${GITHUB_TOKEN}`
   return config
 }, (error) => {

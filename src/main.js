@@ -19,16 +19,17 @@ Vue.directive('loading', loadingDirective)
 const appId = import.meta.env.VITE_LEANCLOUD_ID || ''
 const appKey = import.meta.env.VITE_LEANCLOUD_KEY || ''
 const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER || ''
-const clarity = config.clarity
+const clarity = import.meta.env.VITE_CLARITY_ID || ''
 
-if (appId && appKey && serverURLs){
+if (appId !== '' && appKey !== '' && serverURLs !== '') {
   localStorage.setItem('configLeancloud', 'yes')
   AV.init({
     appId,
     appKey,
     serverURLs,
   })
-} else {
+}
+else {
   localStorage.setItem('configLeancloud', 'no')
   console.warn('LeanCloud 相关配置未正确设置，请检查环境变量')
 }
@@ -36,7 +37,7 @@ if (appId && appKey && serverURLs){
 setTheme()
 handleError(config.errorImg)
 
-if (clarity) {
+if (clarity !== '') {
   const script = document.createElement('script')
   script.type = 'text/javascript'
   script.innerHTML = `

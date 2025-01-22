@@ -1,24 +1,31 @@
 <script>
+const utterancesCode = import.meta.env.VITE_UTTERANCES_CODE || ''
+const twikooId = import.meta.env.VITE_TWIKOO_ID || ''
+
 export default {
   name: 'Comment',
   data() {
     return {
       showUtterances: true,
       showTwikoo: false,
+      showToggleBtn: true,
       loading: true,
     }
   },
   computed: {
     currentComment: {
       get() {
-        return this.$store.state.style.currentComment || 'utterances'
+        let currentComment = this.$store.state.style.currentComment || 'utterances'
+        if (twikooId !== '' && utterancesCode === '')
+          currentComment = 'twikoo'
+        return currentComment
       },
       set(val) {
         this.$store.commit('style/setCurrentComment', val)
       },
     },
     utterancesOpts() {
-      const scriptTag = this.$config.utterances.code
+      const scriptTag = utterancesCode
       const regex = /(\w+)\s*=\s*["']([^"']+)["']/g
       const matches = scriptTag.match(regex)
       const obj = {}
@@ -53,7 +60,18 @@ export default {
     },
   },
   mounted() {
-    this.loadAll()
+    this.showToggleBtn = twikooId !== '' && utterancesCode !== ''
+    this.showTwikoo = twikooId !== ''
+    this.showUtterances = utterancesCode !== ''
+    this.$nextTick(() => {
+      if (utterancesCode !== '')
+        this.loadUtterances()
+      if (twikooId !== '') {
+        setTimeout(() => {
+          this.loadTwikoo()
+        }, 1000)
+      }
+    })
   },
   methods: {
     installUtterances() {
@@ -83,6 +101,7 @@ export default {
         else if (comment === 'twikoo') {
           this.showUtterances = false
           this.showTwikoo = true
+          this.loadTwikoo()
         }
         const allComments = this.$refs.commentsNav?.querySelectorAll('li')
         allComments?.forEach((li) => {
@@ -99,7 +118,7 @@ export default {
         this.setActiveComment(comment)
       }
     },
-    loadAll() {
+    loadUtterances() {
       new Promise((resolve, reject) => {
         const timer = setInterval(() => {
           if (this.$refs.utterances) {
@@ -114,18 +133,20 @@ export default {
       }).then(() => {
         this.setActiveComment(this.currentComment)
         this.installUtterances()
-        this.installTwikoo()
       })
+    },
+    loadTwikoo() {
+      this.installTwikoo()
     },
   },
 }
 </script>
 
 <template>
-  <div class="comments">
+  <div v-if="showTwikoo || showUtterances" class="comments">
     <div class="comments-header">
       <h2><SvgIcon name="comment" /> 评论</h2>
-      <ul ref="commentsNav" class="comments-nav" @click="setCurrentComment">
+      <ul v-if="showToggleBtn" ref="commentsNav" class="comments-nav" @click="setCurrentComment">
         <li class="utterances-toggle active">
           Utterances
         </li>

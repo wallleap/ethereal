@@ -43,7 +43,7 @@ export default {
   beian: '',
   beianLink: '',
   // 关于页二维码
-  alipay_qr: '//cdn.wallleap.cn/img/custom/donate/alipayQr.jpg',
+  alipay_qr: '/images/alipayQr.jpg',
   // GitHub Issues 配置
   username: 'wallleap',
   repository: 'myblogs',
@@ -60,23 +60,11 @@ export default {
   desc: 'Luwang\'s blog',
   // 文章相关
   pageSize: 12,
-  defaultCover: '//cdn.wallleap.cn/img/post/1.jpg',
+  defaultCover: '/images/cover.jpg',
   // 图片加载失败时显示，请将图片下载至你自己的存储空间，并使用自己的 CDN 引入
-  errorImg: '//cdn.wallleap.cn/img/pic/cover/image_processing20200524-7638-6itpxj.gif',
-  // 评论配置
-  utterances: {
-    code: `<script src="https://utteranc.es/client.js"
-      repo="wallleap/comments"
-      issue-term="title"
-      label="Comment"
-      theme="github-light"
-      crossorigin="anonymous"
-      async>
-    </script>`,
-  },
+  errorImg: '/images/error.gif',
+  // Twikoo 评论配置
   twikoo: {
     src: '//cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js',
   },
-  // Clarity 微软数据分析服务
-  clarity: 'jtdbmcusnq',
 }

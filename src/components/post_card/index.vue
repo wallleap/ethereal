@@ -34,9 +34,9 @@ export default {
 
 <template>
   <div class="post-card">
-    <figure class="post-cover">
-      <img v-if="post.cover" :src="post.cover" alt="Cover">
-      <img v-else :src="$config.defaultCover" alt="Cover">
+    <figure class="post-cover-wrap">
+      <img v-if="post.cover" :src="post.cover" class="post-cover" alt="Cover">
+      <img v-else :src="$config.defaultCover" class="post-cover" alt="Cover">
     </figure>
     <div class="post-info">
       <div class="post-meta">

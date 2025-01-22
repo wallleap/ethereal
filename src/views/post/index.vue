@@ -196,8 +196,8 @@ export default {
           <SvgIcon name="toc" />
         </div>
       </div>
-      <figure class="post-cover">
-        <img :src="post.cover || $config.defaultCover" alt="cover">
+      <figure class="post-cover-wrap">
+        <img :src="post.cover || $config.defaultCover" class="post-cover" alt="cover">
       </figure>
     </section>
     <section class="post-body">

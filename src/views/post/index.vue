@@ -114,6 +114,7 @@ export default {
     },
     async generateRelatesFn() {
       const LOOP = 2
+      const MIN_POST_NUM = 2
       const postList = await this.getPostsFn().catch((err) => {
         this.$message({
           content: '获取文章列表失败',
@@ -131,6 +132,8 @@ export default {
           continue
         if (post.number !== num)
           this.relates.push(post)
+        if (len <= MIN_POST_NUM)
+          break
         if (this.relates.length >= LOOP)
           break
       }

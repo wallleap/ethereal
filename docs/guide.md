@@ -15,6 +15,14 @@ nvm use 18
 npm i -g pnpm
 ```
 
+简要概述：
+
+- 创建一个或两个仓库，用于存放博客文章和友链数据（Issues）
+- 拉取本仓库，修改配置，本地正常显示之后，打包发布到自己的服务器或其他托管平台
+  - 复制 `.env.sample` 文件重命名为 `.env.local`，然后修改里面的内容，其中最重要的是 `VITE_GITHUB_TOKEN` 需要填入你的 GitHub Personal Access Token，其他的不需要就删除
+  - 复制 `src/config.sample.js` 文件重命名为 `src/config.js`，然后修改里面的内容，最重要的是 `username` 和 `repository`，其他的根据自己需要修改
+  - `public/images/alipayQr.jpg` 文件是支付宝收款码，如果需要改成你自己的，直接把图片删了，然后复制你的图片到 `public/images` 文件夹下，并修改名称为 `alipayQr.jpg`
+
 ## Prepare Repo & Issues
 
 在开始之前，需要准备好 GitHub 仓库和 Issues 作为你的博客数据源
@@ -305,7 +313,7 @@ pnpm install
 
 1、复制 `.env.sample` 重命名为 `.env.local`，修改其中的配置项
 
-**`VITE_GITHUB_TOKEN （这个用于获取 Issues 的权限)`**
+**`VITE_GITHUB_TOKEN`**（这个用于获取 Issues 的权限）
 
 前往 [https://github.com/settings/tokens](https://github.com/settings/tokens) 生成一个新的 Token，输入密码
 
@@ -325,7 +333,7 @@ pnpm install
 
 ---
 
-**`VITE_TWIKOO_ID （Twikoo 评论)`**
+**`VITE_TWIKOO_ID`**（Twikoo 评论）
 
 前往 [https://twikoo.js.org/](https://twikoo.js.org/) 按照文档部署配置（可以自己选择一种）
 
@@ -361,15 +369,15 @@ pnpm install
 
 ![安全域名](./imgs/leanclouddomain.png)
 
-2、修改 `src/config.js` 中的配置
+---
 
-提下重点注意的
+**`VITE_CLARITY_ID`**（微软 Clarity 分析系统）
 
-- `username` 是你的 GitHub 用户名
-- `repository` 是你的博客仓库名
-- `friends` 是你的友链仓库名
+创建一个微软 Clarity 账号，创建一个项目，项目名随意，选择手动安装，最后一个双引号中的内容就是 clarity id，复制它填入 `.env.local` 中的 `VITE_CLARITY_ID` 中
 
-**`utterances.code`**
+---
+
+**`VITE_UTTERANCES_CODE`**（Utterances 评论）
 
 前往 [https://utteranc.es/](https://utteranc.es/) 按照文档部署配置
 
@@ -383,9 +391,19 @@ pnpm install
 
 ![utterances code](./imgs/utterancescode.png)
 
-例如：
+并把中间的换行符换成空格，例如
 
-![config](./imgs/utterancescode1.png)
+```
+VITE_UTTERANCES_CODE="<script src="https://utteranc.es/client.js" repo="username/comments" issue-term="title" label="Comment" theme="github-light" crossorigin="anonymous" async></script>"
+```
+
+2、修改 `src/config.js` 中的配置
+
+提下重点注意的
+
+- `username` 是你的 GitHub 用户名
+- `repository` 是你的博客仓库名
+- `friends` 是你的友链仓库名，如果不填或删除，则获取上面仓库的带 `Friend` 标签的 Closed Issue
 
 ### Preview Locally
 

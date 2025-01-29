@@ -30,38 +30,37 @@
 
 export default {
   // 博客基础配置
-  title: 'wallleap',
-  subtitle: 'ルー・ワン',
-  description: 'Luwang\'s blog',
-  keywords: 'Luwang, blog, wallleap',
+  title: '博客名称',
+  subtitle: '博客副标题',
+  description: '博客描述信息',
+  keywords: '关键词1, 关键词2, 关键词3',
   logo: './logo.svg',
   favicon16: './favicon.ico',
   favicon32: './favicon.ico',
   createdTime: '2019-08-01',
-  icp: '赣ICP备20000895号-1',
-  icpLink: '//beian.miit.gov.cn/',
+  icp: '',
+  icpLink: '',
   beian: '',
   beianLink: '',
   // 关于页二维码
   alipay_qr: '/images/alipayQr.jpg',
   // GitHub Issues 配置
-  username: 'wallleap',
-  repository: 'myblogs',
+  username: 'GitHub用户名',
+  repository: 'Issue所在仓库名',
   // friendsRepo: 'friends', // 留空则默认使用上方仓库获取
   // 您的信息
-  author: 'Luwang',
-  email: 'luwang@oicode.cn',
-  link: '//luwang.info',
-  github: '//github.com/wallleap',
+  author: '作者名',
+  email: '联系邮箱',
+  link: '个人链接',
+  github: 'GitHub链接',
   // 友链信息
-  name: 'wallleap',
-  url: '//myblog.wallleap.cn',
-  avatar: '//gravatar.wallleap.cn/avatar/be1ccdcf025a92b98a92e331e1b3662a?size=256',
-  desc: 'Luwang\'s blog',
+  name: '作者名或博客名',
+  url: '博客链接',
+  avatar: '作者或博客头像链接',
+  desc: '描述信息',
   // 文章相关
   pageSize: 12,
   defaultCover: '/images/cover.jpg',
-  // 图片加载失败时显示，请将图片下载至你自己的存储空间，并使用自己的 CDN 引入
   errorImg: '/images/error.gif',
   // Twikoo 评论配置
   twikoo: {

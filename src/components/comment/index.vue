@@ -90,6 +90,8 @@ export default {
       twikoo.init({
         envId: import.meta.env.VITE_TWIKOO_ID,
         el: '.twikoo',
+      }).then(() => {
+        this.loading = false
       })
     },
     setActiveComment(comment) {

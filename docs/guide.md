@@ -451,6 +451,8 @@ VITE_UTTERANCES_CODE="<script src="https://utteranc.es/client.js" repo="username
 
 2、修改 `src/config.js` 中的配置
 
+删除目录中存在的 `config.js` 文件，复制 `src/config.sample.js` 文件重命名为 `config.js`，修改其中的配置项
+
 提下重点注意的
 
 - `username` 是你的 GitHub 用户名

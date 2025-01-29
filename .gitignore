@@ -14,8 +14,6 @@ dist-ssr
 coverage
 *.local
 
-src/config.js
-
 deploy.sh
 
 /cypress/videos/

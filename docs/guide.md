@@ -292,6 +292,50 @@ desc: 一句话描述
 
 ## How to use
 
+### Config Git
+
+查看 Git 信息
+
+```sh
+git config --list
+```
+
+如果没有`user.name=`或`user.email=`的项目，需要先配置 Git 用户名和邮箱
+
+```sh
+git config --global user.name "Your Name"
+git config --global user.email "Your Email"
+```
+
+接下来生成 SSH 密钥
+
+```sh
+ssh-keygen -t rsa -C "$(git config user.email)"
+```
+
+生成的密钥会在 `~/.ssh` 目录下，打开 `id_rsa.pub` 文件，将内容复制
+
+前往 GitHub，点击右上角头像 -> `Settings` -> `SSH and GPG keys` -> `New SSH key`，将复制的内容粘贴到 `Key` 中，`Title` 随意，点击 `Add SSH key` 按钮
+
+完成后，可以测试是否配置成功
+
+```sh
+ssh -T git@github.com
+```
+
+若出现 `Are you sure you want to continue connecting (yes/no/[fingerprint])?` 输入 `yes`，然后再次进行测试
+
+出现 `Hi username! You've successfully authenticated, but GitHub does not provide shell access.` 即表示配置成功
+
+若仍然出现 `Are you sure you want to continue connecting (yes/no/[fingerprint])?` ，则需要手动配置代理，在 `~/.ssh` 目录下新建 `config` 文件，输入以下内容
+
+```sh
+Host github.com
+  HostName ssh.github.com
+  User git
+  Port 443
+```
+
 ### Clone Project
 
 克隆本项目到本地
@@ -397,6 +441,14 @@ pnpm install
 VITE_UTTERANCES_CODE="<script src="https://utteranc.es/client.js" repo="username/comments" issue-term="title" label="Comment" theme="github-light" crossorigin="anonymous" async></script>"
 ```
 
+**`VITE_CLARITY_ID`**
+
+这是用于网页分析的
+
+前往 [https://clarity.microsoft.com/](https://clarity.microsoft.com/) 注册账号，创建一个项目，项目名随意
+
+选择安装模式为手动安装，将生成的 Clarity 代码中 `(window, document, "clarity", "script", "{clarity_id}");` 中的 `clarity_id` 部分填入 `.env.local` 中的 `VITE_CLARITY_ID` 中
+
 2、修改 `src/config.js` 中的配置
 
 提下重点注意的
@@ -451,7 +503,7 @@ git push -u ethereal main # 别名为 origin 的是我的仓库，以后你可�
 
 2、`.env.local` 中的剩余四项
 
-`Name` 为 `VITE_TWIKOO_ID`、`VITE_LEANCLOUD_ID`、`VITE_LEANCLOUD_KEY`、`VITE_LEANCLOUD_SERVER`
+`Name` 为 `VITE_TWIKOO_ID`、`VITE_LEANCLOUD_ID`、`VITE_LEANCLOUD_KEY`、`VITE_LEANCLOUD_SERVER`、`VITE_CLARITY_ID`
 
 `Secret` 分别为对应的双引号中内容
 

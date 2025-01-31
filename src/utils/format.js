@@ -69,9 +69,28 @@ export function formatFriend(friend) {
   if (!friend || !friend.body)
     return []
   const { body } = friend
-  const res = body.split('\r\n')
+  let res = body.split(/\r?\n/).filter((item) => item.trim() !== '')
+  
+  const isValidLine = line => line.includes(': ')
+  res = res.filter(isValidLine)
+  
+  if (res.length !== 4) {
+    setDefaultFriend()
+    return friend
+  }
   res.forEach((item) => {
-    friend[item.split(': ')[0].trim()] = item.split(': ')[1].trim()
+    const [key, value] = item.split(': ').map(part => part.trim())
+    friend[key] = value
   })
+  if (!friend.name || !friend.url || !friend.avatar || !friend.desc) {
+    setDefaultFriend()
+  }
   return friend
+
+  function setDefaultFriend() {
+    friend.name = '友链名称'
+    friend.url = '#'
+    friend.avatar = '/images/error.gif'
+    friend.desc = '友链无法正常显示，可能是格式不正确'
+  }
 }

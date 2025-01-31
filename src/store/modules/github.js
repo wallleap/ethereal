@@ -155,16 +155,9 @@ const actions = {
       return Promise.reject(res || 'error')
     const friends = res.data.map((friend) => {
       return {
-        number: friend.number,
         id: friend.id,
-        title: friend.title,
-        origin_url: friend.url,
-        created_at: friend.created_at,
-        updated_at: friend.updated_at,
         body: friend.body,
         labels: friend.labels,
-        labels_url: friend.labels_url,
-        category: friend.milestone,
       }
     })
     friends.map(formatFriend)

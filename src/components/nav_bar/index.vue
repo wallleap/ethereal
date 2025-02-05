@@ -4,11 +4,11 @@ export default {
   data() {
     return {
       menus: [
-        { id: 0, title: '首页', path: '/', icon: 'home' },
-        { id: 1, title: '归档', path: '/archives', icon: 'archives' },
-        { id: 2, title: '灵感', path: '/inspiration', icon: 'inspire' },
-        { id: 3, title: '友链', path: '/friend', icon: 'friends' },
-        { id: 4, title: '关于', path: '/about', icon: 'about' },
+        { id: 0, title: this.$t('home'), path: '/', icon: 'home' },
+        { id: 1, title: this.$t('archives'), path: '/archives', icon: 'archives' },
+        { id: 2, title: this.$t('inspiration'), path: '/inspiration', icon: 'inspire' },
+        { id: 3, title: this.$t('friends'), path: '/friend', icon: 'friends' },
+        { id: 4, title: this.$t('about'), path: '/about', icon: 'about' },
       ],
       routerChanged: true,
       theme: 'light',

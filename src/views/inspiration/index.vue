@@ -49,7 +49,7 @@ export default {
 <template>
   <div class="inspiration-wrap">
     <div class="inspiration">
-      <h2><SvgIcon name="tongzhi" /> 絮絮叨叨</h2>
+      <h2><SvgIcon name="tongzhi" /> {{ $t('ideas') }}</h2>
       <div v-loading="loading" class="ideas-wrap">
         <transition name="from-bottom">
           <div v-if="!loading">

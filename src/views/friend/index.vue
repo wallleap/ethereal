@@ -31,11 +31,6 @@ export default {
         + '```'
       return string
     },
-    friendLink() {
-      let link = 'https://github.com/'
-      link += `${this.$config.username}/${this.$config.friendsRepo}/issues`
-      return link
-    },
     showLoseContact() {
       return this.loseContact.length > 0
     },
@@ -132,17 +127,17 @@ export default {
   <div class="friend-wrap">
     <div class="friend">
       <section>
-        <h2><SvgIcon name="lianjie" /> 我的友链信息</h2>
+        <h2><SvgIcon name="lianjie" /> {{ $t('friend_info') }}</h2>
         <div class="info-wrap">
-          <p>欢迎各位大佬交换友链 (づ￣ 3￣)づ</p>
-          <p>以下是我的友链信息，各位大佬可以在页面下按照这个格式留言，或者前往 <a :href="friendLink">Friend</a> 自行创建</p>
+          <p>{{ $t('exchange_link') }}</p>
+          <p>{{ $t('this_is_my_friend') }}</p>
           <Markdown :content="friendInfo" :need-parsed="true" />
         </div>
       </section>
       <section>
-        <h2><SvgIcon name="zhinan" /> 小伙伴们</h2>
-        <p>※ 以下友链友链随机排序，博主将不定期更新排序并过滤阵亡名单</p>
-        <p>※ 为了页面视觉体验，头像将保存到博主自己的存储空间，如果有更新请即时联系博主修改</p>
+        <h2><SvgIcon name="zhinan" /> {{ $t('my_friends') }}</h2>
+        <p>※ {{ $t('randomly_sorted') }}</p>
+        <p>※ {{ $t('own_storage_space') }}</p>
         <ul v-loading="loading" class="content">
           <li v-for="friend in filterFriends" :key="friend.number">
             <a :href="friend.url" rel="noopener noreferrer" class="info" target="_blank">
@@ -159,7 +154,7 @@ export default {
       </section>
       <section v-if="showLoseContact">
         <p class="strong">
-          失联的小伙伴们
+          {{ $t('cannot_visit') }}
         </p>
         <ul class="content">
           <li v-for="friend in loseContact" :key="friend.number">
@@ -174,11 +169,11 @@ export default {
             </a>
           </li>
         </ul>
-        <p>请以上失联的小伙伴尽快恢复网站的正常访问，并且通知博主</p>
+        <p>{{ $t('please_restore') }}</p>
       </section>
       <section v-if="showNotAdded">
         <p class="strong">
-          未添加本站的小伙伴们
+          {{ $t('unblied_friends') }}
         </p>
         <ul class="not-added">
           <li v-for="friend in notAdded" :key="friend.number">
@@ -187,7 +182,7 @@ export default {
             </h3>
           </li>
         </ul>
-        <p>如果需要本博客继续收录您的站点，请于您的站点添加本站后联系博主</p>
+        <p>{{ $t('continue_include') }}</p>
       </section>
     </div>
     <Comment />

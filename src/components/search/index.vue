@@ -61,11 +61,11 @@ export default {
           v-model="searchValue"
           type="text"
           class="search-input"
-          placeholder="输入关键词进行搜索"
+          :placeholder="$t('enter_search')"
           @focus="showSearchWrap"
         >
         <button type="submit" class="search-btn">
-          搜索
+          {{ $t('search') }}
         </button>
       </form>
       <div v-if="showModal" class="search-res">

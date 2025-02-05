@@ -41,7 +41,7 @@ export default {
     <div class="categories-bar">
       <div class="categories">
         <router-link to="/">
-          近期文章
+          {{ $t('recent_posts') }}
         </router-link>
         <router-link v-for="category in categories" :key="category.id" :to="{ name: 'Category', params: { number: category.number, category } }">
           {{ category.title }}

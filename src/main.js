@@ -3,6 +3,7 @@ import AV from 'leancloud-storage'
 import config from './config.js'
 import store from './store'
 import router from './router'
+import i18n from './locale'
 import { handleError, setTheme } from '@/utils'
 import SvgIcon from '@/components/svg_icon/index.vue'
 import Message from '@/components/message/index.js'
@@ -53,5 +54,6 @@ if (clarity !== '') {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App),
 }).$mount('#app')

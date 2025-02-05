@@ -147,7 +147,7 @@ export default {
 <template>
   <div v-if="showTwikoo || showUtterances" class="comments">
     <div class="comments-header">
-      <h2><SvgIcon name="comment" /> 评论</h2>
+      <h2><SvgIcon name="comment" /> {{ $t('comments') }}</h2>
       <ul v-if="showToggleBtn" ref="commentsNav" class="comments-nav" @click="setCurrentComment">
         <li class="utterances-toggle active">
           Utterances

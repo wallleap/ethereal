@@ -29,7 +29,7 @@ export default {
       return link
     },
     filterText() {
-      return this.filterCount === 0 ? '该标签下暂时没有文章~' : `该标签下有 ${this.filterCount} 篇文章~`
+      return this.filterCount === 0 ? this.$t('no_articles') : `${this.$t('tag_articles')} ${this.filterCount} ${this.$t('under_this_label')}`
     },
   },
   created() {
@@ -123,9 +123,9 @@ export default {
     <div class="archives">
       <div class="tags">
         <div class="tags-header">
-          <h2><SvgIcon name="biaoqian" /> 标签</h2>
+          <h2><SvgIcon name="biaoqian" /> {{ $t('tags') }}</h2>
           <div v-if="isFilter" class="clear-all" @click="clearAll">
-            清除选中
+            {{ $t('clear_selection') }}
           </div>
         </div>
         <div class="tags-body">
@@ -139,7 +139,7 @@ export default {
       <div class="archives-list">
         <div class="archives-header">
           <h2 v-if="!isFilter">
-            <SvgIcon name="danju" /> 你已经写了 {{ totalCount }} 篇文章了，继续坚持哦~
+            <SvgIcon name="danju" /> {{ $t('you_have_written') }} {{ totalCount }} {{ $t('keep_writing') }}
             <a class="edit" :href="editLink" target="_blank">
               <SvgIcon name="shuru" />
             </a>

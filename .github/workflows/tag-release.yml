@@ -15,12 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files
-        run: ls -R
-
       - name: Package files
         run: |
-          tar -czvf ethereal.tar.gz --exclude=".github" --exclude="dist" --exclude=".git" .
+          # Create tarball in temporary directory to avoid race condition
+          mkdir -p /tmp/ethereal
+          cp -r . /tmp/ethereal/
+          # Clean up excluded directories
+          rm -rf /tmp/ethereal/.github /tmp/ethereal/dist /tmp/ethereal/.git
+          # Create tarball
+          tar -czvf ethereal.tar.gz -C /tmp/ethereal .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -35,6 +38,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
+          name: ethereal
           path: .
 
       - name: Create GitHub release

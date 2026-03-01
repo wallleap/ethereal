@@ -20,8 +20,13 @@ jobs:
 
       - name: Package files
         run: |
-          tar -czvf ethereal.tar.gz --exclude=".github" --exclude="dist" .
+          tar -czvf ethereal.tar.gz --exclude=".github" --exclude="dist" --exclude=".git" .
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ethereal
+          path: ethereal.tar.gz
 
   release:
     runs-on: ubuntu-latest

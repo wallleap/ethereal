@@ -3,7 +3,7 @@
  * @returns {string} en-US | zh-CN
  */
 export function getLocale() {
-  const checkForZh = (lang) => lang && lang.indexOf('zh') > -1
+  const checkForZh = lang => lang && lang.includes('zh')
 
   const localeFromStorage = localStorage.getItem('locale')
   if (checkForZh(localeFromStorage)) {

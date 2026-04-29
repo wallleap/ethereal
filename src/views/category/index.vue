@@ -52,9 +52,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      queryHotAction: 'leancloud/queryHotAction',
       getPostsAction: 'github/getPostsAction',
       getPostsCountAction: 'github/getPostsCountAction',
+      getGistAction: 'gist/getGistAction',
     }),
     pageChangeFn() {
       this.posts = []
@@ -98,29 +98,22 @@ export default {
           this.loading = false
         })
       }
-      const ids = res.map(post => post.id)
-      if (localStorage.getItem('configLeancloud') === 'yes'){
-        const hot = await this.queryHotAction({ ids }).catch((err) => {
-          this.$message({
-            content: '获取文章热度失败',
-            type: 'error',
-          })
-          throw new Error(err)
+      const gist = await this.getGistAction().catch((err) => {
+        this.$message({
+          content: '获取文章热度失败',
+          type: 'error',
         })
-        if (hot) {
-          this.posts = res.map((post) => {
-            const hotNum = hot[post.id] || 1
-            post.hot = hotNum
-            return post
-          })
-        }
-      } else {
+        throw new Error(err)
+      })
+      if (gist && gist.counter) {
+        const counters = JSON.parse(gist.counter)
         this.posts = res.map((post) => {
-          post.hot = 1
+          const counter = counters.find((item) => item.id === post.number)
+          post.hot = counter?.times || 1
           return post
         })
       }
-      
+
       this.$store.commit('github/setAllPosts', res)
     },
   },

@@ -56,7 +56,7 @@ export default {
       getPostsCountAction: 'github/getPostsCountAction',
       getPostsAction: 'github/getPostsAction',
       getPostAction: 'github/getPostAction',
-      increaseHotAction: 'leancloud/increaseHotAction',
+      updateCounterAction: 'gist/updateCounterAction',
     }),
     async getPostsCountFn() {
       return await this.getPostsCountAction().catch((err) => {
@@ -90,16 +90,9 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-      if (localStorage.getItem('configLeancloud') === 'yes') {
-        const hot = await this.increaseHotAction({ post: this.post }).catch((err) => {
-          this.$message({
-            content: '增加文章热度失败',
-            type: 'error',
-          })
-          throw new Error(err)
-        })
-        this.$set(this.post, 'hot', hot)
-      }
+      const counters = await this.updateCounterAction({ postNumber: this.post.number, title: this.post.title })
+      this.post.hot = counters.find((item) => item.id === this.post.number)?.times || 1
+      
       const parsedMarked = await markIt.parse(this.post.body).catch((err) => {
         this.$message({
           content: '解析文章失败',

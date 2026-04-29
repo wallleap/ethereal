@@ -38,15 +38,14 @@ export default {
     },
   },
   created() {
-    if (localStorage.getItem('configLeancloud') === 'yes')
-      this.visitorStatisticsFn()
+    this.visitorStatisticsFn()
   },
   methods: {
     visitorStatisticsFn() {
       const referrer = document.createElement('a')
       referrer.href = document.referrer
       const hostname = referrer.hostname || '直接访问'
-      this.$store.dispatch('leancloud/visitorStatisticsAction', hostname)
+      this.$store.dispatch('gist/updateVisitorAction', { referrer: hostname })
     },
   },
 }

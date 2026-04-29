@@ -2,6 +2,7 @@
 import Comment from '@/components/comment/index.vue'
 import MarkIt from '../../components/markdown/mark_it'
 import Markdown from '@/components/markdown/index.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'About',
@@ -28,10 +29,14 @@ export default {
     this.getAboutFn()
   },
   mounted() {
-    if (localStorage.getItem('configLeancloud') === 'yes')
-      this.queryLikeFn()
+    this.queryLikeFn()
   },
   methods: {
+    ...mapActions({
+      getGistAction: 'gist/getGistAction',
+      updateLikeAction: 'gist/updateLikeAction',
+      getAboutAction: 'github/getAboutAction',
+    }),
     async getAboutFn() {
       const res = await this.$store.dispatch('github/getAboutAction').catch((err) => {
         this.$message({
@@ -55,24 +60,20 @@ export default {
       this.appendBusuanzi(parsedString?.content)
     },
     async queryLikeFn() {
-      const res = await this.$store.dispatch('leancloud/queryLikeAction', 'getTimes').catch((err) => {
+      const res = await this.getGistAction().catch((err) => {
         this.$message({
           content: '获取点赞次数失败',
           type: 'error',
         })
         throw new Error(err)
       })
-      if (res !== 'undefined')
-        this.likeTimes = res
+      const count = res?.like?.count || 0
+      if (count)
+        this.likeTimes = count
+      else
+        this.likeTimes = 0
     },
     async likeClick() {
-      if (localStorage.getItem('configLeancloud') === 'no'){
-        this.$message({
-          content: '博主还没有设置 Leancloud，点赞无效',
-          type: 'error',
-        })
-        return
-      }
       if (this.isLiked === 'isLiked') {
         this.$message({
           content: '您已经点过赞了哦~',
@@ -80,13 +81,15 @@ export default {
         })
         return
       }
-      this.likeTimes = await this.$store.dispatch('leancloud/queryLikeAction').catch((err) => {
+      const count = await this.updateLikeAction().catch((err) => {
         this.$message({
           content: '点赞失败',
           type: 'error',
         })
         throw new Error(err)
       })
+      if (count)
+        this.likeTimes = count
       this.isLiked = 'isLiked'
       localStorage.setItem('isLiked', 'isLiked')
       this.$message({

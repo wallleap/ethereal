@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      commit_message:
+        description: 'Commit message for deployment'
+        required: true
+        default: 'Manual deployment'
+      publish_branch:
+        description: 'Branch to publish to'
+        required: false
+        default: 'master'
 
 jobs:
   deploy:
@@ -45,15 +55,15 @@ jobs:
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: wallleap/wallleap.github.io
-          publish_branch: master
+          publish_branch: ${{ inputs.publish_branch || 'master' }}
           user_name: wallleap
           user_email: 15579576761@163.com
-          commit_message: ${{ github.event.head_commit.message }}
-          full_commit_message: ${{ github.event.head_commit.message }}
+          commit_message: ${{ inputs.commit_message || github.event.head_commit.message }}
+          full_commit_message: ${{ inputs.commit_message || github.event.head_commit.message }}
           publish_dir: ./dist
           force_orphan: true
           allow_empty_commit: true
-          cname: myblog.wallleap.cn
+          cname: ${{ inputs.cname || 'myblog.wallleap.cn' }}
       - name: Get the output
         run: |
           echo "${{ steps.deploy.outputs.notify }}"

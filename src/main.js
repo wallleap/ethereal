@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import AV from 'leancloud-storage'
 import config from './config.js'
 import store from './store'
 import router from './router'
@@ -17,23 +16,7 @@ Vue.prototype.$message = Message
 Vue.component('SvgIcon', SvgIcon)
 Vue.directive('loading', loadingDirective)
 
-const appId = import.meta.env.VITE_LEANCLOUD_ID || ''
-const appKey = import.meta.env.VITE_LEANCLOUD_KEY || ''
-const serverURLs = import.meta.env.VITE_LEANCLOUD_SERVER || ''
 const clarity = import.meta.env.VITE_CLARITY_ID || ''
-
-if (appId !== '' && appKey !== '' && serverURLs !== '') {
-  localStorage.setItem('configLeancloud', 'yes')
-  AV.init({
-    appId,
-    appKey,
-    serverURLs,
-  })
-}
-else {
-  localStorage.setItem('configLeancloud', 'no')
-  console.warn('LeanCloud 相关配置未正确设置，请检查环境变量')
-}
 
 setTheme()
 handleError(config.errorImg)

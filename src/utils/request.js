@@ -5,6 +5,8 @@ const POETRY_API = 'https://v2.jinrishici.com'
 
 let GITHUB_TOKEN = ''
 const TEMP_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || ''
+const tempGistToken = import.meta.env.VITE_GIST_TOKEN || ''
+const GIST_TOKEN = tempGistToken.split(', ').join('') || ''
 if (TEMP_TOKEN === '')
   console.error('GITHUB_TOKEN 未配置')
 else if (!TEMP_TOKEN.includes(', '))
@@ -25,6 +27,14 @@ export const githubGraphql = axios.create({
   timeout: 10000,
   headers: {
     Authorization: `Bearer ${GITHUB_TOKEN}`,
+  },
+})
+
+export const gist = axios.create({
+  baseURL: `${GITHUB_API}/gists`,
+  timeout: 10000,
+  headers: {
+    Authorization: `Bearer ${GIST_TOKEN}`,
   },
 })
 

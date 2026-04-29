@@ -43,6 +43,8 @@ const actions = {
    * @returns Promise
    */
   async updateCounterAction(context, { postNumber, title }) {
+    if (import.meta.env.DEV)
+      return
     postNumber = Number(postNumber)
     const gistState = await actions.getGistAction()
 
@@ -75,6 +77,8 @@ const actions = {
    * @returns Promise
    */
   async updateVisitorAction(context, { referrer }) {
+    if (import.meta.env.DEV)
+      return
     referrer = referrer.trim()
     const gistState = await actions.getGistAction()
     let visitor = [] // { referrer, times, createdAt, updatedAt }

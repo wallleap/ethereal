@@ -53,7 +53,7 @@ const actions = {
     const counterIndex = counters.findIndex((item, index, arr) => item.id === postNumber)
 
     if (counterIndex === -1) {
-      counters.push({ id: postNumber, times: 1, title, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
+      counters.push({ id: postNumber, site: window.location.href, times: 1, title, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
     } else {
       counters[counterIndex].times += COUNTER_INCREMENT
       counters[counterIndex].updatedAt = new Date().toISOString()

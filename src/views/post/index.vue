@@ -90,9 +90,15 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-      const counters = await this.updateCounterAction({ postNumber: this.post.number, title: this.post.title })
-      this.post.hot = counters.find((item) => item.id === this.post.number)?.times || 1
-      
+      const counters = await this.updateCounterAction({ postNumber: this.post.number, title: this.post.title }).catch(() => {
+        this.$message({
+          content: '更新文章热度失败',
+          type: 'error',
+        })
+        return []
+      })
+      this.post.hot = counters.find(item => item.id === this.post.number)?.times || 1
+
       const parsedMarked = await markIt.parse(this.post.body).catch((err) => {
         this.$message({
           content: '解析文章失败',

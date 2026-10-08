@@ -1,8 +1,8 @@
 <script>
-import Comment from '@/components/comment/index.vue'
-import MarkIt from '../../components/markdown/mark_it'
-import Markdown from '@/components/markdown/index.vue'
 import { mapActions } from 'vuex'
+import MarkIt from '../../components/markdown/mark_it'
+import Comment from '@/components/comment/index.vue'
+import Markdown from '@/components/markdown/index.vue'
 
 export default {
   name: 'About',
@@ -60,12 +60,12 @@ export default {
       this.appendBusuanzi(parsedString?.content)
     },
     async queryLikeFn() {
-      const res = await this.getGistAction().catch((err) => {
+      const res = await this.getGistAction({ files: ['like'] }).catch(() => {
         this.$message({
           content: '获取点赞次数失败',
           type: 'error',
         })
-        throw new Error(err)
+        return { like: { count: 0 } }
       })
       const count = res?.like?.count || 0
       if (count)
@@ -81,13 +81,15 @@ export default {
         })
         return
       }
-      const count = await this.updateLikeAction().catch((err) => {
+      const count = await this.updateLikeAction().catch(() => {
         this.$message({
           content: '点赞失败',
           type: 'error',
         })
-        throw new Error(err)
+        return null
       })
+      if (count === null)
+        return
       if (count)
         this.likeTimes = count
       this.isLiked = 'isLiked'

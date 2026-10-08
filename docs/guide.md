@@ -401,7 +401,15 @@ pnpm install
 
 **`VITE_GIST_ID`**（Gist ID）
 
-前往 <https://github.com/gists> 创建一个新的 Gist，新建一个 `visitor.json` 文件，内容为 `[]`，复制链接最后一串，填入 `.env.local` 中的 `VITE_GIST_ID` 中
+前往 <https://github.com/gists> 创建一个新的 Gist，并创建以下三个文件：
+
+- `counter.json`：文章热度统计，初始内容为 `[]`
+- `visitor.json`：访问来源统计，初始内容为 `[]`
+- `like.json`：点赞统计，初始内容为 `{"count":0}`
+
+三个文件都必须存在且包含合法 JSON。应用会在更新前校验文件是否缺失、被 GitHub 截断以及数据结构是否有效；校验失败时会放弃本次统计更新，不会以空数组或零计数覆盖已有数据。不要手动清空、删除或改名这些文件。
+
+复制 Gist 链接最后一段 ID，填入 `.env.local` 的 `VITE_GIST_ID`。统计更新使用“读取最新文件 → 本地递增 → 写回文件”的方式；应用会对同一页面实例及支持 Web Locks 的同源标签页进行串行处理，但 GitHub Gist 不提供原子递增，因此不同设备、不同浏览器或旧部署同时写入时仍可能丢失一次增量。Gist 统计适合博客展示，不应作为需要强一致性的计费或审计数据。
 
 ---
 

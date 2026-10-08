@@ -45,7 +45,9 @@ export default {
       const referrer = document.createElement('a')
       referrer.href = document.referrer
       const hostname = referrer.hostname || '直接访问'
-      this.$store.dispatch('gist/updateVisitorAction', { referrer: hostname })
+      this.$store.dispatch('gist/updateVisitorAction', { referrer: hostname }).catch(() => {
+        console.error('Visitor statistics update failed')
+      })
     },
   },
 }

@@ -1,12 +1,28 @@
+import {
+  assertCountersNotRegressed,
+  assertLikeNotRegressed,
+  assertVisitorsNotRegressed,
+  incrementCounter,
+  incrementLike,
+  incrementVisitor,
+  isCounterData,
+  isLikeData,
+  isVisitorData,
+  parseGistFile,
+} from './gistData.mjs'
 import { getGistAPI, updateGistAPI } from '@/api/gist.js'
-import { validJSON } from '../../utils/validJSON'
 
-const COUNTER_FILE = 'counter.json'
-const VISITOR_FILE = 'visitor.json'
-const LIKE_FILE = 'like.json'
-const COUNTER_INCREMENT = 1
-const VISITOR_INCREMENT = 1
-const LIKE_INCREMENT = 1
+const FILES = {
+  counter: { name: 'counter.json', validate: isCounterData },
+  visitor: { name: 'visitor.json', validate: isVisitorData },
+  like: { name: 'like.json', validate: isLikeData },
+}
+
+const memoryQueues = new Map()
+const recordedPosts = new Set()
+const pendingCounters = new Map()
+let visitorPromise = null
+let likePromise = null
 
 function state() {
   return {
@@ -16,119 +32,163 @@ function state() {
   }
 }
 
-const actions = {
-  /**
-   * 获取gist文件内容
-   * @returns Promise
-   */
-  async getGistAction() {
-    const res = await getGistAPI().catch((err) => {
-      throw new Error(err)
-    })
-    if (res.status !== 200)
-      return Promise.reject(res || 'error')
-
-    state.counter = res.data?.files?.[COUNTER_FILE]?.content || []
-    state.visitor = res.data?.files?.[VISITOR_FILE]?.content || []
-    if (validJSON(res.data?.files?.[LIKE_FILE]?.content)) {
-      state.like = JSON.parse(res.data?.files?.[LIKE_FILE]?.content)
-    } else {
-      state.like = {}
-    }
-    return state
+const mutations = {
+  setCounter(currentState, counter) {
+    currentState.counter = structuredClone(counter)
   },
-  /**
-   * 更新文章热度
-   * @param {*} param0 postNumber, title
-   * @returns Promise
-   */
-  async updateCounterAction(context, { postNumber, title }) {
-    if (import.meta.env.DEV)
-      return
-    postNumber = Number(postNumber)
-    const gistState = await actions.getGistAction()
-
-    let counters = [] // { id, site, times, title, createdAt, updatedAt }
-    if (validJSON(gistState.counter)) {
-      counters = JSON.parse(gistState.counter)
-    }
-    const counterIndex = counters.findIndex((item, index, arr) => item.id === postNumber)
-
-    if (counterIndex === -1) {
-      counters.push({ id: postNumber, site: window.location.href, times: 1, title, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
-    } else {
-      counters[counterIndex].times += COUNTER_INCREMENT
-      counters[counterIndex].updatedAt = new Date().toISOString()
-    }
-
-    await updateGistAPI({
-      files: {
-        [COUNTER_FILE]: {
-          content: JSON.stringify(counters),
-        }
-      },
-    })
-    state.counter = counters
-
-    return counters
+  setVisitor(currentState, visitor) {
+    currentState.visitor = structuredClone(visitor)
   },
-  /**
-   * 更新访客数
-   * @returns Promise
-   */
-  async updateVisitorAction(context, { referrer }) {
-    if (import.meta.env.DEV)
-      return
-    referrer = referrer.trim()
-    const gistState = await actions.getGistAction()
-    let visitor = [] // { referrer, times, createdAt, updatedAt }
-    if (validJSON(gistState.visitor)) {
-      visitor = JSON.parse(gistState.visitor)
-    }
-    const visitorIndex = visitor.findIndex((item, index, arr) => item.referrer === referrer)
-    if (visitorIndex === -1) {
-      visitor.push({ referrer, times: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
-    } else {
-      visitor[visitorIndex].times += VISITOR_INCREMENT
-      visitor[visitorIndex].updatedAt = new Date().toISOString()
-    }
-    await updateGistAPI({
-      files: {
-        [VISITOR_FILE]: {
-          content: JSON.stringify(visitor),
-        }
-      },
-    })
-    state.visitor = visitor
-    return visitor
+  setLike(currentState, like) {
+    currentState.like = structuredClone(like)
   },
-  /**
-   * 更新点赞数
-   * @returns Promise
-   */
-  async updateLikeAction() {
-    const gistState = await actions.getGistAction()
-    let like = gistState.like // { count, createdAt, updatedAt }
-    if (!like || !like.count) {
-      like = { count: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-    } else {
-      like.count += LIKE_INCREMENT
-      like.updatedAt = new Date().toISOString()
-    }
-    await updateGistAPI({
-      files: {
-        [LIKE_FILE]: {
-          content: JSON.stringify(like),
-        }
-      },
-    })
-    state.like = like
-    return like.count
+}
+
+async function withMemoryLock(file, task) {
+  const previous = memoryQueues.get(file) || Promise.resolve()
+  let release
+  const current = new Promise((resolve) => {
+    release = resolve
+  })
+  memoryQueues.set(file, current)
+  await previous
+  try {
+    return await task()
   }
+  finally {
+    release()
+    if (memoryQueues.get(file) === current)
+      memoryQueues.delete(file)
+  }
+}
+
+async function withStatisticsLock(file, task) {
+  if (typeof navigator !== 'undefined' && navigator.locks)
+    return navigator.locks.request(`ethereal-gist-${file}`, task)
+  return withMemoryLock(file, task)
+}
+
+function parseFile(files, type) {
+  const { name, validate } = FILES[type]
+  return parseGistFile(files, name, validate)
+}
+
+async function readGistFile(type) {
+  const response = await getGistAPI()
+  return parseFile(response?.data?.files, type)
+}
+
+function assertNotRegressed(type, known, remote) {
+  if (type === 'counter')
+    assertCountersNotRegressed(known, remote)
+  else if (type === 'visitor')
+    assertVisitorsNotRegressed(known, remote)
+  else
+    assertLikeNotRegressed(known, remote)
+}
+
+async function persistGistFile(type, data) {
+  const fileName = FILES[type].name
+  const content = JSON.stringify(data)
+  const response = await updateGistAPI({
+    files: {
+      [fileName]: { content },
+    },
+  })
+  const saved = parseFile(response?.data?.files, type)
+  if (JSON.stringify(saved) !== content)
+    throw new Error(`Gist PATCH response did not confirm ${fileName}`)
+  return saved
+}
+
+const actions = {
+  async getGistAction({ state: currentState, commit }, { files = Object.keys(FILES) } = {}) {
+    const response = await getGistAPI()
+    const result = {}
+    for (const type of files) {
+      if (!FILES[type])
+        throw new Error(`Unknown Gist statistics file: ${type}`)
+      const data = parseFile(response?.data?.files, type)
+      assertNotRegressed(type, currentState[type], data)
+      commit(`set${type[0].toUpperCase()}${type.slice(1)}`, data)
+      result[type] = structuredClone(data)
+    }
+    return result
+  },
+
+  async updateCounterAction({ state: currentState, commit }, { postNumber, title }) {
+    if (import.meta.env.DEV)
+      return structuredClone(currentState.counter)
+
+    postNumber = Number(postNumber)
+    if (!Number.isInteger(postNumber) || postNumber <= 0)
+      throw new Error('Post number must be a positive integer')
+    if (recordedPosts.has(postNumber))
+      return structuredClone(currentState.counter)
+    if (pendingCounters.has(postNumber))
+      return pendingCounters.get(postNumber)
+
+    const operation = withStatisticsLock('counter', async () => {
+      const remote = await readGistFile('counter')
+      assertNotRegressed('counter', currentState.counter, remote)
+      const next = incrementCounter(remote, {
+        postNumber,
+        title: String(title || ''),
+        site: window.location.href,
+        now: new Date().toISOString(),
+      })
+      const saved = await persistGistFile('counter', next)
+      commit('setCounter', saved)
+      recordedPosts.add(postNumber)
+      return structuredClone(saved)
+    }).finally(() => {
+      pendingCounters.delete(postNumber)
+    })
+    pendingCounters.set(postNumber, operation)
+    return operation
+  },
+
+  async updateVisitorAction({ state: currentState, commit }, { referrer }) {
+    if (import.meta.env.DEV)
+      return structuredClone(currentState.visitor)
+    if (!visitorPromise) {
+      visitorPromise = withStatisticsLock('visitor', async () => {
+        const remote = await readGistFile('visitor')
+        assertNotRegressed('visitor', currentState.visitor, remote)
+        const next = incrementVisitor(remote, {
+          referrer: String(referrer || '').trim(),
+          now: new Date().toISOString(),
+        })
+        const saved = await persistGistFile('visitor', next)
+        commit('setVisitor', saved)
+        return structuredClone(saved)
+      })
+    }
+    return visitorPromise
+  },
+
+  async updateLikeAction({ state: currentState, commit }) {
+    if (import.meta.env.DEV)
+      return isLikeData(currentState.like) ? currentState.like.count : 0
+    if (!likePromise) {
+      likePromise = withStatisticsLock('like', async () => {
+        const remote = await readGistFile('like')
+        assertNotRegressed('like', currentState.like, remote)
+        const next = incrementLike(remote, new Date().toISOString())
+        const saved = await persistGistFile('like', next)
+        commit('setLike', saved)
+        return saved.count
+      }).finally(() => {
+        likePromise = null
+      })
+    }
+    return likePromise
+  },
 }
 
 export default {
   namespaced: true,
   state,
+  mutations,
   actions,
 }

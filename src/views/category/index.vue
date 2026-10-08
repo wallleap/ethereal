@@ -98,21 +98,19 @@ export default {
           this.loading = false
         })
       }
-      const gist = await this.getGistAction().catch((err) => {
+      const gist = await this.getGistAction({ files: ['counter'] }).catch(() => {
         this.$message({
           content: '获取文章热度失败',
           type: 'error',
         })
-        throw new Error(err)
+        return { counter: [] }
       })
-      if (gist && gist.counter) {
-        const counters = JSON.parse(gist.counter)
-        this.posts = res.map((post) => {
-          const counter = counters.find((item) => item.id === post.number)
-          post.hot = counter?.times || 1
-          return post
-        })
-      }
+      const counters = gist.counter
+      this.posts = res.map((post) => {
+        const counter = counters.find(item => item.id === post.number)
+        post.hot = counter?.times || 1
+        return post
+      })
 
       this.$store.commit('github/setAllPosts', res)
     },
